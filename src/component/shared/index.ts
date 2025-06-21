@@ -9,7 +9,7 @@ export {
   textEn,
   fontFamily,
   fontWeight
-} from "./designed/typography";
+} from "./designed/typography.css";
 
 export {
   Typography,
