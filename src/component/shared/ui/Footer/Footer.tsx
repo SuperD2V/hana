@@ -1,5 +1,10 @@
 import Image from "next/image";
-import { footerContainer, footerText, footerWrapper } from "./index.css";
+import {
+  footerBottom,
+  footerContainer,
+  footerText,
+  footerWrapper
+} from "./index.css";
 import { Body2 } from "../Typography";
 
 export function Footer() {
@@ -27,7 +32,7 @@ export function Footer() {
               Copyright © 2025 하나비전교회. All Rights Reserved.
             </Body2>
 
-            <div style={{ display: "flex", gap: "16px" }}>
+            <div className={footerBottom}>
               <Body2 weight='medium' className={footerText}>
                 이용약관
               </Body2>

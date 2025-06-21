@@ -6,7 +6,7 @@ export const footerContainer = style({
   padding: "73px 0 85px 120px",
   "@media": {
     "(max-width: 768px)": {
-      padding: "40px 20px 50px 20px"
+      padding: "40px 20px"
     }
   }
 });
@@ -31,6 +31,16 @@ export const footerText = style({
     "(max-width: 768px)": {
       fontSize: "14px",
       lineHeight: "1.4"
+    }
+  }
+});
+
+export const footerBottom = style({
+  display: "flex",
+  gap: "16px",
+  "@media": {
+    "(max-width: 768px)": {
+      marginTop: "40px"
     }
   }
 });
