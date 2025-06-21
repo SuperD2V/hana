@@ -27,7 +27,7 @@ export const color = {
     800: "#1350A0",
     900: "#0E4287"
   },
-  branc_yellow: {
+  brand_yellow: {
     1: "#FFFDF5",
     2: "#FEF4CD",
     3: "#F6E6A5"
