@@ -3,7 +3,12 @@ import { color } from "../../designed/color";
 
 export const footerContainer = style({
   backgroundColor: color.gray[700],
-  padding: "73px 0 85px 120px"
+  padding: "73px 0 85px 120px",
+  "@media": {
+    "(max-width: 768px)": {
+      padding: "40px 20px 50px 20px"
+    }
+  }
 });
 
 export const footerWrapper = style({
@@ -11,8 +16,21 @@ export const footerWrapper = style({
   marginTop: "32px",
   display: "flex",
   flexDirection: "column",
-  gap: "16px"
+  gap: "16px",
+  "@media": {
+    "(max-width: 768px)": {
+      width: "100%",
+      marginTop: "20px",
+      gap: "12px"
+    }
+  }
 });
 export const footerText = style({
-  color: color.gray[200]
+  color: color.gray[200],
+  "@media": {
+    "(max-width: 768px)": {
+      fontSize: "14px",
+      lineHeight: "1.4"
+    }
+  }
 });
