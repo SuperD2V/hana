@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Navigation from "@/component/shared/ui/Navigation";
 
 export const metadata: Metadata = {
   title: "하나비전교회",
@@ -13,7 +14,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='ko'>
-      <body className='antialiased'>{children}</body>
+      <body className='antialiased'>
+        <Navigation />
+        <main className="min-h-screen">
+          {children}
+        </main>
+      </body>
     </html>
   );
 }
