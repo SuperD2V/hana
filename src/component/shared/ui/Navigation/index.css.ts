@@ -74,14 +74,9 @@ export const socialLinks = style({
 });
 
 export const navLink = style({
-  color: "#333",
+  color: color.gray[800],
   textDecoration: "none",
-  fontSize: "1rem",
-  fontWeight: "500",
-  transition: "color 0.2s ease",
-  ":hover": {
-    color: "#007bff"
-  }
+  transition: "color 0.2s ease"
 });
 
 export const mobileMenuButton = style({

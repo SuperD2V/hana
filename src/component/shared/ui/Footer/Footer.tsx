@@ -1,46 +1,41 @@
-import Link from "next/link";
+import Image from "next/image";
+import { footerContainer, footerText, footerWrapper } from "./index.css";
+import { Body2 } from "../Typography";
 
 export function Footer() {
   return (
-    <footer className='bg-gray-900 text-white py-12'>
-      <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-        <div className='grid grid-cols-1 md:grid-cols-4 gap-8'>
-          <div className='col-span-1 md:col-span-2'>
-            <h3 className='text-xl font-bold mb-4'>하나비전교회</h3>
-            <p className='text-gray-300 mb-4'>
-              하나님의 사랑과 은혜로 함께하는 공동체입니다.
-            </p>
-            <div className='flex space-x-4'>
-              <Link href='#' className='text-gray-300 hover:text-white'>
-                인스타그램
-              </Link>
-              <Link href='#' className='text-gray-300 hover:text-white'>
-                페이스북
-              </Link>
-            </div>
-          </div>
-
+    <footer className={footerContainer}>
+      <div>
+        <div>
           <div>
-            <h4 className='text-lg font-semibold mb-4'>연락처</h4>
-            <div className='space-y-2 text-gray-300'>
-              <p>서울특별시 강남구 하나비전로 123</p>
-              <p>전화: 02-1234-5678</p>
-              <p>이메일: info@hanavision.org</p>
-            </div>
+            <Image
+              src='/images/logo-typo.png'
+              alt='logo'
+              width={120}
+              height={120}
+            />
           </div>
 
-          <div>
-            <h4 className='text-lg font-semibold mb-4'>예배 시간</h4>
-            <div className='space-y-2 text-gray-300'>
-              <p>주일 오전 11:00</p>
-              <p>수요 저녁 7:30</p>
-              <p>금요 기도회 8:00</p>
+          <div className={footerWrapper}>
+            <Body2 className={footerText}>
+              하나비전교회 | 이현수 | 전화번호 : 031-309-0022 | 이메일 :
+              info@hanavision.org
+              <br />
+              주소 : 경기도 수원시 영통구 이의동 1204-1
+            </Body2>
+            <Body2 className={footerText}>
+              Copyright © 2025 하나비전교회. All Rights Reserved.
+            </Body2>
+
+            <div style={{ display: "flex", gap: "16px" }}>
+              <Body2 weight='medium' className={footerText}>
+                이용약관
+              </Body2>
+              <Body2 weight='medium' className={footerText}>
+                개인정보처리방침
+              </Body2>
             </div>
           </div>
-        </div>
-
-        <div className='border-t border-gray-700 mt-8 pt-8 text-center text-gray-300'>
-          <p>&copy; 2024 하나비전교회. All rights reserved.</p>
         </div>
       </div>
     </footer>

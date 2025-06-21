@@ -1,4 +1,3 @@
-import React from "react";
 import { textEn } from "@/component/shared";
 
 interface TypographyEnProps {

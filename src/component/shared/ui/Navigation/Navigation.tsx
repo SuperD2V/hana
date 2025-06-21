@@ -18,6 +18,7 @@ import {
   socialLinks
 } from "./index.css";
 import { Hamberger } from "../hamberger";
+import { Title1 } from "../Typography";
 
 export function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -47,7 +48,7 @@ export function Navigation() {
         <div className={`${desktopMenu} hidden md:flex`}>
           {navItems.map(item => (
             <Link key={item.href} href={item.href} className={navLink}>
-              {item.label}
+              <Title1>{item.label}</Title1>
             </Link>
           ))}
         </div>
