@@ -1,9 +1,11 @@
 import { style } from "@vanilla-extract/css";
 
-// Pretendard Variable 폰트 설정
+// Pretendard Variable 폰트 설정 (한글)
 export const fontFamily = {
   pretendard:
-    "Pretendard Variable, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif"
+    "Pretendard Variable, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif",
+  poppins:
+    "Poppins, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', sans-serif"
 };
 
 // 폰트 웨이트
@@ -11,10 +13,11 @@ export const fontWeight = {
   regular: "400",
   medium: "500",
   semibold: "600",
-  bold: "700"
+  bold: "700",
+  extrabold: "800"
 };
 
-// 타이포그래피 토큰 정의
+// 한글 타이포그래피 토큰 정의 (Pretendard)
 export const typography = {
   largetitle_01: {
     bold: style({
@@ -190,7 +193,91 @@ export const typography = {
   }
 };
 
-// 편의를 위한 별칭
+// 영어 타이포그래피 토큰 정의 (Poppins)
+export const typographyEn = {
+  largetitle_01: {
+    bold: style({
+      fontFamily: fontFamily.poppins,
+      fontSize: "80px",
+      lineHeight: "80px",
+      fontWeight: fontWeight.bold
+    })
+  },
+  largetitle_02: {
+    extrabold: style({
+      fontFamily: fontFamily.poppins,
+      fontSize: "60px",
+      lineHeight: "72px",
+      fontWeight: fontWeight.extrabold
+    })
+  },
+  largetitle_03: {
+    bold: style({
+      fontFamily: fontFamily.poppins,
+      fontSize: "40px",
+      lineHeight: "48px",
+      fontWeight: fontWeight.bold
+    }),
+    medium: style({
+      fontFamily: fontFamily.poppins,
+      fontSize: "40px",
+      lineHeight: "48px",
+      fontWeight: fontWeight.medium
+    })
+  },
+  title_01: {
+    semibold: style({
+      fontFamily: fontFamily.poppins,
+      fontSize: "28px",
+      lineHeight: "36px",
+      fontWeight: fontWeight.semibold
+    }),
+    medium: style({
+      fontFamily: fontFamily.poppins,
+      fontSize: "28px",
+      lineHeight: "36px",
+      fontWeight: fontWeight.medium
+    })
+  },
+  title_02: {
+    semibold: style({
+      fontFamily: fontFamily.poppins,
+      fontSize: "24px",
+      lineHeight: "30px",
+      fontWeight: fontWeight.semibold
+    }),
+    bold: style({
+      fontFamily: fontFamily.poppins,
+      fontSize: "24px",
+      lineHeight: "30px",
+      fontWeight: fontWeight.bold
+    })
+  },
+  title_03: {
+    semibold: style({
+      fontFamily: fontFamily.poppins,
+      fontSize: "20px",
+      lineHeight: "28px",
+      fontWeight: fontWeight.semibold
+    }),
+    medium: style({
+      fontFamily: fontFamily.poppins,
+      fontSize: "20px",
+      lineHeight: "28px",
+      fontWeight: fontWeight.medium
+    })
+  },
+  headline_01: {
+    medium: style({
+      fontFamily: fontFamily.poppins,
+      fontSize: "18px",
+      lineHeight: "26px",
+      fontWeight: fontWeight.medium
+    })
+  }
+};
+
+// 편의를 위한 별칭 (한글)
 export const text = {
   // Large Title
   largetitle1: typography.largetitle_01.bold,
@@ -223,4 +310,24 @@ export const text = {
   // Caption
   caption1Medium: typography.caption_01.medium,
   caption1Regular: typography.caption_01.regular
+};
+
+// 편의를 위한 별칭 (영어)
+export const textEn = {
+  // Large Title
+  largetitle1: typographyEn.largetitle_01.bold,
+  largetitle2: typographyEn.largetitle_02.extrabold,
+  largetitle3Bold: typographyEn.largetitle_03.bold,
+  largetitle3Medium: typographyEn.largetitle_03.medium,
+
+  // Title
+  title1Semibold: typographyEn.title_01.semibold,
+  title1Medium: typographyEn.title_01.medium,
+  title2Semibold: typographyEn.title_02.semibold,
+  title2Bold: typographyEn.title_02.bold,
+  title3Semibold: typographyEn.title_03.semibold,
+  title3Medium: typographyEn.title_03.medium,
+
+  // Headline
+  headlineMedium: typographyEn.headline_01.medium
 };

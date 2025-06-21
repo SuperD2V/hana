@@ -10,3 +10,14 @@ export {
   Body2,
   Caption1
 } from "./Typography";
+
+export {
+  TypographyEn,
+  LargeTitle1En,
+  LargeTitle2En,
+  LargeTitle3En,
+  Title1En,
+  Title2En,
+  Title3En,
+  HeadlineEn
+} from "./TypographyEn";
