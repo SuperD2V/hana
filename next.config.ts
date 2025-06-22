@@ -21,7 +21,10 @@ const nextConfig: NextConfig = {
       "@": path.resolve(__dirname, "src")
     };
     return config;
-  }
+  },
+  // critters 관련 오류 해결을 위한 설정
+  optimizeFonts: false,
+  swcMinify: true
 };
 
 export default withVanillaExtract(nextConfig);

@@ -2,6 +2,8 @@ import { style } from "@vanilla-extract/css";
 import { color } from "../../designed/color";
 
 export const footerContainer = style({
+  height: "437px",
+  position: "static",
   backgroundColor: color.gray[700],
   padding: "73px 0 85px 120px",
   "@media": {

@@ -7,14 +7,9 @@ import { navItems } from "../../const/routeKey";
 import {
   navigationContainer,
   navWrapper,
-  logo,
   desktopMenu,
   navLink,
   mobileMenuButton,
-  mobileMenu,
-  mobileMenuOpen,
-  mobileNavLinks,
-  mobileNavLink,
   socialLinks
 } from "./index.css";
 import { Hamberger } from "../hamberger";

@@ -13,10 +13,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='ko'>
-      <body className='antialiased'>
+    <html lang='ko' className='h-full'>
+      <body className='antialiased flex flex-col h-full'>
         <Navigation />
-        <main className=''>{children}</main>
+        <main className='flex-1'>{children}</main>
         <Footer />
       </body>
     </html>

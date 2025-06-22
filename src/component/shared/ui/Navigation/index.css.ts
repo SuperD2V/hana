@@ -22,12 +22,12 @@ export const navigationContainer = style({
 });
 
 export const navWrapper = style({
-  maxWidth: "1200px",
+  width: "100%",
   margin: "0 auto",
   padding: "0 1rem",
   display: "flex",
   alignItems: "center",
-  justifyContent: "space-between",
+  justifyContent: "space-around",
   gap: "80px",
   "@media": {
     "(max-width: 768px)": {
