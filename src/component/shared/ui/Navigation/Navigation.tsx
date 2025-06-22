@@ -29,13 +29,19 @@ export function Navigation() {
   return (
     <nav className={navigationContainer}>
       <div className={navWrapper}>
-        <div>
+        <div className='logo'>
           <Link href='/'>
             <Image
               src='/images/logo-typo.png'
               alt='logo'
               width={120}
               height={120}
+              style={{
+                width: "auto",
+                height: "auto",
+                maxWidth: "80px",
+                maxHeight: "32px"
+              }}
             />
           </Link>
         </div>

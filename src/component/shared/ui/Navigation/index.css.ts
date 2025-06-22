@@ -14,16 +14,19 @@ export const navigationContainer = style({
   borderRadius: "999px",
   "@media": {
     "(max-width: 768px)": {
+      height: "52px",
       width: "100vw",
       top: 0,
-      borderRadius: "0px"
+      borderRadius: "0px",
+      padding: "0 16px"
     }
   }
 });
 
 export const navWrapper = style({
   width: "100%",
-  margin: "0 auto",
+  height: "100%",
+  margin: "auto",
   padding: "0 1rem",
   display: "flex",
   alignItems: "center",
@@ -31,7 +34,9 @@ export const navWrapper = style({
   gap: "80px",
   "@media": {
     "(max-width: 768px)": {
-      gap: "20px"
+      gap: "0px",
+      padding: "0",
+      justifyContent: "space-between"
     }
   }
 });
@@ -41,7 +46,13 @@ export const logo = style({
   fontWeight: "bold",
   color: "#333",
   textDecoration: "none",
-  cursor: "pointer"
+  cursor: "pointer",
+  "@media": {
+    "(max-width: 768px)": {
+      display: "flex",
+      alignItems: "center"
+    }
+  }
 });
 
 export const desktopMenu = style({
@@ -87,7 +98,12 @@ export const mobileMenuButton = style({
   padding: "0.5rem",
   "@media": {
     "(max-width: 768px)": {
-      display: "block"
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      padding: "0",
+      width: "24px",
+      height: "24px"
     }
   }
 });

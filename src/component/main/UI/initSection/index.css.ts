@@ -9,7 +9,19 @@ export const homeWrapper = style({
   width: "100%",
   height: "934px",
   backgroundImage: "url('/images/main.png')",
-  backgroundSize: "cover",
+  backgroundSize: "100% 100%",
   backgroundPosition: "center",
-  backgroundRepeat: "no-repeat"
+  backgroundRepeat: "no-repeat",
+  "@media": {
+    "screen and (max-width: 768px)": {
+      height: "369px",
+      backgroundSize: "100% 100%",
+      backgroundPosition: "center"
+    },
+    "screen and (max-width: 480px)": {
+      height: "369px",
+      backgroundSize: "100% 100%",
+      backgroundPosition: "center"
+    }
+  }
 });
