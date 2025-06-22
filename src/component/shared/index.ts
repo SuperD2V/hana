@@ -1,5 +1,6 @@
 export { Navigation } from "./ui/Navigation/Navigation";
 export { Footer } from "./ui/Footer";
+export { Line } from "./ui/Line";
 
 export { color } from "./designed/color";
 export {
