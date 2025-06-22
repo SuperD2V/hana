@@ -13,6 +13,7 @@
     "@vanilla-extract/next-plugin": "^2.4.14",
     "aos": "^2.3.4",
     "axios": "^1.10.0",
+    "critters": "^0.0.25",
     "next": "15.3.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

@@ -17,7 +17,7 @@ export const color = {
   },
   brand: {
     0: "#F5F9FF",
-    100: "D7E8FF",
+    100: "#D7E8FF",
     200: "#98C2F9",
     300: "#70A9F2",
     400: "#5093E9",

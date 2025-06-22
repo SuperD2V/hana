@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Navigation, Footer } from "@/component/shared";
+import { mainContent } from "./layout.css";
 
 export const metadata: Metadata = {
   title: "하나비전교회",
@@ -16,7 +17,7 @@ export default function RootLayout({
     <html lang='ko' className='h-full'>
       <body className='antialiased flex flex-col h-full'>
         <Navigation />
-        <main className='flex-1'>{children}</main>
+        <main className={mainContent}>{children}</main>
         <Footer />
       </body>
     </html>

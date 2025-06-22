@@ -1,4 +1,5 @@
 import { style } from "@vanilla-extract/css";
+import { color } from "@/component/shared/designed/color";
 
 export const homeContainer = style({
   width: "100%",
@@ -8,6 +9,7 @@ export const homeContainer = style({
 export const homeWrapper = style({
   width: "100%",
   height: "934px",
+  backgroundColor: color.brand[100],
   backgroundImage: "url('/images/main.png')",
   backgroundSize: "100% 100%",
   backgroundPosition: "center",
