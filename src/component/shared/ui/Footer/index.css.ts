@@ -8,6 +8,7 @@ export const footerContainer = style({
   padding: "73px 0 85px 120px",
   "@media": {
     "(max-width: 768px)": {
+      height: "347px",
       padding: "40px 20px"
     }
   }
