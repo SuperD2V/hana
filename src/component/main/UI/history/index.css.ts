@@ -7,7 +7,13 @@ export const historyContainer = style({
   display: "flex",
   flexDirection: "column",
   gap: "80px",
-  padding: "100px 0"
+  padding: "180px 0",
+  "@media": {
+    "(max-width: 768px)": {
+      gap: "40px",
+      padding: "90px 0"
+    }
+  }
 });
 
 export const historyLeft = style({
@@ -32,7 +38,15 @@ export const historyLeftInner = style({
   justifyContent: "center",
   gap: "20px",
   paddingLeft: "6.71875%",
-  color: color.brand[900]
+  color: color.brand[900],
+  "@media": {
+    "(max-width: 768px)": {
+      gap: "10px",
+      paddingLeft: "4%",
+      flexDirection: "column",
+      alignItems: "center"
+    }
+  }
 });
 
 export const historyLineContainer = style({
@@ -50,8 +64,10 @@ export const historyLine = style({
 });
 
 export const historySquare = style({
-  width: "371px",
-  height: "104px",
+  width: "min(371px, 90vw)",
+  minWidth: "280px",
+  height: "auto",
+  minHeight: "104px",
   backgroundColor: color.brand[200],
   border: `1px solid ${color.brand[600]}`,
   borderRadius: "999px",
@@ -60,28 +76,92 @@ export const historySquare = style({
   zIndex: 1,
   display: "flex",
   justifyContent: "center",
-  alignItems: "center"
+  alignItems: "center",
+  padding: "16px 20px",
+  wordBreak: "keep-all",
+  overflowWrap: "break-word",
+  "@media": {
+    "(max-width: 768px)": {
+      width: "min(320px, 85vw)",
+      minWidth: "250px",
+      marginLeft: "4%",
+      padding: "12px 16px"
+    }
+  }
 });
 
 export const historySquareFlipped = style({
-  width: "499px",
-  marginLeft: "auto",
-  marginRight: "6.71875%"
+  width: "min(499px, 90vw) !important",
+  minWidth: "280px !important",
+  marginLeft: "auto !important",
+  marginRight: "6.71875% !important",
+  "@media": {
+    "(max-width: 768px)": {
+      width: "min(320px, 85vw) !important",
+      minWidth: "250px !important",
+      marginRight: "4% !important"
+    }
+  }
 });
 
 export const historySquareLast = style({
-  width: "415px",
+  width: "min(415px, 90vw)",
+  minWidth: "280px",
   height: "auto",
-  padding: "16px 0"
+  padding: "16px 0",
+  "@media": {
+    "(max-width: 768px)": {
+      width: "min(320px, 85vw)",
+      minWidth: "250px",
+      padding: "12px 0"
+    }
+  }
 });
 
 export const keywordGroup = style({
   display: "flex",
   gap: "8px",
   alignItems: "baseline",
-  justifyContent: "center"
+  justifyContent: "center",
+  flexWrap: "wrap",
+  maxWidth: "100%",
+  "@media": {
+    "(max-width: 768px)": {
+      alignItems: "flex-start"
+    }
+  }
 });
 
 export const lastKeywordContainer = style({
-  textAlign: "center"
+  textAlign: "center",
+  display: "flex",
+  flexDirection: "column",
+  gap: "4px",
+  maxWidth: "100%",
+  "@media": {
+    "(max-width: 768px)": {
+      alignItems: "flex-start",
+      textAlign: "left"
+    }
+  }
+});
+
+export const textLineClamp = style({
+  display: "-webkit-box",
+  WebkitLineClamp: 2,
+  WebkitBoxOrient: "vertical",
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+  wordBreak: "keep-all",
+  overflowWrap: "break-word"
+});
+
+export const responsiveKeyword = style({
+  "@media": {
+    "(max-width: 768px)": {
+      fontSize: "20px !important",
+      lineHeight: "28px !important",
+      fontWeight: "700 !important"
+    }
+  }
 });

@@ -35,3 +35,5 @@ export {
   Title3En,
   HeadlineEn
 } from "./ui/Typography";
+
+export { default as ArrowLeft } from "./assets/arrowLeft.svg";

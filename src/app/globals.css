@@ -30,7 +30,15 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
 
+main {
+  flex: 1;
+}
 hr {
   height: 0;
   color: inherit;

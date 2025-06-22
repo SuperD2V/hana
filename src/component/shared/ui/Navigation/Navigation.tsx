@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { navItems } from "../../const/routeKey";
 import {
   navigationContainer,
@@ -14,9 +14,15 @@ import {
 } from "./index.css";
 import { Hamberger } from "../hamberger";
 import { Title1 } from "../Typography";
+// import AOS from "aos";
+// import "aos/dist/aos.css";
 
 export function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // useEffect(() => {
+  //   AOS.init();
+  // }, []);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);

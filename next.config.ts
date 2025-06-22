@@ -25,6 +25,13 @@ const nextConfig: NextConfig = {
       ...config.resolve.alias,
       "@": path.resolve(__dirname, "src")
     };
+
+    // SVG 파일을 React 컴포넌트로 처리
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: ["@svgr/webpack"]
+    });
+
     return config;
   },
   // critters 관련 오류 해결을 위한 설정

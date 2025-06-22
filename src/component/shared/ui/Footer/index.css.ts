@@ -3,9 +3,9 @@ import { color } from "../../designed/color";
 
 export const footerContainer = style({
   height: "437px",
-  position: "static",
   backgroundColor: color.gray[700],
   padding: "73px 0 85px 120px",
+  flexShrink: 0,
   "@media": {
     "(max-width: 768px)": {
       height: "347px",
