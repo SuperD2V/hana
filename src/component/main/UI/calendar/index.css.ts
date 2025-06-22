@@ -56,6 +56,7 @@ export const calendarDays = style({
 });
 
 export const cardWrapper = style({
+  width: "100%",
   display: "flex",
   alignItems: "center",
   justifyContent: "flex-start",
@@ -72,4 +73,14 @@ export const cardContainer = style({
 
 export const cardTitle = style({
   color: color.brand[900]
+});
+
+export const arrow = style({
+  width: "64px",
+  height: "167px",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  backgroundColor: color.gray[100],
+  borderRadius: "12px"
 });

@@ -1,4 +1,6 @@
-import { TypographyEn, ArrowLeft } from "@/component/shared";
+"use client";
+
+import { TypographyEn, Slider, ArrowButton } from "@/component/shared";
 import {
   calendarContainer,
   calendarTitle,
@@ -7,14 +9,37 @@ import {
   calendarDay,
   calendarDays,
   cardContainer,
-  cardWrapper
+  cardWrapper,
+  arrow
 } from "./index.css";
 import { getDate } from "../../utils/getDate";
 import { monthNames } from "../../const";
 import { Card } from "./Card";
+import { useRef, useEffect, useState } from "react";
+import type { SliderRef } from "@/component/shared/ui/Slider";
 
 export const Calendar = () => {
-  const { year, month, monthName, day, dayOfWeek, lastDayOfMonth } = getDate();
+  const [dateInfo, setDateInfo] = useState<ReturnType<typeof getDate> | null>(
+    null
+  );
+  const sliderRef = useRef<SliderRef>(null);
+
+  useEffect(() => {
+    setDateInfo(getDate());
+  }, []);
+
+  const handlePrevClick = () => {
+    sliderRef.current?.goToPrev();
+  };
+
+  const handleNextClick = () => {
+    sliderRef.current?.goToNext();
+  };
+
+  if (!dateInfo) return null; // 또는 로딩 UI
+
+  const { year, month, monthName, day, dayOfWeek, lastDayOfMonth } = dateInfo;
+
   return (
     <div className={calendarContainer} id='calendar'>
       <div className={calendarWrapper}>
@@ -37,17 +62,27 @@ export const Calendar = () => {
         </div>
       </div>
       <div className={cardWrapper}>
-        <div>
-          <ArrowLeft />
-        </div>
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <div>{`>`}</div>
+        <ArrowButton
+          direction='left'
+          onClick={handlePrevClick}
+          className={arrow}
+        />
+        <Slider
+          ref={sliderRef}
+          itemsPerView={5}
+          gap={16}
+          showArrows={false}
+          infinite={true}
+        >
+          {Array.from({ length: 10 }).map((_, idx) => (
+            <Card key={`calendar-card-${idx}`} />
+          ))}
+        </Slider>
+        <ArrowButton
+          direction='right'
+          onClick={handleNextClick}
+          className={arrow}
+        />
       </div>
     </div>
   );

@@ -1,6 +1,8 @@
 export { Navigation } from "./ui/Navigation/Navigation";
 export { Footer } from "./ui/Footer";
 export { Line } from "./ui/Line";
+export { Slider } from "./ui/Slider";
+export { ArrowButton } from "./ui/ArrowButton";
 
 export { color } from "./designed/color";
 export {
@@ -37,3 +39,4 @@ export {
 } from "./ui/Typography";
 
 export { default as ArrowLeft } from "./assets/arrowLeft.svg";
+export { default as ArrowRight } from "./assets/arrowRight.svg";
