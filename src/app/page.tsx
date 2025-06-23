@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect } from "react";
 import { homeContainer } from "./index.css";
 import {
   InitSection,
@@ -6,8 +9,14 @@ import {
   Calendar,
   Notice
 } from "@/component/main";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
+  useEffect(() => {
+    router.push("/philosophy");
+  }, []);
+
   return (
     <div className={homeContainer}>
       <InitSection />
