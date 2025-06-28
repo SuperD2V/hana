@@ -59,15 +59,15 @@ export const Calendar = () => {
     slidesToScroll: 1,
     arrows: false,
     centerMode: true,
-    centerPadding: "12px",
+    centerPadding: "16px",
     responsive: [
       {
         breakpoint: 1280,
         settings: {
-          slidesToShow: 3,
+          slidesToShow: 4,
           slidesToScroll: 1,
           centerMode: true,
-          centerPadding: "12px"
+          centerPadding: "20px"
         }
       },
       {

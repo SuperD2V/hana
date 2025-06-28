@@ -2,10 +2,15 @@ import { color } from "@/component/shared/designed/color";
 import { style } from "@vanilla-extract/css";
 
 export const calendarContainer = style({
-  width: "100%",
+  maxWidth: "1680px",
   height: "776px",
   backgroundColor: color.brand_yellow[1],
   marginBottom: "160px",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  flexDirection: "column",
+  margin: "0 auto",
   "@media": {
     "(max-width: 768px)": {
       padding: "40px 0 24px 0",
@@ -17,11 +22,12 @@ export const calendarContainer = style({
 
 export const calendarWrapper = style({
   width: "100%",
-  height: "100%",
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  justifyContent: "center"
+  justifyContent: "center",
+  gap: "12px",
+  marginBottom: "12px"
 });
 
 export const calendarTitle = style({
@@ -124,7 +130,7 @@ export const arrow = style({
   justifyContent: "center",
   backgroundColor: color.gray[100],
   borderRadius: "12px",
-  alignSelf: "center",
+  alignSelf: "stretch",
   "@media": {
     "(max-width: 768px)": {
       width: "32px",

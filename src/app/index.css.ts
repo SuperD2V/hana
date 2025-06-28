@@ -1,7 +1,7 @@
 import { style } from "@vanilla-extract/css";
 
 export const homeContainer = style({
-  width: "100%"
+  width: "100vw"
 });
 
 export const homeWrapper = style({
