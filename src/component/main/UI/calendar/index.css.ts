@@ -4,8 +4,15 @@ import { style } from "@vanilla-extract/css";
 export const calendarContainer = style({
   width: "100%",
   height: "776px",
-  padding: "160px 120px",
-  backgroundColor: color.brand_yellow[1]
+  backgroundColor: color.brand_yellow[1],
+  marginBottom: "160px",
+  "@media": {
+    "(max-width: 768px)": {
+      padding: "40px 0 24px 0",
+      height: "auto",
+      marginBottom: "80px"
+    }
+  }
 });
 
 export const calendarWrapper = style({
@@ -32,7 +39,12 @@ export const calendarContent = style({
   alignItems: "center",
   justifyContent: "space-between",
   backgroundColor: color.brand[800],
-  borderRadius: "12px"
+  borderRadius: "12px",
+  "@media": {
+    "(max-width: 768px)": {
+      borderRadius: "0"
+    }
+  }
 });
 
 export const calendarDay = style({
@@ -43,24 +55,44 @@ export const calendarDay = style({
   justifyContent: "center",
   color: color.gray[700]
 });
+export const calendarContentMobile = style({
+  width: "100%",
+  height: "68px",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  color: color.gray[50]
+});
 
 export const calendarDays = style({
   width: "100%",
   height: "104px",
   borderRadius: "12px",
+  padding: "0 20px",
   display: "flex",
   alignItems: "center",
   backgroundColor: color.gray[100],
   justifyContent: "center",
-  marginTop: "8px"
+  marginTop: "8px",
+  "@media": {
+    "(max-width: 768px)": {
+      display: "none"
+    }
+  }
 });
 
 export const cardWrapper = style({
   width: "100%",
   display: "flex",
-  alignItems: "center",
+  alignItems: "stretch",
   justifyContent: "flex-start",
-  gap: "12px"
+  gap: "12px",
+  position: "relative",
+  "@media": {
+    "(max-width: 768px)": {
+      gap: "4px"
+    }
+  }
 });
 
 export const cardContainer = style({
@@ -68,7 +100,16 @@ export const cardContainer = style({
   height: "176px",
   backgroundColor: color.brand_yellow[2],
   borderRadius: "20px",
-  padding: "20px"
+  padding: "20px",
+  flexShrink: 0,
+  "@media": {
+    "(max-width: 768px)": {
+      width: "92%",
+      height: "auto",
+      minHeight: "140px",
+      padding: "16px"
+    }
+  }
 });
 
 export const cardTitle = style({
@@ -77,10 +118,33 @@ export const cardTitle = style({
 
 export const arrow = style({
   width: "64px",
-  height: "167px",
+  height: "176px",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
   backgroundColor: color.gray[100],
-  borderRadius: "12px"
+  borderRadius: "12px",
+  "@media": {
+    "(max-width: 768px)": {
+      width: "32px",
+      height: "140px",
+      minWidth: "32px",
+      minHeight: "140px",
+      borderRadius: "8px"
+    }
+  }
+});
+
+export const calendarSlider = style({
+  width: "calc(100% - 140px)",
+  flex: 1,
+  "@media": {
+    "(max-width: 768px)": {
+      height: "68px"
+    }
+  }
+});
+
+export const calendarMonthTextWhite = style({
+  color: "#fff"
 });

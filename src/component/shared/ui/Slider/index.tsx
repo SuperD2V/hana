@@ -4,6 +4,7 @@ import React, {
   useState,
   useRef,
   useEffect,
+  useLayoutEffect,
   forwardRef,
   useImperativeHandle,
   useMemo,
@@ -57,6 +58,9 @@ export const Slider = forwardRef<SliderRef, SliderProps>(
     const childrenArray = React.Children.toArray(children);
     const isInfinite = infinite && childrenArray.length > itemsPerView;
 
+    const actualTotalSlides = childrenArray.length;
+    const totalSlides = Math.max(0, actualTotalSlides - itemsPerView);
+
     const [currentIndex, setCurrentIndex] = useState(
       isInfinite ? itemsPerView : 0
     );
@@ -66,51 +70,27 @@ export const Slider = forwardRef<SliderRef, SliderProps>(
     const sliderRef = useRef<HTMLDivElement>(null);
     const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
 
-    const clonedChildren = useMemo(() => {
+    // 클론 포함 렌더링된 children 생성
+    const renderedChildren = useMemo(() => {
       if (!isInfinite) return childrenArray;
-      const clones = (child: React.ReactNode, index: number, prefix: string) =>
-        React.cloneElement(child as React.ReactElement, {
-          key: `${prefix}-${index}`
-        });
 
-      const lastClones = childrenArray
-        .slice(-itemsPerView)
-        .map((child, i) => clones(child, i, "clone-last"));
-      const firstClones = childrenArray
-        .slice(0, itemsPerView)
-        .map((child, i) => clones(child, i, "clone-first"));
+      const cloneStyle = (child: React.ReactElement<any>) =>
+        child.props.style ? { ...child.props.style } : {};
 
+      const lastClones = childrenArray.slice(-itemsPerView).map((child, i) =>
+        React.cloneElement(child as React.ReactElement<any>, {
+          key: `clone-last-${i}`,
+          style: cloneStyle(child as React.ReactElement<any>)
+        })
+      );
+      const firstClones = childrenArray.slice(0, itemsPerView).map((child, i) =>
+        React.cloneElement(child as React.ReactElement<any>, {
+          key: `clone-first-${i}`,
+          style: cloneStyle(child as React.ReactElement<any>)
+        })
+      );
       return [...lastClones, ...childrenArray, ...firstClones];
     }, [isInfinite, childrenArray, itemsPerView]);
-
-    const actualTotalSlides = childrenArray.length;
-    const totalSlides = Math.max(0, actualTotalSlides - itemsPerView);
-
-    const handleTransitionEnd = useCallback(() => {
-      isMoving.current = false;
-      if (currentIndex === 0) {
-        setHasTransition(false);
-        setCurrentIndex(actualTotalSlides);
-      } else if (currentIndex === actualTotalSlides + itemsPerView) {
-        setHasTransition(false);
-        setCurrentIndex(itemsPerView);
-      }
-    }, [currentIndex, actualTotalSlides, itemsPerView]);
-
-    useEffect(() => {
-      const slider = sliderRef.current;
-      if (slider) {
-        slider.addEventListener("transitionend", handleTransitionEnd);
-        return () =>
-          slider.removeEventListener("transitionend", handleTransitionEnd);
-      }
-    }, [handleTransitionEnd]);
-
-    useEffect(() => {
-      if (!hasTransition) {
-        setHasTransition(true);
-      }
-    }, [hasTransition]);
 
     const move = useCallback((newIndex: number) => {
       if (isMoving.current) return;
@@ -118,19 +98,88 @@ export const Slider = forwardRef<SliderRef, SliderProps>(
       setCurrentIndex(newIndex);
     }, []);
 
-    const goToNext = useCallback(
-      () => move(currentIndex + 1),
-      [move, currentIndex]
-    );
-    const goToPrev = useCallback(
-      () => move(currentIndex - 1),
-      [move, currentIndex]
-    );
+    const goToNext = useCallback(() => {
+      if (isInfinite) {
+        if (currentIndex >= actualTotalSlides + itemsPerView) {
+          setHasTransition(false);
+          requestAnimationFrame(() => {
+            setCurrentIndex(itemsPerView);
+          });
+        } else {
+          move(currentIndex + 1);
+        }
+      } else {
+        move(Math.min(currentIndex + 1, totalSlides));
+      }
+    }, [
+      currentIndex,
+      move,
+      isInfinite,
+      actualTotalSlides,
+      itemsPerView,
+      totalSlides
+    ]);
+
+    const goToPrev = useCallback(() => {
+      if (isInfinite) {
+        if (currentIndex <= 0) {
+          setHasTransition(false);
+          requestAnimationFrame(() => {
+            setCurrentIndex(actualTotalSlides);
+          });
+        } else {
+          move(currentIndex - 1);
+        }
+      } else {
+        move(Math.max(currentIndex - 1, 0));
+      }
+    }, [currentIndex, move, isInfinite, actualTotalSlides]);
+
     const goToSlide = useCallback(
-      (index: number) => move(isInfinite ? index + itemsPerView : index),
+      (index: number) => {
+        const target = isInfinite ? index + itemsPerView : index;
+        move(target);
+      },
       [move, isInfinite, itemsPerView]
     );
 
+    // 트랜지션 끝 처리
+    const handleTransitionEnd = useCallback(() => {
+      isMoving.current = false;
+
+      if (isInfinite) {
+        if (currentIndex === 0) {
+          setHasTransition(false);
+          requestAnimationFrame(() => {
+            setCurrentIndex(actualTotalSlides);
+          });
+        } else if (currentIndex === actualTotalSlides + itemsPerView) {
+          setHasTransition(false);
+          requestAnimationFrame(() => {
+            setCurrentIndex(itemsPerView);
+          });
+        }
+      }
+    }, [currentIndex, isInfinite, actualTotalSlides, itemsPerView]);
+
+    useEffect(() => {
+      const slider = sliderRef.current;
+      if (!slider) return;
+      slider.addEventListener("transitionend", handleTransitionEnd);
+      return () => {
+        slider.removeEventListener("transitionend", handleTransitionEnd);
+      };
+    }, [handleTransitionEnd]);
+
+    useLayoutEffect(() => {
+      if (!hasTransition) {
+        requestAnimationFrame(() => {
+          setHasTransition(true);
+        });
+      }
+    }, [hasTransition]);
+
+    // autoplay
     useEffect(() => {
       if (autoPlay && isInfinite) {
         autoPlayRef.current = setInterval(goToNext, autoPlayInterval);
@@ -140,6 +189,7 @@ export const Slider = forwardRef<SliderRef, SliderProps>(
       };
     }, [autoPlay, autoPlayInterval, goToNext, isInfinite]);
 
+    // slide change callback
     useEffect(() => {
       if (onSlideChange) {
         const realIndex = isInfinite
@@ -191,7 +241,7 @@ export const Slider = forwardRef<SliderRef, SliderProps>(
             transition: hasTransition ? "transform 0.3s ease-in-out" : "none"
           }}
         >
-          {clonedChildren}
+          {renderedChildren}
         </div>
 
         {showArrows && actualTotalSlides > itemsPerView && (
