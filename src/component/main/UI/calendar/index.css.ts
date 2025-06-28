@@ -124,6 +124,7 @@ export const arrow = style({
   justifyContent: "center",
   backgroundColor: color.gray[100],
   borderRadius: "12px",
+  alignSelf: "center",
   "@media": {
     "(max-width: 768px)": {
       width: "32px",
