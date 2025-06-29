@@ -4,6 +4,7 @@ import { IntroduceCategory } from "../type";
 import CategoryItem from "./CategoryItem";
 import { useIntroduceStore } from "../../../../hooks/store/useIntroduceStore";
 import { useShallow } from "zustand/shallow";
+import { useResponsiveTypography } from "@/component/shared";
 
 const CategoryList = () => {
   const list: IntroduceCategory[] = [
@@ -33,6 +34,8 @@ const CategoryList = () => {
     }
   ];
 
+  const { mounted, isMobile } = useResponsiveTypography();
+
   const { selectedCateogry, setState } = useIntroduceStore(
     useShallow(state => ({
       selectedCateogry: state.selectedCateogry,
@@ -43,6 +46,8 @@ const CategoryList = () => {
   const handleClick = (id: number) => {
     setState("selectedCateogry", id);
   };
+
+  if (mounted && isMobile) return <></>;
 
   return (
     <div className='w-full flex items-center justify-center py-4'>

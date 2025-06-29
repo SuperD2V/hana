@@ -4,8 +4,7 @@ export const philosophyContainer = style({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  justifyContent: "center",
-  padding: "192px 120px 0 120px"
+  justifyContent: "center"
 });
 
 export const PhilosophyTitle = style({
@@ -23,7 +22,8 @@ export const PhilosophyImage = style({
   backgroundSize: "cover",
   backgroundPosition: "center",
   marginTop: "40px",
-  borderRadius: "20px"
+  borderRadius: "20px",
+  marginBottom: "20px"
 });
 
 export const PhilosophyContentStyle = style({

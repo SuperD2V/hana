@@ -3,7 +3,7 @@ import SectionTitle from "../SectionTitle";
 import HistoryContent from "../HistoryContent";
 import { useIntroduceStore } from "../../../../hooks/store/useIntroduceStore";
 import { useShallow } from "zustand/shallow";
-
+import { useResponsiveTypography } from "@/component/shared";
 const historyContent = [
   {
     id: 1,
@@ -98,6 +98,7 @@ const Section2 = () => {
       selectSection2Content: state.selectSection2Content
     }))
   );
+  const { mounted, isMobile } = useResponsiveTypography();
 
   const currentIndex = selectSection2Content - 1;
   const hasPrev = currentIndex > 0;

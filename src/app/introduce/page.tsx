@@ -9,28 +9,41 @@ import Section3 from "@/component/introduce/section3/Section3";
 import Section4 from "@/component/introduce/section4/Section4";
 import Section5 from "@/component/introduce/section5/Section5";
 import Section6 from "@/component/introduce/section6/Section6";
+import { useResponsiveTypography } from "@/component/shared";
 
 const page = () => {
+  const { mounted, isMobile } = useResponsiveTypography();
+
   return (
     <div className='bg-[#FFFDF5]'>
-      <div className='w-full bg-[#1350A0]'>
-        <div className='w-full flex flex-col items-center'>
-          <IntroduceNavigation />
-          <Typography
-            variant='title1Bold'
-            className='text-white !font-semibold'
+      {mounted && isMobile ? (
+        <></>
+      ) : (
+        <>
+          <div className='w-full bg-[#1350A0]'>
+            <div className='w-full flex flex-col items-center'>
+              <IntroduceNavigation />
+              <Typography
+                variant='title1Bold'
+                className='text-white !font-semibold'
+              >
+                소개
+              </Typography>
+            </div>
+          </div>
+          <div
+            className='w-full bg-[#1350A0] sticky top-0 z-50'
+            style={{ padding: "16px 0" }}
           >
-            소개
-          </Typography>
-        </div>
-      </div>
+            <CategoryList />
+          </div>
+        </>
+      )}
       <div
-        className='w-full bg-[#1350A0] sticky top-0 z-50'
-        style={{ padding: "16px 0" }}
+        style={{
+          padding: mounted && isMobile ? "60px 20px" : "120px 120px 98px 120px"
+        }}
       >
-        <CategoryList />
-      </div>
-      <div style={{ padding: "120px 120px 98px 120px" }}>
         <MainTop />
       </div>
       <Section2 />

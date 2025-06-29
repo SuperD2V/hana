@@ -1,7 +1,7 @@
 import React from "react";
 import SectionTitle from "../SectionTitle";
 import { Typography } from "@/component/shared";
-
+import { useResponsiveTypography } from "@/component/shared";
 const circleData = [
   { text: "성경지식의 성숙" },
   { text: "사회적 성숙" },
@@ -11,15 +11,49 @@ const circleData = [
   { text: "가정적 성숙" }
 ];
 
-const Section5 = () => {
-  return (
-    <div className='bg-[#D7E8FF] !py-[100px] flex flex-col gap-[40px]'>
-      <SectionTitle
-        EnglishTitle='Discipleship System'
-        KoreanTitle='양육시스템'
-      />
+const EnglishTitle = "Discipleship System";
+const KoreanTitle = "양육시스템";
 
-      <div className='flex justify-between !px-[120px]'>
+const Section5 = () => {
+  const { mounted, isMobile } = useResponsiveTypography();
+  return (
+    <div
+      className={`bg-[#D7E8FF] ${
+        mounted && isMobile ? "!py-[60px] " : "!py-[100px]"
+      } flex flex-col gap-[40px]`}
+    >
+      <div
+        className={`flex flex-col   ${
+          mounted && isMobile
+            ? "!px-[20px] gap-[20px]"
+            : "!px-[120px] gap-[40px]"
+        }`}
+      >
+        <Typography
+          variant={mounted && isMobile ? "largetitle2Bold" : "largetitle1"}
+          className={`!text-[#0E4287] ${
+            mounted && isMobile ? "!text-[40px]" : "!text-[80px]"
+          }`}
+        >
+          {EnglishTitle}
+        </Typography>
+        <Typography
+          variant={mounted && isMobile ? "title3Semibold" : "title1Semibold"}
+          className={`!text-[#0E4287] ${
+            mounted && isMobile ? "!text-[20px]" : "!text-[28px]"
+          }`}
+        >
+          {KoreanTitle}
+        </Typography>
+      </div>
+
+      <div
+        className={`flex ${
+          mounted && isMobile ? "flex-col gap-[40px]" : "flex-row"
+        } justify-between ${
+          mounted && isMobile ? "!px-[20px]" : "!px-[120px]"
+        }`}
+      >
         <div className='flex flex-col gap-[12px] max-w-[824px]'>
           <Typography
             variant='title2Bold'

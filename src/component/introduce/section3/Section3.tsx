@@ -3,13 +3,27 @@ import SectionTitle from "../SectionTitle";
 import Image from "next/image";
 import pasterImg from "../../../../public/images/paster.png";
 import { Typography } from "@/component/shared";
+import { useResponsiveTypography } from "@/component/shared";
 
 const Section3 = () => {
+  const { mounted, isMobile } = useResponsiveTypography();
   return (
-    <div className='flex !p-[120px] gap-[120px]'>
-      <div className='flex flex-col gap-[60px]'>
-        <SectionTitle EnglishTitle='Pastor' KoreanTitle='목사님 소개' />
-        <div className='flex flex-col gap-[24px]'>
+    <div
+      className={`flex ${
+        mounted && isMobile ? "!p-[0px] flex-col !mt-[60px]" : "!p-[120px]"
+      } gap-[120px]`}
+    >
+      <div
+        className={`flex flex-col ${
+          mounted && isMobile ? "gap-[40px] w-full" : "gap-[60px]"
+        }`}
+      >
+        <SectionTitle EnglishTitle='Pastor' KoreanTitle='목사님' />
+        <div
+          className={`flex flex-col gap-[24px] ${
+            mounted && isMobile && "!p-[20px]"
+          }`}
+        >
           <div className='flex flex-col gap-[8px]'>
             <Typography variant='title1Bold' className='text-[#292724]'>
               이현수 목사
@@ -43,15 +57,26 @@ const Section3 = () => {
           </button>
         </div>
       </div>
-      <div className='relative'>
-        <Image
-          src={pasterImg}
-          alt='pastor'
-          width={499}
-          height={454}
-          className='rounded-[24px]'
-        />
-      </div>
+      {mounted && isMobile ? (
+        <div className='w-full h-[400px] relative !px-[20px]'>
+          <Image
+            src={pasterImg}
+            alt='pastor'
+            fill
+            style={{ objectFit: "cover", padding: "20px" }}
+          />
+        </div>
+      ) : (
+        <div className='relative'>
+          <Image
+            src={pasterImg}
+            alt='pastor'
+            width={499}
+            height={454}
+            className='rounded-[24px]'
+          />
+        </div>
+      )}
     </div>
   );
 };

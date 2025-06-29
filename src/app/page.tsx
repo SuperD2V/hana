@@ -15,7 +15,7 @@ export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
-    router.push("/introoduce");
+    router.push("/introduce");
   }, []);
 
   return (

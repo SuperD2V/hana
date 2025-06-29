@@ -10,9 +10,10 @@ import { PhilosophyContent } from "./utils/PhilosophyContent";
 import PhilosophyCategory from "./PhilosophyCategory";
 import { usePhilosophyStore } from "../../../hooks/store/usePhilosophyStore";
 import { useShallow } from "zustand/shallow";
-
+import { useResponsiveTypography } from "@/component/shared";
 export default function Philosophy() {
   const philosophyContent = PhilosophyContent;
+  const { mounted, isMobile } = useResponsiveTypography();
 
   const { selectedCateogry } = usePhilosophyStore(
     useShallow(state => ({
@@ -21,8 +22,19 @@ export default function Philosophy() {
   );
 
   return (
-    <div className={philosophyContainer}>
-      <Typography variant='largetitle2Bold' className={PhilosophyTitle}>
+    <div
+      className={philosophyContainer}
+      style={{
+        padding:
+          mounted && isMobile ? "60px 20px 80px 20px" : "192px 120px 0 120px"
+      }}
+    >
+      <Typography
+        variant={
+          mounted && isMobile ? "largetitle2Semibold" : "largetitle2Bold"
+        }
+        className={PhilosophyTitle}
+      >
         목회철학
       </Typography>
       <div
@@ -33,16 +45,46 @@ export default function Philosophy() {
       </div>
       <div
         className={PhilosophyImage}
-        style={{
-          backgroundImage: `url(/images/philosophy_${selectedCateogry}.png)`
-        }}
+        style={
+          mounted && isMobile
+            ? {
+                width: "100%",
+                height: "200px",
+                backgroundImage: `url(/images/philosophy_${selectedCateogry}.png)`
+              }
+            : {
+                width: "100%",
+                height: "512px",
+                backgroundImage: `url(/images/philosophy_${selectedCateogry}.png)`
+              }
+        }
       />
-      <div>
+      <div
+        style={
+          mounted && isMobile
+            ? {
+                gap: 10,
+                borderRadius: 20,
+                paddingTop: 12,
+                paddingRight: 16,
+                paddingBottom: 12,
+                paddingLeft: 16,
+                backgroundColor: "#FFF"
+              }
+            : {
+                gap: 10,
+                borderRadius: 20,
+                paddingTop: 40,
+                paddingBottom: 40,
+                backgroundColor: "#FFF"
+              }
+        }
+      >
         {philosophyContent[selectedCateogry - 1].content.map(
           (paragraph, index) => (
             <Typography
               key={index}
-              variant='headlineRegular'
+              variant={mounted && isMobile ? "body1Regular" : "headlineRegular"}
               className={PhilosophyContentStyle}
             >
               {paragraph}
