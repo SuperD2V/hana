@@ -17,62 +17,94 @@ import {
 } from "./index.css";
 import { Typography, TypographyEn } from "@/component/shared";
 import { color } from "@/component/shared/designed/color";
-import { useMediaQuery } from "react-responsive";
+import { useResponsiveTypography } from "@/component/shared/hooks/useResponsiveTypography";
 
 const TimeSection = () => {
-  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+  const { mounted, isMobile } = useResponsiveTypography();
 
   return (
     <div className={`${sectionBox} ${timeBox}`}>
       <div className={title}>
-        <TypographyEn variant={isMobile ? "largetitle3Bold" : "largetitle1"}>
+        <TypographyEn
+          variant={mounted && isMobile ? "largetitle3Bold" : "largetitle1"}
+        >
           TIME
         </TypographyEn>
       </div>
       {/* 샘플 시간표 내용 */}
       <div className={timeContainer}>
         <div className={timeMainSchedule}>
-          <Typography variant='headlineMedium'>오전11:00 예배실</Typography>
+          <Typography variant='headlineRegular'>오전11:00 예배실</Typography>
         </div>
         <div className={timeScheduleList}>
           <div className={timeRow}>
             <span className={timeDept}>영아부</span>
             <div className={timeInfoRow}>
-              <span className={timeHour}>오전 11:00</span>
-              <span className={timeBar}>|</span>
-              <span className={timePlace}>비전홀</span>
+              <Typography variant='headlineRegular' className={timeHour}>
+                오전 11:00
+              </Typography>
+              <Typography variant='headlineRegular' className={timeBar}>
+                |
+              </Typography>
+              <Typography variant='headlineRegular' className={timePlace}>
+                비전홀
+              </Typography>
             </div>
           </div>
           <div className={timeRow}>
             <span className={timeDept}>유치부</span>
             <div className={timeInfoRow}>
-              <span className={timeHour}>오전 10:00</span>
-              <span className={timeBar}>|</span>
-              <span className={timePlace}>비전홀</span>
+              <Typography variant='headlineRegular' className={timeHour}>
+                오전 10:00
+              </Typography>
+              <Typography variant='headlineRegular' className={timeBar}>
+                |
+              </Typography>
+              <Typography variant='headlineRegular' className={timePlace}>
+                비전홀
+              </Typography>
             </div>
           </div>
           <div className={timeRow}>
             <span className={timeDept}>초등부</span>
             <div className={timeInfoRow}>
-              <span className={timeHour}>오전 10:00</span>
-              <span className={timeBar}>|</span>
-              <span className={timePlace}>하나홀</span>
+              <Typography variant='headlineRegular' className={timeHour}>
+                오전 10:00
+              </Typography>
+              <Typography variant='headlineRegular' className={timeBar}>
+                |
+              </Typography>
+              <Typography variant='headlineRegular' className={timePlace}>
+                하나홀
+              </Typography>
             </div>
           </div>
           <div className={timeRow}>
             <span className={timeDept}>중고등부</span>
             <div className={timeInfoRow}>
-              <span className={timeHour}>오전 10:00</span>
-              <span className={timeBar}>|</span>
-              <span className={timePlace}>교육관(서울베이커리)</span>
+              <Typography variant='headlineRegular' className={timeHour}>
+                오전 10:00
+              </Typography>
+              <Typography variant='headlineRegular' className={timeBar}>
+                |
+              </Typography>
+              <Typography variant='headlineRegular' className={timePlace}>
+                교육관(서울베이커리)
+              </Typography>
             </div>
           </div>
           <div className={timeRow}>
             <span className={timeDept}>대학청년부</span>
             <div className={timeInfoRow}>
-              <span className={timeHour}>오전 12:25</span>
-              <span className={timeBar}>|</span>
-              <span className={timePlace}>하나홀</span>
+              <Typography variant='headlineRegular' className={timeHour}>
+                오전 12:25
+              </Typography>
+              <Typography variant='headlineRegular' className={timeBar}>
+                |
+              </Typography>
+              <Typography variant='headlineRegular' className={timePlace}>
+                하나홀
+              </Typography>
             </div>
           </div>
         </div>

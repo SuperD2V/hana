@@ -39,3 +39,4 @@ export {
 
 export { default as ArrowLeft } from "./assets/arrowLeft.svg";
 export { default as ArrowRight } from "./assets/arrowRight.svg";
+export { useResponsiveTypography } from "./hooks/useResponsiveTypography";

@@ -27,7 +27,7 @@ export const noticeContainer = style({
 
 export const noticeWrapper = style({
   display: "flex",
-  gap: "24px",
+  gap: "20px",
   maxWidth: "1680px",
   width: "100%",
   margin: "0 auto",
@@ -40,10 +40,14 @@ export const noticeWrapper = style({
       maxWidth: "1680px"
     },
     "screen and (max-width: 1440px)": {
-      maxWidth: "1100px"
+      maxWidth: "100%",
+      width: "100%",
+      padding: "0 8px"
     },
     "screen and (max-width: 1200px)": {
-      maxWidth: "900px"
+      maxWidth: "100%",
+      width: "100%",
+      padding: "0 8px"
     },
     "screen and (max-width: 1024px)": {
       maxWidth: "100%",
@@ -118,8 +122,9 @@ export const rightBox = style({
   height: "675px",
   "@media": {
     "screen and (max-width: 1440px)": {
-      flexBasis: "400px",
-      maxWidth: "400px"
+      flexBasis: "100%",
+      maxWidth: "100%",
+      width: "100%"
     },
     "screen and (max-width: 1280px)": {
       flexBasis: "100%",
@@ -246,10 +251,9 @@ export const newsDate = style({
 
 export const timeRow = style({
   display: "flex",
-  flexDirection: "column",
   alignItems: "flex-start",
+  justifyContent: "flex-start",
   width: "100%",
-  minHeight: "28px",
   "@media": {
     "screen and (max-width: 768px)": {
       flexDirection: "column",
@@ -265,13 +269,14 @@ export const timeInfoRow = style({
   display: "flex",
   flexDirection: "row",
   alignItems: "center",
-  gap: "8px"
+  gap: "8px",
+  marginLeft: "8px"
 });
 
 export const timeDept = style({
   marginRight: "8px",
   fontWeight: 600,
-  width: "80px",
+  width: "130px",
   display: "inline-block",
   flexShrink: 0,
   "@media": {
@@ -284,15 +289,12 @@ export const timeDept = style({
 });
 
 export const timeHour = style({
-  marginRight: "8px",
   width: "80px",
   display: "inline-block",
   textAlign: "left",
   "@media": {
     "screen and (max-width: 768px)": {
-      marginRight: "8px",
-      width: "auto",
-      fontSize: "14px"
+      width: "auto"
     }
   }
 });
@@ -312,10 +314,15 @@ export const timeBar = style({
 export const timePlace = style({
   flex: 1,
   minWidth: 0,
+  whiteSpace: "nowrap",
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+  maxWidth: "160px",
   "@media": {
     "screen and (max-width: 768px)": {
       fontSize: "14px",
-      flex: "unset"
+      flex: "unset",
+      maxWidth: "100%"
     }
   }
 });

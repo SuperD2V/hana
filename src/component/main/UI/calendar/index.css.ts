@@ -11,7 +11,12 @@ export const calendarContainer = style({
   justifyContent: "center",
   flexDirection: "column",
   margin: "0 auto",
+  overflowX: "hidden",
   "@media": {
+    "(max-width: 1440px)": {
+      maxWidth: "100%",
+      padding: "0 20px"
+    },
     "(max-width: 768px)": {
       padding: "40px 0 24px 0",
       height: "auto",
@@ -95,6 +100,9 @@ export const cardWrapper = style({
   gap: "12px",
   position: "relative",
   "@media": {
+    "(max-width: 1440px)": {
+      gap: "8px"
+    },
     "(max-width: 768px)": {
       gap: "4px"
     }
