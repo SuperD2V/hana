@@ -4,6 +4,7 @@ import * as styles from "./index.css";
 import { worshipClassData } from "../../const";
 import { Card } from "./Card";
 import { useResponsiveTypography } from "@/component/shared/hooks/useResponsiveTypography";
+import Link from "next/link";
 
 export const Time = () => {
   const { isMobile, mounted } = useResponsiveTypography();
@@ -29,16 +30,26 @@ export const Time = () => {
         ))}
       </div>
       <div className={styles.buttonContainer}>
-        <button type='button' className={styles.button}>
-          <Typography variant={isMobile ? "body1Medium" : "headlineMedium"}>
-            주일설교 유투브
-          </Typography>
-        </button>
-        <button type='button' className={styles.button}>
-          <Typography variant={isMobile ? "body1Medium" : "headlineMedium"}>
-            새벽예배(온라인) 밴드
-          </Typography>
-        </button>
+        <Link
+          href='https://youtube.com/@hanavisionch?si=_KQD1m_YA_iSD5B8'
+          target='_blank'
+        >
+          <button type='button' className={styles.button}>
+            <Typography variant={isMobile ? "body1Medium" : "headlineMedium"}>
+              주일설교 유투브
+            </Typography>
+          </button>
+        </Link>
+        <Link
+          href='https://youtube.com/@hanavisionch?si=_KQD1m_YA_iSD5B8'
+          target='_blank'
+        >
+          <button type='button' className={styles.button}>
+            <Typography variant={isMobile ? "body1Medium" : "headlineMedium"}>
+              새벽예배(온라인) 밴드
+            </Typography>
+          </button>
+        </Link>
       </div>
     </div>
   );

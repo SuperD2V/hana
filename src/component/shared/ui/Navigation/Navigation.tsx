@@ -72,18 +72,28 @@ export function Navigation() {
         </div>
 
         <div className={`${socialLinks} hidden 2xl:flex`}>
-          <Image
-            src='/images/instagram.png'
-            alt='instagram'
-            width={36}
-            height={36}
-          />
-          <Image
-            src='/images/facebook.png'
-            alt='facebook'
-            width={36}
-            height={36}
-          />
+          <Link
+            href='https://www.instagram.com/hanavisionch?utm_source=ig_web_button_share_sheet&igsh=azA4ZjU2ZzBmZGtw'
+            target='_blank'
+          >
+            <Image
+              src='/images/instagram.png'
+              alt='instagram'
+              width={36}
+              height={36}
+            />
+          </Link>
+          <Link
+            href='https://www.facebook.com/hanavision.official/'
+            target='_blank'
+          >
+            <Image
+              src='/images/facebook.png'
+              alt='facebook'
+              width={36}
+              height={36}
+            />
+          </Link>
         </div>
 
         <div
@@ -122,18 +132,25 @@ export function Navigation() {
               justifyContent: "flex-end"
             }}
           >
-            <Image
-              src='/images/instagram.png'
-              alt='instagram'
-              width={28}
-              height={28}
-            />
-            <Image
-              src='/images/facebook.png'
-              alt='facebook'
-              width={28}
-              height={28}
-            />
+            <Link
+              href='https://www.instagram.com/hanavisionch?utm_source=ig_web_button_share_sheet&igsh=azA4ZjU2ZzBmZGtw'
+              target='_blank'
+            >
+              <Image
+                src='/images/instagram.png'
+                alt='instagram'
+                width={28}
+                height={28}
+              />
+            </Link>
+            <Link href='https://www.facebook.com/hanavision.official/'>
+              <Image
+                src='/images/facebook.png'
+                alt='facebook'
+                width={28}
+                height={28}
+              />
+            </Link>
           </div>
         </div>
       </div>
