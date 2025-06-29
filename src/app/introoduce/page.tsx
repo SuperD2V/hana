@@ -5,10 +5,14 @@ import { IntroduceNavigation } from "@/component/introduce/section1/IntroduceNav
 import { Typography } from "@/component/shared/ui/Typography";
 import React from "react";
 import Section2 from "@/component/introduce/section2/Section2";
+import Section3 from "@/component/introduce/section3/Section3";
+import Section4 from "@/component/introduce/section4/Section4";
+import Section5 from "@/component/introduce/section5/Section5";
+import Section6 from "@/component/introduce/section6/Section6";
 
 const page = () => {
   return (
-    <div>
+    <div className='bg-[#FFFDF5]'>
       <div className='w-full bg-[#1350A0]'>
         <div className='w-full flex flex-col items-center'>
           <IntroduceNavigation />
@@ -30,6 +34,10 @@ const page = () => {
         <MainTop />
       </div>
       <Section2 />
+      <Section3 />
+      <Section4 />
+      <Section5 />
+      <Section6 />
     </div>
   );
 };
