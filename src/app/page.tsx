@@ -12,12 +12,6 @@ import {
 import { useRouter } from "next/navigation";
 
 export default function Home() {
-  const router = useRouter();
-
-  useEffect(() => {
-    router.push("/introduce");
-  }, []);
-
   return (
     <div className={homeContainer}>
       <InitSection />

@@ -49,7 +49,7 @@ const PhilosophyCategory = () => {
   return (
     <div
       className={`w-full flex items-center justify-center py-4 ${
-        mounted && isMobile ? "flex-wrap " : ""
+        mounted && isMobile ? "flex-wrap gap-y-4" : ""
       }`}
     >
       {list.map((item, index) => (
