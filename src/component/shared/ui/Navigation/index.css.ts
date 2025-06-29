@@ -14,7 +14,7 @@ export const navigationContainer = style({
   boxShadow: "0 0 12px 0 rgba(rgba(99, 83, 19, 0.08))",
   borderRadius: "999px",
   "@media": {
-    "(max-width: 768px)": {
+    "(max-width: 1280px)": {
       height: "52px",
       width: "100vw",
       top: 0,
@@ -34,7 +34,7 @@ export const navWrapper = style({
   justifyContent: "space-around",
   gap: "80px",
   "@media": {
-    "(max-width: 768px)": {
+    "(max-width: 1280px)": {
       gap: "0px",
       padding: "0",
       justifyContent: "space-between"
@@ -67,7 +67,7 @@ export const desktopMenu = style({
   letterSpacing: "0.36px",
   color: color.gray[800],
   "@media": {
-    "(max-width: 768px)": {
+    "(max-width: 1280px)": {
       display: "none"
     }
   }
@@ -79,7 +79,7 @@ export const socialLinks = style({
   gap: "20px",
   cursor: "pointer",
   "@media": {
-    "(max-width: 768px)": {
+    "(max-width: 1280px)": {
       display: "none"
     }
   }
@@ -98,7 +98,7 @@ export const mobileMenuButton = style({
   cursor: "pointer",
   padding: "0.5rem",
   "@media": {
-    "(max-width: 768px)": {
+    "(max-width: 1280px)": {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
@@ -120,7 +120,7 @@ export const mobileMenu = style({
   transition: "transform 0.3s ease",
   zIndex: 40,
   "@media": {
-    "(max-width: 768px)": {
+    "(max-width: 1280px)": {
       top: "5rem"
     }
   }

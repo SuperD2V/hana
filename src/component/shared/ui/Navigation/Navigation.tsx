@@ -52,7 +52,7 @@ export function Navigation() {
           </Link>
         </div>
 
-        <div className={`${desktopMenu} hidden md:flex`}>
+        <div className={`${desktopMenu} hidden 2xl:flex`}>
           {navItems.map(item => (
             <Link key={item.href} href={item.href} className={navLink}>
               <Title1>{item.label}</Title1>
@@ -60,7 +60,7 @@ export function Navigation() {
           ))}
         </div>
 
-        <div className={`${socialLinks} hidden md:flex`}>
+        <div className={`${socialLinks} hidden 2xl:flex`}>
           <Image
             src='/images/instagram.png'
             alt='instagram'
@@ -75,7 +75,10 @@ export function Navigation() {
           />
         </div>
 
-        <div className={mobileMenuButton} onClick={toggleMobileMenu}>
+        <div
+          className={`${mobileMenuButton} 2xl:hidden`}
+          onClick={toggleMobileMenu}
+        >
           <Hamberger
             isOpen={isMobileMenuOpen}
             closeMobileMenu={closeMobileMenu}

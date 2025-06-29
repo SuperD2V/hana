@@ -6,6 +6,9 @@ import {
   footerWrapper
 } from "./index.css";
 import { Body2 } from "../Typography";
+import { CHURCH_INFO } from "../../const/info";
+
+// 교회 정보 상수
 
 export function Footer() {
   return (
@@ -22,13 +25,13 @@ export function Footer() {
 
         <div className={footerWrapper}>
           <Body2 className={footerText}>
-            하나비전교회 | 이현수 | 전화번호 : 031-309-0022 | 이메일 :
-            info@hanavision.org
+            {CHURCH_INFO.name} | {CHURCH_INFO.pastor} | 전화번호 :{" "}
+            {CHURCH_INFO.phone} | 이메일 :{CHURCH_INFO.email}
             <br />
-            주소 : 경기도 수원시 영통구 이의동 1204-1
+            주소 : {CHURCH_INFO.address}
           </Body2>
           <Body2 className={footerText}>
-            Copyright © 2025 하나비전교회. All Rights Reserved.
+            Copyright © 2025 {CHURCH_INFO.name}. All Rights Reserved.
           </Body2>
 
           <div className={footerBottom}>

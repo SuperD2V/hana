@@ -20,6 +20,34 @@ const nextConfig: NextConfig = {
       }
     }
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "http",
+        hostname: "t1.daumcdn.net",
+        port: "",
+        pathname: "/**"
+      },
+      {
+        protocol: "https",
+        hostname: "t1.daumcdn.net",
+        port: "",
+        pathname: "/**"
+      },
+      {
+        protocol: "http",
+        hostname: "map2.daum.net",
+        port: "",
+        pathname: "/**"
+      },
+      {
+        protocol: "https",
+        hostname: "map2.daum.net",
+        port: "",
+        pathname: "/**"
+      }
+    ]
+  },
   webpack: config => {
     config.resolve.alias = {
       ...config.resolve.alias,

@@ -3,6 +3,8 @@ export { Footer } from "./ui/Footer";
 export { Line } from "./ui/Line";
 export { Slider } from "./ui/Slider";
 export { ArrowButton } from "./ui/ArrowButton";
+export { SubMenu } from "./ui/subMenu";
+export { CHURCH_INFO } from "./const/info";
 
 export {
   typography,
