@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import {
   sectionBox,
   helpBox,
@@ -28,14 +29,32 @@ const HelpSection = () => {
       {/* 샘플 연락처 내용 */}
       <div className={helpContent}>
         <div className={helpItem}>
-          <img src='/images/call.svg' alt='전화' className={helpIcon} />
-          <Typography className={helpText} variant='title2Medium'>
+          <Image
+            src='/images/call.svg'
+            alt='전화'
+            width={24}
+            height={24}
+            className={helpIcon}
+          />
+          <Typography
+            className={helpText}
+            variant={mounted && isMobile ? "title3Medium" : "title2Medium"}
+          >
             031-309-0022
           </Typography>
         </div>
         <div className={helpItem}>
-          <img src='/images/mail.svg' alt='이메일' className={helpIcon} />
-          <Typography className={helpText} variant='title2Medium'>
+          <Image
+            src='/images/mail.svg'
+            alt='이메일'
+            width={24}
+            height={24}
+            className={helpIcon}
+          />
+          <Typography
+            className={helpText}
+            variant={mounted && isMobile ? "title3Medium" : "title2Medium"}
+          >
             info@hanavision.org
           </Typography>
         </div>

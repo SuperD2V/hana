@@ -34,19 +34,38 @@ const TimeSection = () => {
       {/* 샘플 시간표 내용 */}
       <div className={timeContainer}>
         <div className={timeMainSchedule}>
-          <Typography variant='headlineRegular'>오전11:00 예배실</Typography>
+          <Typography
+            variant={mounted && isMobile ? "body1Medium" : "headlineRegular"}
+          >
+            오전11:00 예배실
+          </Typography>
         </div>
         <div className={timeScheduleList}>
           <div className={timeRow}>
             <span className={timeDept}>영아부</span>
             <div className={timeInfoRow}>
-              <Typography variant='headlineRegular' className={timeHour}>
+              <Typography
+                variant={
+                  mounted && isMobile ? "body1Medium" : "headlineRegular"
+                }
+                className={timeHour}
+              >
                 오전 11:00
               </Typography>
-              <Typography variant='headlineRegular' className={timeBar}>
+              <Typography
+                variant={
+                  mounted && isMobile ? "body1Medium" : "headlineRegular"
+                }
+                className={timeBar}
+              >
                 |
               </Typography>
-              <Typography variant='headlineRegular' className={timePlace}>
+              <Typography
+                variant={
+                  mounted && isMobile ? "body1Medium" : "headlineRegular"
+                }
+                className={timePlace}
+              >
                 비전홀
               </Typography>
             </div>
@@ -54,13 +73,28 @@ const TimeSection = () => {
           <div className={timeRow}>
             <span className={timeDept}>유치부</span>
             <div className={timeInfoRow}>
-              <Typography variant='headlineRegular' className={timeHour}>
+              <Typography
+                variant={
+                  mounted && isMobile ? "body1Medium" : "headlineRegular"
+                }
+                className={timeHour}
+              >
                 오전 10:00
               </Typography>
-              <Typography variant='headlineRegular' className={timeBar}>
+              <Typography
+                variant={
+                  mounted && isMobile ? "body1Medium" : "headlineRegular"
+                }
+                className={timeBar}
+              >
                 |
               </Typography>
-              <Typography variant='headlineRegular' className={timePlace}>
+              <Typography
+                variant={
+                  mounted && isMobile ? "body1Medium" : "headlineRegular"
+                }
+                className={timePlace}
+              >
                 비전홀
               </Typography>
             </div>
@@ -68,13 +102,28 @@ const TimeSection = () => {
           <div className={timeRow}>
             <span className={timeDept}>초등부</span>
             <div className={timeInfoRow}>
-              <Typography variant='headlineRegular' className={timeHour}>
+              <Typography
+                variant={
+                  mounted && isMobile ? "body1Medium" : "headlineRegular"
+                }
+                className={timeHour}
+              >
                 오전 10:00
               </Typography>
-              <Typography variant='headlineRegular' className={timeBar}>
+              <Typography
+                variant={
+                  mounted && isMobile ? "body1Medium" : "headlineRegular"
+                }
+                className={timeBar}
+              >
                 |
               </Typography>
-              <Typography variant='headlineRegular' className={timePlace}>
+              <Typography
+                variant={
+                  mounted && isMobile ? "body1Medium" : "headlineRegular"
+                }
+                className={timePlace}
+              >
                 하나홀
               </Typography>
             </div>
@@ -82,13 +131,28 @@ const TimeSection = () => {
           <div className={timeRow}>
             <span className={timeDept}>중고등부</span>
             <div className={timeInfoRow}>
-              <Typography variant='headlineRegular' className={timeHour}>
+              <Typography
+                variant={
+                  mounted && isMobile ? "body1Medium" : "headlineRegular"
+                }
+                className={timeHour}
+              >
                 오전 10:00
               </Typography>
-              <Typography variant='headlineRegular' className={timeBar}>
+              <Typography
+                variant={
+                  mounted && isMobile ? "body1Medium" : "headlineRegular"
+                }
+                className={timeBar}
+              >
                 |
               </Typography>
-              <Typography variant='headlineRegular' className={timePlace}>
+              <Typography
+                variant={
+                  mounted && isMobile ? "body1Medium" : "headlineRegular"
+                }
+                className={timePlace}
+              >
                 교육관(서울베이커리)
               </Typography>
             </div>
@@ -96,13 +160,28 @@ const TimeSection = () => {
           <div className={timeRow}>
             <span className={timeDept}>대학청년부</span>
             <div className={timeInfoRow}>
-              <Typography variant='headlineRegular' className={timeHour}>
+              <Typography
+                variant={
+                  mounted && isMobile ? "body1Medium" : "headlineRegular"
+                }
+                className={timeHour}
+              >
                 오전 12:25
               </Typography>
-              <Typography variant='headlineRegular' className={timeBar}>
+              <Typography
+                variant={
+                  mounted && isMobile ? "body1Medium" : "headlineRegular"
+                }
+                className={timeBar}
+              >
                 |
               </Typography>
-              <Typography variant='headlineRegular' className={timePlace}>
+              <Typography
+                variant={
+                  mounted && isMobile ? "body1Medium" : "headlineRegular"
+                }
+                className={timePlace}
+              >
                 하나홀
               </Typography>
             </div>

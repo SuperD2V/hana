@@ -12,7 +12,7 @@ import {
   newsTitle,
   newsDate
 } from "./index.css";
-import { TypographyEn } from "@/component/shared";
+import { TypographyEn, Typography } from "@/component/shared";
 import { useResponsiveTypography } from "@/component/shared/hooks/useResponsiveTypography";
 
 const newsData = [
@@ -42,10 +42,27 @@ const NewsSection = () => {
             className={idx === 0 ? `${newsItem} ${newsItemFirst}` : newsItem}
           >
             <div style={{ display: "flex", alignItems: "center" }}>
-              {item.isNotice && <span className={badge}>공지</span>}
-              <span className={newsTitle}>{item.title}</span>
+              {item.isNotice && (
+                <Typography
+                  variant={mounted && isMobile ? "body2Medium" : "body1Medium"}
+                  className={badge}
+                >
+                  공지
+                </Typography>
+              )}
+              <Typography
+                variant={mounted && isMobile ? "title3Medium" : "title2Medium"}
+                className={newsTitle}
+              >
+                {item.title}
+              </Typography>
             </div>
-            <span className={newsDate}>{item.date}</span>
+            <Typography
+              variant={mounted && isMobile ? "body2Regular" : "body1Regular"}
+              className={newsDate}
+            >
+              {item.date}
+            </Typography>
           </div>
         ))}
       </div>

@@ -9,7 +9,12 @@ export const homeContainer = style({
 export const homeWrapper = style({
   width: "100%",
   height: "934px",
-  backgroundColor: color.brand[100]
+  backgroundColor: color.brand[100],
+  "@media": {
+    "screen and (max-width: 768px)": {
+      height: "369px"
+    }
+  }
 });
 
 export const homeWrapperInner = style({

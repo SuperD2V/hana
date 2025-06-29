@@ -157,9 +157,9 @@ export const timeBox = style({
 export const helpBox = style({
   height: "310px",
   flex: 1,
-  minHeight: 0,
   "@media": {
     "screen and (max-width: 768px)": {
+      padding: "23px",
       height: "230px",
       flex: "unset"
     }
@@ -370,7 +370,12 @@ export const helpItem = style({
   justifyContent: "flex-start",
   gap: "8px",
   marginBottom: "8px",
-  width: "288px"
+  width: "288px",
+  "@media": {
+    "screen and (max-width: 768px)": {
+      marginLeft: "23px"
+    }
+  }
 });
 
 export const helpText = style({
