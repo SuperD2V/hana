@@ -1,4 +1,4 @@
-import { Schedule, Title } from "@/component/school";
+import { Gallery, Schedule, Title } from "@/component/school";
 import { container } from "./index.css";
 
 export default function School() {
@@ -6,6 +6,7 @@ export default function School() {
     <div className={container}>
       <Title />
       <Schedule />
+      <Gallery />
     </div>
   );
 }

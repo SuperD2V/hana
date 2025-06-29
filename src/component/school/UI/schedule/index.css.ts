@@ -3,8 +3,18 @@ import { style } from "@vanilla-extract/css";
 
 export const container = style({
   maxWidth: "1680px",
+  height: "910px",
   width: "100%",
-  margin: "0 auto"
+  margin: "0 auto",
+  display: "flex",
+  flexDirection: "column",
+  gap: "40px",
+  padding: "0 120px",
+  "@media": {
+    "(max-width: 768px)": {
+      padding: "0 20px"
+    }
+  }
 });
 
 export const title = style({
@@ -26,20 +36,76 @@ export const divider = style({
 
 export const card = style({
   display: "flex",
-  justifyContent: "space-between"
+  justifyContent: "space-between",
+  "@media": {
+    "(max-width: 768px)": {
+      flexDirection: "column",
+      gap: "16px"
+    }
+  }
 });
 
 export const cardContent = style({
   display: "flex",
   gap: "20px",
-  color: color.gray[800]
+  color: color.gray[800],
+  padding: "0 20px",
+  "@media": {
+    "(max-width: 768px)": {
+      gap: "12px"
+    }
+  }
 });
 
 export const cardLeft = style({
   display: "flex",
-  gap: "80px"
+  gap: "80px",
+  "@media": {
+    "(max-width: 768px)": {
+      gap: "20px"
+    }
+  }
 });
 
 export const cardDate = style({
   color: color.gray[600]
+});
+
+export const dateContainer = style({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  gap: "4px",
+  color: color.gray[600]
+});
+
+export const month = style({
+  color: color.gray[600],
+  fontSize: "14px",
+  fontWeight: "500"
+});
+
+export const day = style({
+  color: color.gray[600],
+  fontSize: "18px",
+  fontWeight: "600"
+});
+
+export const cardTeacher = style({
+  color: color.gray[600],
+  "@media": {
+    "(max-width: 768px)": {
+      display: "none"
+    }
+  }
+});
+
+export const button = style({
+  width: "240px",
+  backgroundColor: color.brand[700],
+  color: color.brand[0],
+  borderRadius: "10px",
+  border: "none",
+  padding: "12px 89px",
+  margin: "0 auto"
 });

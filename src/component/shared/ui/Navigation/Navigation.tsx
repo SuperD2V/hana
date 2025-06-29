@@ -10,7 +10,11 @@ import {
   desktopMenu,
   navLink,
   mobileMenuButton,
-  socialLinks
+  socialLinks,
+  mobileMenu,
+  mobileMenuOpen,
+  mobileNavLinks,
+  mobileNavLink
 } from "./index.css";
 import { Hamberger } from "../hamberger";
 import { Title1 } from "../Typography";
@@ -19,6 +23,13 @@ import { Title1 } from "../Typography";
 
 export function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const width = useWindowWidth();
+  const isMobile = width < 1280; // 예: 2xl 기준
+
+  useEffect(() => {
+    if (!isMobile) setIsMobileMenuOpen(false);
+  }, [isMobile]);
 
   // useEffect(() => {
   //   AOS.init();
@@ -85,6 +96,61 @@ export function Navigation() {
           />
         </div>
       </div>
+      {/* 모바일 메뉴 */}
+      <div
+        className={
+          isMobileMenuOpen ? `${mobileMenu} ${mobileMenuOpen}` : mobileMenu
+        }
+        style={{ display: isMobileMenuOpen ? "block" : "none" }}
+      >
+        <div className={mobileNavLinks}>
+          {navItems.map(item => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={mobileNavLink}
+              onClick={closeMobileMenu}
+            >
+              {item.label}
+            </Link>
+          ))}
+          <div
+            style={{
+              display: "flex",
+              gap: 16,
+              marginTop: 273,
+              justifyContent: "flex-end"
+            }}
+          >
+            <Image
+              src='/images/instagram.png'
+              alt='instagram'
+              width={28}
+              height={28}
+            />
+            <Image
+              src='/images/facebook.png'
+              alt='facebook'
+              width={28}
+              height={28}
+            />
+          </div>
+        </div>
+      </div>
     </nav>
   );
+}
+
+export function useWindowWidth() {
+  const [width, setWidth] = useState(
+    typeof window !== "undefined" ? window.innerWidth : 0
+  );
+
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  return width;
 }

@@ -1,5 +1,9 @@
 import React from "react";
-import { Typography, TypographyEn } from "@/component/shared";
+import {
+  Typography,
+  TypographyEn,
+  useResponsiveTypography
+} from "@/component/shared";
 import * as styles from "./index.css";
 import Image from "next/image";
 
@@ -10,11 +14,29 @@ interface CardProps {
 }
 
 export const Card = ({ date, title, teacher }: CardProps) => {
+  // 날짜를 월과 일로 분리
+  const [month, day] = date.split(" ");
+  const { mounted, isMobile } = useResponsiveTypography();
+
+  if (!mounted) return null;
   return (
     <div className={styles.card}>
       <div className={styles.cardLeft}>
         <div className={styles.cardDate}>
-          <TypographyEn variant='title3Medium'>{date}</TypographyEn>
+          <div className={styles.dateContainer}>
+            <TypographyEn
+              variant={isMobile ? "headlineMedium" : "title3Medium"}
+              className={styles.month}
+            >
+              {month}
+            </TypographyEn>
+            <TypographyEn
+              variant={isMobile ? "headlineMedium" : "title3Medium"}
+              className={styles.day}
+            >
+              {day}
+            </TypographyEn>
+          </div>
         </div>
         <div className={styles.cardContent}>
           <Image
@@ -23,10 +45,12 @@ export const Card = ({ date, title, teacher }: CardProps) => {
             width={126}
             height={126}
           />
-          <Typography variant='title1Medium'>{title}</Typography>
+          <Typography variant={isMobile ? "title3Medium" : "title1Medium"}>
+            {title}
+          </Typography>
         </div>
       </div>
-      <div className={styles.cardDate}>
+      <div className={styles.cardTeacher}>
         <Typography variant='body1Medium'>{teacher}</Typography>
       </div>
     </div>

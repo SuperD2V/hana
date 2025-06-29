@@ -3,7 +3,6 @@ import { style } from "@vanilla-extract/css";
 
 export const schoolContainer = style({
   width: "100%",
-  minHeight: "100vh",
   margin: "0 auto",
   backgroundColor: color.brand_yellow[1],
   paddingTop: "192px",
