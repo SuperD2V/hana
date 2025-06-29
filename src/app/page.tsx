@@ -3,7 +3,8 @@ import {
   InitSection,
   HistorySection,
   LineBanner,
-  Calendar
+  Calendar,
+  Notice
 } from "@/component/main";
 
 export default function Home() {
@@ -13,6 +14,7 @@ export default function Home() {
       <HistorySection />
       <LineBanner />
       <Calendar />
+      <Notice />
     </div>
   );
 }

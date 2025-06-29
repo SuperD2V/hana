@@ -4,7 +4,6 @@ export { Line } from "./ui/Line";
 export { Slider } from "./ui/Slider";
 export { ArrowButton } from "./ui/ArrowButton";
 
-export { color } from "./designed/color";
 export {
   typography,
   typographyEn,

@@ -1,7 +1,10 @@
-export default function Notice() {
+import { Notice } from "@/component/main/UI/notice";
+import { noticeContainer } from "./index.css";
+
+export default function NoticePage() {
   return (
-   <div>
-    <h1>공지사항</h1>
-   </div>
+    <div className={noticeContainer}>
+      <Notice />
+    </div>
   );
-} 
+}

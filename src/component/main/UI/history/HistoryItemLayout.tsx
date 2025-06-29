@@ -1,6 +1,6 @@
 "use client";
 
-import { Typography, TypographyEn, Line, color } from "@/component/shared";
+import { Typography, TypographyEn, Line } from "@/component/shared";
 import {
   historyLeft,
   historyLeftInner,
@@ -15,6 +15,7 @@ import {
   textLineClamp,
   responsiveKeyword
 } from "./index.css";
+import { color } from "@/component/shared/designed/color";
 
 interface HistoryItemProps {
   item: {
