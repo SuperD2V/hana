@@ -8,9 +8,13 @@ import {
   PropertyStringPath
 } from "../../types/zustand";
 
-export type PhilosophyStore = {};
+export type PhilosophyStore = {
+  selectedCateogry: number;
+};
 
-const initState: PhilosophyStore = {};
+const initState: PhilosophyStore = {
+  selectedCateogry: 1
+};
 
 export const usePhilosophyStore = create(
   immer(

@@ -18,11 +18,14 @@ import {
 } from "./index.css";
 import { Hamberger } from "../hamberger";
 import { Title1 } from "../Typography";
+import { usePathname } from "next/navigation";
+
 // import AOS from "aos";
 // import "aos/dist/aos.css";
 
 export function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const pathName = usePathname();
 
   const width = useWindowWidth();
   const isMobile = width < 1280; // 예: 2xl 기준
@@ -42,6 +45,8 @@ export function Navigation() {
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
   };
+
+  if (pathName === "/introoduce") return null; // 스타일용으로 introduce 전용 네비게이션은 따로 있음
 
   return (
     <nav className={navigationContainer}>

@@ -10,10 +10,12 @@ import {
 
 export type IntroduceStore = {
   selectedCateogry: number;
+  selectSection2Content: 1 | 2 | 3;
 };
 
 const initState: IntroduceStore = {
-  selectedCateogry: 1
+  selectedCateogry: 1,
+  selectSection2Content: 1
 };
 
 export const useIntroduceStore = create(

@@ -19,7 +19,7 @@ export const PhilosophyTitle = style({
 export const PhilosophyImage = style({
   width: "100%",
   height: "512px",
-  backgroundImage: "url(/images/philosophy_1.png)",
+  // backgroundImage: "url(/images/philosophy_1.png)",
   backgroundSize: "cover",
   backgroundPosition: "center",
   marginTop: "40px",
@@ -32,5 +32,7 @@ export const PhilosophyContentStyle = style({
   lineHeight: "28px",
   fontWeight: "400",
   padding: "40px 209px",
-  marginTop: "20px"
+  marginTop: "20px",
+  whiteSpace: "pre-line",
+  marginBottom: "20px"
 });

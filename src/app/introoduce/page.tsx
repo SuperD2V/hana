@@ -4,6 +4,7 @@ import MainTop from "@/component/introduce/section1/MainTop";
 import { IntroduceNavigation } from "@/component/introduce/section1/IntroduceNavigation";
 import { Typography } from "@/component/shared/ui/Typography";
 import React from "react";
+import Section2 from "@/component/introduce/section2/Section2";
 
 const page = () => {
   return (
@@ -28,6 +29,7 @@ const page = () => {
       <div style={{ padding: "120px 120px 98px 120px" }}>
         <MainTop />
       </div>
+      <Section2 />
     </div>
   );
 };

@@ -13,7 +13,7 @@ export const Typography: React.FC<TypographyProps> = ({
 }) => {
   const textClass = text[variant];
 
-  return <div className={`${textClass} ${className}`}>{children}</div>;
+  return <span className={`${textClass} ${className}`}>{children}</span>;
 };
 
 // 편의를 위한 특정 타이포그래피 컴포넌트들

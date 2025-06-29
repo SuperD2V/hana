@@ -1,3 +1,4 @@
+"use client";
 import { Typography } from "@/component/shared";
 import {
   PhilosophyTitle,
@@ -6,24 +7,48 @@ import {
   PhilosophyContentStyle
 } from "./Philosophy.css";
 import { PhilosophyContent } from "./utils/PhilosophyContent";
+import PhilosophyCategory from "./PhilosophyCategory";
+import { usePhilosophyStore } from "../../../hooks/store/usePhilosophyStore";
+import { useShallow } from "zustand/shallow";
 
 export default function Philosophy() {
   const philosophyContent = PhilosophyContent;
-  console.log(philosophyContent);
+
+  const { selectedCateogry } = usePhilosophyStore(
+    useShallow(state => ({
+      selectedCateogry: state.selectedCateogry
+    }))
+  );
+
   return (
     <div className={philosophyContainer}>
       <Typography variant='largetitle2Bold' className={PhilosophyTitle}>
         목회철학
       </Typography>
-      <div>메뉴 자리</div>
-      <div className={PhilosophyImage} />
+      <div
+        className='w-full  top-0'
+        style={{ padding: "16px 0", marginTop: 60 }}
+      >
+        <PhilosophyCategory />
+      </div>
+      <div
+        className={PhilosophyImage}
+        style={{
+          backgroundImage: `url(/images/philosophy_${selectedCateogry}.png)`
+        }}
+      />
       <div>
-        <Typography
-          variant='headlineRegular'
-          className={PhilosophyContentStyle}
-        >
-          {philosophyContent[0].content}
-        </Typography>
+        {philosophyContent[selectedCateogry - 1].content.map(
+          (paragraph, index) => (
+            <Typography
+              key={index}
+              variant='headlineRegular'
+              className={PhilosophyContentStyle}
+            >
+              {paragraph}
+            </Typography>
+          )
+        )}
       </div>
     </div>
   );
