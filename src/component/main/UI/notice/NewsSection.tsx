@@ -14,18 +14,21 @@ import {
 } from "./index.css";
 import { TypographyEn, Typography } from "@/component/shared";
 import { useResponsiveTypography } from "@/component/shared/hooks/useResponsiveTypography";
+import { useRouter } from "next/navigation";
 
 const newsData = [
-  { id: 1, title: "공지 제목", date: "25.05.20", isNotice: true },
-  { id: 2, title: "공지 제목", date: "25.05.20", isNotice: true },
-  { id: 3, title: "공지 제목", date: "25.05.20", isNotice: false },
-  { id: 4, title: "공지 제목", date: "25.05.20", isNotice: false },
-  { id: 5, title: "공지 제목", date: "25.05.20", isNotice: false }
+  { id: 1, title: "홈페이지 새단장", date: "25.06.30", isNotice: true },
+  {
+    id: 2,
+    title: "2025년 하계 전교인 리트릿",
+    date: "25.06.30",
+    isNotice: true
+  }
 ];
 
 const NewsSection = () => {
   const { mounted, isMobile } = useResponsiveTypography();
-
+  const router = useRouter();
   return (
     <div className={`${sectionBox} ${newsMobileBox}`}>
       <div className={title}>
@@ -38,6 +41,7 @@ const NewsSection = () => {
       <div className={newsList}>
         {newsData.map((item, idx) => (
           <div
+            onClick={() => router.push(`/notice/${item.id}`)}
             key={item.id}
             className={idx === 0 ? `${newsItem} ${newsItemFirst}` : newsItem}
           >
