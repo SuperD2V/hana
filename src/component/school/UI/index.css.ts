@@ -1,7 +1,7 @@
 import { color } from "@/component/shared/designed/color";
 import { style } from "@vanilla-extract/css";
 
-export const worshipContainer = style({
+export const schoolContainer = style({
   width: "100%",
   minHeight: "100vh",
   margin: "0 auto",
@@ -14,7 +14,7 @@ export const worshipContainer = style({
   }
 });
 
-export const worshipWrapper = style({
+export const schoolWrapper = style({
   width: "100%",
   height: "100%",
   textAlign: "center",
@@ -29,12 +29,11 @@ export const worshipWrapper = style({
     }
   }
 });
-export const worshipContent = style({
+export const schoolContent = style({
   width: "100%",
   height: "100%",
   backgroundColor: color.brand_yellow[1]
 });
-
 export const title = style({
   color: color.brand[700]
 });

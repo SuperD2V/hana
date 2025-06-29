@@ -1,8 +1,11 @@
+import { Schedule, Title } from "@/component/school";
+import { container } from "./index.css";
+
 export default function School() {
-  
   return (
-   <div>
-    <h1>하나비전 스쿨</h1>
-   </div>
+    <div className={container}>
+      <Title />
+      <Schedule />
+    </div>
   );
-} 
+}

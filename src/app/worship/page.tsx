@@ -1,7 +1,12 @@
 "use client";
 
 import { SubMenu, TypographyEn } from "@/component/shared";
-import { worshipContainer, worshipContent, worshipWrapper } from "./index.css";
+import {
+  title,
+  worshipContainer,
+  worshipContent,
+  worshipWrapper
+} from "./index.css";
 import { useState } from "react";
 import { SubMenuItem } from "@/component/shared/ui/subMenu";
 import { Place } from "@/component/worship/UI/place";
@@ -16,7 +21,9 @@ export default function Worship() {
   return (
     <div className={worshipContainer}>
       <div className={worshipWrapper}>
-        <TypographyEn variant='largetitle2'>예배안내</TypographyEn>
+        <TypographyEn variant='largetitle2' className={title}>
+          예배안내
+        </TypographyEn>
         <SubMenu items={items} selectedKey={selected} onSelect={setSelected} />
         <div className={worshipContent}>
           {selected === "place" && <Place />}
