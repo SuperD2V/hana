@@ -3,34 +3,40 @@ import { style } from "@vanilla-extract/css";
 
 export const navigationContainer = style({
   width: "90vw",
-  //   position: "fixed",
-  marginTop: "36px",
-  marginBottom: "28px",
+  // position: "fixed",
+  top: 32,
+  left: 0,
+  right: 0,
+  margin: "0 auto",
   padding: "20px 40px",
-  zIndex: 50,
+  zIndex: 100,
   backgroundColor: color.brand_yellow[2],
   boxShadow: "0 0 12px 0 rgba(rgba(99, 83, 19, 0.08))",
   borderRadius: "999px",
   "@media": {
-    "(max-width: 768px)": {
+    "(max-width: 1280px)": {
+      height: "52px",
       width: "100vw",
       top: 0,
-      borderRadius: "0px"
+      borderRadius: "0px",
+      padding: "0 16px"
     }
   }
 });
 
 export const navWrapper = style({
-  maxWidth: "1200px",
-  margin: "0 auto",
+  width: "100%",
+  margin: "auto",
   padding: "0 1rem",
   display: "flex",
   alignItems: "center",
-  justifyContent: "space-between",
+  justifyContent: "space-around",
   gap: "80px",
   "@media": {
-    "(max-width: 768px)": {
-      gap: "20px"
+    "(max-width: 1280px)": {
+      gap: "0px",
+      padding: "0",
+      justifyContent: "space-between"
     }
   }
 });
@@ -93,7 +99,7 @@ export const mobileMenuButton = style({
 
 export const mobileMenu = style({
   position: "fixed",
-  top: "4rem",
+  top: "0",
   left: 0,
   right: 0,
   backgroundColor: "white",

@@ -15,7 +15,7 @@ export type IntroduceStore = {
 
 const initState: IntroduceStore = {
   selectedCateogry: 1,
-  selectSection2Content: 1
+  selectSection2Content: 3
 };
 
 export const useIntroduceStore = create(

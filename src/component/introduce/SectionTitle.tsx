@@ -12,7 +12,7 @@ const SectionTitle = ({
   return (
     <div
       className={`flex flex-row gap-[40px] items-baseline ${
-        mounted && isMobile ? "!px-[20px]" : "!px-[120px]"
+        mounted && isMobile ? "!px-[20px]" : "!pl-[120px]"
       }`}
     >
       <Typography

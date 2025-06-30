@@ -16,28 +16,29 @@ const page = () => {
 
   return (
     <div className='bg-[#FFFDF5]'>
-      {mounted && isMobile ? (
-        <></>
-      ) : (
-        <>
-          <div className='w-full bg-[#1350A0]'>
-            <div className='w-full flex flex-col items-center'>
-              <IntroduceNavigation />
-              <Typography
-                variant='title1Bold'
-                className='text-white !font-semibold'
-              >
-                소개
-              </Typography>
-            </div>
-          </div>
-          <div
-            className='w-full bg-[#1350A0] sticky top-0 z-50'
-            style={{ padding: "16px 0" }}
+     {mounted && isMobile && (
+       <IntroduceNavigation />
+     )}
+      <div className='w-full bg-[#1350A0]'>
+        <div className='w-full flex flex-col items-center !pt-[36px] !gap-[28px]'>
+        {mounted && !isMobile && (
+          <IntroduceNavigation />
+        )}
+          <Typography
+            variant='title1Bold'
+            className='text-white !font-semibold'
           >
-            <CategoryList />
-          </div>
-        </>
+            소개
+          </Typography>
+        </div>
+      </div>
+      {!isMobile && (
+        <div
+          className='w-full bg-[#1350A0] sticky top-0 z-50'
+          style={{ padding: "16px 0" }}
+        >
+          <CategoryList />
+        </div>
       )}
       <div
         style={{
