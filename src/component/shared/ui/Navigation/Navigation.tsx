@@ -46,7 +46,7 @@ export function Navigation() {
     setIsMobileMenuOpen(false);
   };
 
-  if (pathName === "/introoduce") return null; // 스타일용으로 introduce 전용 네비게이션은 따로 있음
+  if (pathName === "/introduce") return null; // 스타일용으로 introduce 전용 네비게이션은 따로 있음
 
   return (
     <nav className={navigationContainer}>
