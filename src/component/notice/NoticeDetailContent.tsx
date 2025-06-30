@@ -8,49 +8,77 @@ interface NoticeDetailContentProps {
   id: string;
 }
 
+interface NoticeData {
+  id: number;
+  title: string;
+  category: string;
+  date: string;
+  viewLabel: string;
+  viewCount: string;
+  content: string[];
+  attachments: {
+    name: string;
+    fileName: string;
+    url: string;
+  }[];
+}
+
 const NoticeDetailContent = ({ id }: NoticeDetailContentProps) => {
   const { mounted, isMobile } = useResponsiveTypography();
 
-  const noticeData = {
-    id: id,
-    title: "공지의 제목이 들어갑니다",
-    category: "등록일",
-    date: "2025.05.20",
-    viewLabel: "조회수",
-    viewCount: "13584",
-    content: [
-      "안녕하세요! 여러분을 위한 최신 소식을 전해드립니다. 이번 주에는 여러 가지 중요한 공지사항이 있습니다.",
-      "",
-      "1. 주일 예배 안내: 매주 일요일 오전 10시에 본당에서 예배가 진행됩니다. 모든 성도님들의 많은 참여 부탁드립니다.",
-      "",
-      "2. 특별 기도회: 매주 수요일 저녁 7시에 특별 기도회가 열립니다. 기도의 힘을 함께 나누는 시간이 되길 참석 바랍니다.",
-      "",
-      "3. 여름 수련회: 여름 방학을 맞이 청소년 및 청년부를 위한 수련회가 7월 15일부터 17일까지 진행됩니다. 참가를 원하시는 분들은 사무실에 신청해 주세요.",
-      "",
-      "4. 봉사자 모집: 교회 내 여러 사역을 위해 봉사자를 모집합니다. 관심 있으신 분들은 교회 홈페이지를 통해 신청해 주세요.",
-      "",
-      "5. 교회 소식지 발행: 매달 첫째 주에 교회 소식지가 발행됩니다. 소식지를 통해 교회의 다양한 소식을 확인하세요.",
-      "",
-      "6. 성경 공부 모임: 매주 금요일 저녁 8시에 성경 공부 모임이 있습니다. 성경을 깊이 있게 배우고 싶은 분들은 누구나 참여하실 수 있습니다.",
-      "",
-      "7. 가족 나들이: 오는 8월 20일에 가족 나들이가 예정되어 있습니다. 친소와 시간을 추후 공지하겠습니다.",
-      "",
-      "8. 교회 청소 봉사: 매월 첫째 주 토요일에 교회 청소 봉사가 있습니다. 많은 성도님들의 참여 부탁드립니다.",
-      "",
-      "9. 신입 회원 환영회: 새로 오신 분들을 위한 환영회가 6월 5일에 있습니다. 많은 참석 부탁드립니다.",
-      "",
-      "10. 교회 행사 일정: 교회 행사 일정은 홈페이지와 게시판을 통해 확인하실 수 있습니다.",
-      "",
-      "여러분의 많은 관심과 참여 부탁드립니다. 감사합니다!"
-    ],
-    attachments: [
-      {
-        name: "첨부파일",
-        fileName: "첨부파일첨부파일의 제목이 들어갑니다.확장자명",
-        url: "#"
-      }
-    ]
-  };
+  const noticeDataList: NoticeData[] = [
+    {
+      id: 1,
+      title: "홈페이지 새단장",
+      category: "등록일",
+      date: "2025.06.30",
+      viewLabel: "조회수",
+      viewCount: "0",
+      content: ["홈페이지가 새로 단장되었습니다. 많은 이용 부탁드립니다."],
+      attachments: [
+        {
+          name: "첨부파일",
+          fileName: "첨부파일첨부파일의 제목이 들어갑니다.확장자명",
+          url: "#"
+        }
+      ]
+    },
+    {
+      id: 2,
+      title: "2025년 하계 전교인 리트릿",
+      category: "등록일",
+      date: "2025.06.30",
+      viewLabel: "조회수",
+      viewCount: "0",
+      content: [
+        "-일시: 8월2일(토) 오후1:30 ~ 8월3일(일) 오후1:00",
+        "-장소: 타보르산 영성센터(http://taborsm.org/) ",
+        '-주제: "예배에 폭삭 빠졌수다"',
+        "-강사: 주종훈교수(장년), 권진하목사(유초등)"
+      ],
+      attachments: [
+        {
+          name: "첨부파일",
+          fileName: "첨부파일첨부파일의 제목이 들어갑니다.확장자명",
+          url: "#"
+        }
+      ]
+    }
+  ];
+
+  // id와 매칭되는 공지사항 데이터 찾기
+  const noticeData = noticeDataList.find(notice => notice.id === parseInt(id));
+
+  // 해당 id의 공지사항이 없을 경우
+  if (!noticeData) {
+    return (
+      <div className='w-full flex items-center justify-center py-20'>
+        <Typography variant='body1Regular' className='!text-[#666666]'>
+          해당 공지사항을 찾을 수 없습니다.
+        </Typography>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -116,7 +144,7 @@ const NoticeDetailContent = ({ id }: NoticeDetailContentProps) => {
 
       {/* 본문 내용 */}
       <div className='mb-12'>
-        {noticeData.content.map((paragraph, index) => (
+        {noticeData.content.map((paragraph: string, index: number) => (
           <div key={index}>
             {paragraph === "" ? (
               <div className='h-4' />
@@ -142,7 +170,7 @@ const NoticeDetailContent = ({ id }: NoticeDetailContentProps) => {
           }}
         >
           <Image src='/images/file.png' alt='file' width={64} height={64} />
-          {noticeData.attachments.map((attachment, index) => (
+          {noticeData.attachments.map((attachment, index: number) => (
             <div key={index} className='flex items-center gap-3 mb-3'>
               {/* 파일 아이콘 */}
               {/* <div

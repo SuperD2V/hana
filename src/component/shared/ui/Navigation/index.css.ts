@@ -4,9 +4,9 @@ import { color } from "../../designed/color";
 export const navigationContainer = style({
   width: "90vw",
   position: "fixed",
-  top: 32,
-  left: 0,
-  right: 0,
+  top: "32px",
+  left: "50%",
+  transform: "translateX(-50%)",
   margin: "0 auto",
   padding: "20px 40px",
   zIndex: 50,
@@ -18,6 +18,8 @@ export const navigationContainer = style({
       height: "52px",
       width: "100vw",
       top: 0,
+      left: 0,
+      transform: "none",
       borderRadius: "0px",
       padding: "0 16px"
     }
