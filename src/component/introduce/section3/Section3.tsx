@@ -10,7 +10,7 @@ const Section3 = () => {
   return (
     <div
       className={`flex ${
-        mounted && isMobile ? "!p-[0px] flex-col !mt-[60px]" : "!p-[120px]"
+        mounted && isMobile ? "!p-[0px] flex-col !mt-[60px]" : "!pt-[120px]"
       } gap-[120px]`}
     >
       <div
@@ -21,7 +21,7 @@ const Section3 = () => {
         <SectionTitle EnglishTitle='Pastor' KoreanTitle='목사님' />
         <div
           className={`flex flex-col gap-[24px] ${
-            mounted && isMobile && "!p-[20px]"
+            mounted && isMobile ? "!p-[20px]" : "!p-[120px]"
           }`}
         >
           <div className='flex flex-col gap-[8px]'>

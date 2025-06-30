@@ -20,6 +20,7 @@ const SectionTitle = ({
         className={`!text-[#0E4287] ${
           mounted && isMobile ? "!text-[40px]" : "!text-[80px]"
         }`}
+        fontFamily='Poppins'
       >
         {EnglishTitle}
       </Typography>
