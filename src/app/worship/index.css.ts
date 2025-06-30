@@ -15,12 +15,14 @@ export const worshipContainer = style({
 
 export const worshipWrapper = style({
   width: "100%",
+  maxWidth: "1680px",
   height: "100%",
   textAlign: "center",
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
+  margin: "0 auto",
   gap: "60px",
   "@media": {
     "(max-width: 1280px)": {

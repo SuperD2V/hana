@@ -1,6 +1,10 @@
 "use client";
 
-import { SubMenu, Typography, useResponsiveTypography } from "@/component/shared";
+import {
+  SubMenu,
+  Typography,
+  useResponsiveTypography
+} from "@/component/shared";
 import {
   title,
   worshipContainer,
@@ -21,7 +25,12 @@ export default function Worship() {
   return (
     <div className={worshipContainer}>
       <div className={worshipWrapper}>
-        <Typography variant={  mounted && isMobile ? "largetitle2Semibold" : "largetitle2Bold"} className={title}>
+        <Typography
+          variant={
+            mounted && isMobile ? "largetitle2Semibold" : "largetitle2Bold"
+          }
+          className={title}
+        >
           예배안내
         </Typography>
         <SubMenu items={items} selectedKey={selected} onSelect={setSelected} />

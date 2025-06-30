@@ -1,12 +1,14 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { TypographyEn, useResponsiveTypography } from "@/component/shared";
 import * as styles from "./index.css";
 import { Card } from "./Card";
 import { ApplicationModal } from "./ApplicationModal";
 
 export const Schedule = () => {
+  const [selectedCardId, setSelectedCardId] = useState<number | null>(null);
+
   // 예시 데이터 - 실제로는 props나 API에서 받아올 수 있습니다
   const scheduleData = [
     {
@@ -22,6 +24,10 @@ export const Schedule = () => {
   ];
   const { mounted, isMobile } = useResponsiveTypography();
 
+  const handleCardClick = (cardId: number) => {
+    setSelectedCardId(cardId);
+  };
+
   if (!mounted) return null;
   return (
     <div className={styles.container}>
@@ -36,7 +42,13 @@ export const Schedule = () => {
 
         {scheduleData.map((item, index) => (
           <React.Fragment key={item.id}>
-            <Card date={item.date} title={item.title} teacher={item.teacher} />
+            <Card
+              date={item.date}
+              title={item.title}
+              teacher={item.teacher}
+              isSelected={selectedCardId === item.id}
+              onClick={() => handleCardClick(item.id)}
+            />
             {index < scheduleData.length - 1 && (
               <div className={styles.divider} />
             )}

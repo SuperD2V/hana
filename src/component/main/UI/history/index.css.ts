@@ -82,8 +82,8 @@ export const historySquare = style({
   overflowWrap: "break-word",
   "@media": {
     "(max-width: 768px)": {
-      width: "min(320px, 85vw)",
-      minWidth: "250px",
+      width: "188px !important",
+      height: "48px !important",
       marginLeft: "4%",
       padding: "12px 16px"
     }
@@ -97,8 +97,8 @@ export const historySquareFlipped = style({
   marginRight: "6.71875% !important",
   "@media": {
     "(max-width: 768px)": {
-      width: "min(320px, 85vw) !important",
-      minWidth: "250px !important",
+      width: "188px",
+      height: "48px",
       marginRight: "4% !important"
     }
   }
@@ -111,8 +111,8 @@ export const historySquareLast = style({
   padding: "16px 0",
   "@media": {
     "(max-width: 768px)": {
-      width: "min(320px, 85vw)",
-      minWidth: "250px",
+      width: "188px",
+      height: "48px",
       padding: "12px 0"
     }
   }

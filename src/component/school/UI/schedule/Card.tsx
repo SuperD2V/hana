@@ -11,16 +11,28 @@ interface CardProps {
   date: string;
   title: string;
   teacher: string;
+  isSelected?: boolean;
+  onClick?: () => void;
 }
 
-export const Card = ({ date, title, teacher }: CardProps) => {
+export const Card = ({
+  date,
+  title,
+  teacher,
+  isSelected = false,
+  onClick
+}: CardProps) => {
   // 날짜를 월과 일로 분리
   const [month, day] = date.split(" ");
   const { mounted, isMobile } = useResponsiveTypography();
 
   if (!mounted) return null;
   return (
-    <div className={styles.card}>
+    <div
+      className={`${styles.card} ${isSelected ? styles.cardSelected : ""}`}
+      onClick={onClick}
+      style={{ cursor: onClick ? "pointer" : "default" }}
+    >
       <div className={styles.cardLeft}>
         <div className={styles.cardDate}>
           <div className={styles.dateContainer}>

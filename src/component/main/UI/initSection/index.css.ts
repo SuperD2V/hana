@@ -24,6 +24,7 @@ export const homeWrapper = style({
 
 export const homeWrapperInner = style({
   width: "100%",
+  margin: "0 auto",
   height: "934px",
   backgroundColor: color.brand[100],
   backgroundImage: "url('/images/main.png')",
@@ -31,6 +32,7 @@ export const homeWrapperInner = style({
   backgroundPosition: "center",
   backgroundRepeat: "no-repeat",
   borderRadius: "0 0 40px 40px",
+  overflow: "hidden",
   "@media": {
     "screen and (max-width: 768px)": {
       height: "auto",
@@ -48,7 +50,7 @@ export const homeWrapperInner = style({
     },
     "screen and (max-width: 425px)": {
       height: "auto",
-      minHeight: "300px",
+      minHeight: "369px",
       aspectRatio: "16/9",
       backgroundSize: "cover",
       backgroundPosition: "center"

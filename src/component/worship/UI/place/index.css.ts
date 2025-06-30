@@ -41,6 +41,15 @@ export const iconLabel = style({
   fontSize: "16px"
 });
 
+export const iconImage = style({
+  width: "24px !important",
+  height: "24px !important",
+  minWidth: "24px !important",
+  minHeight: "24px !important",
+  maxWidth: "24px !important",
+  maxHeight: "24px !important"
+});
+
 export const infoValue = style({
   marginLeft: "16px",
   color: "#222",

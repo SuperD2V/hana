@@ -219,6 +219,13 @@ export const newsItem = style({
     "&:hover": {
       background: "#F5F9FF"
     }
+  },
+  "@media": {
+    "screen and (max-width: 768px)": {
+      flexDirection: "column",
+      alignItems: "flex-start",
+      gap: "8px"
+    }
   }
 });
 
@@ -232,9 +239,20 @@ export const badge = style({
   borderRadius: "8px",
   fontSize: "14px",
   fontWeight: 600,
+  width: "52px",
+  height: "42px",
   padding: "4px 12px",
   marginRight: "16px",
-  display: "inline-block"
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  textAlign: "center",
+  "@media": {
+    "screen and (max-width: 768px)": {
+      width: "48px",
+      height: "36px"
+    }
+  }
 });
 
 export const newsTitle = style({

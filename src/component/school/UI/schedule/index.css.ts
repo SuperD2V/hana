@@ -3,7 +3,6 @@ import { style } from "@vanilla-extract/css";
 
 export const container = style({
   maxWidth: "1680px",
-  height: "910px",
   width: "100%",
   margin: "0 auto",
   display: "flex",
@@ -29,7 +28,7 @@ export const scheduleList = style({
 
 export const divider = style({
   height: "1px",
-  backgroundColor: color.gray[300],
+  backgroundColor: color.gray[200],
   margin: "20px 0",
   width: "100%"
 });
@@ -37,12 +36,19 @@ export const divider = style({
 export const card = style({
   display: "flex",
   justifyContent: "space-between",
+  padding: "20px",
+  borderRadius: "8px",
+  transition: "background-color 0.2s ease",
   "@media": {
     "(max-width: 768px)": {
       flexDirection: "column",
       gap: "16px"
     }
   }
+});
+
+export const cardSelected = style({
+  backgroundColor: color.brand[100]
 });
 
 export const cardContent = style({

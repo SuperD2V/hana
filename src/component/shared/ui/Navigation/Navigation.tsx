@@ -88,10 +88,7 @@ export function Navigation() {
               height={36}
             />
           </Link>
-          <Link
-            href='https://www.facebook.com/hanavision.official/'
-            target='_blank'
-          >
+          <Link href='https://www.facebook.com/hanavisionch' target='_blank'>
             <Image
               src='/images/facebook.png'
               alt='facebook'
@@ -148,7 +145,7 @@ export function Navigation() {
                 height={28}
               />
             </Link>
-            <Link href='https://www.facebook.com/hanavision.official/'>
+            <Link href='https://www.facebook.com/hanavisionch'>
               <Image
                 src='/images/facebook.png'
                 alt='facebook'
