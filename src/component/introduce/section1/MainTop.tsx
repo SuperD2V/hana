@@ -1,9 +1,9 @@
 "use client";
 import Image from "next/image";
 import React from "react";
-import hanaVisionImg from "../../../../public/images/hanaVision.png";
-import knowGrowFlowImg from "../../../../public/images/know_grow_flow.png";
-import knowGrowFlowMobileImg from "../../../../public/images/know_grow_flow_mobile.png";
+import hanaVisionImg from "/images/hanaVision.png";
+import knowGrowFlowImg from "/images/know_grow_flow.png";
+import knowGrowFlowMobileImg from "/images/know_grow_flow_mobile.png";
 
 import { Typography } from "@/component/shared";
 import { useResponsiveTypography } from "@/component/shared";
