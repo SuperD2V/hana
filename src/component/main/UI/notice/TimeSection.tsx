@@ -64,7 +64,7 @@ const TimeSection = () => {
                 variant={
                   mounted && isMobile ? "body1Medium" : "headlineRegular"
                 }
-                className={timePlace}
+                className={`${timePlace} break-words`}
               >
                 비전홀
               </Typography>
@@ -93,7 +93,7 @@ const TimeSection = () => {
                 variant={
                   mounted && isMobile ? "body1Medium" : "headlineRegular"
                 }
-                className={timePlace}
+                className={`${timePlace} break-words`}
               >
                 비전홀
               </Typography>
@@ -122,7 +122,7 @@ const TimeSection = () => {
                 variant={
                   mounted && isMobile ? "body1Medium" : "headlineRegular"
                 }
-                className={timePlace}
+                className={`${timePlace} break-words`}
               >
                 하나홀
               </Typography>
@@ -151,7 +151,7 @@ const TimeSection = () => {
                 variant={
                   mounted && isMobile ? "body1Medium" : "headlineRegular"
                 }
-                className={timePlace}
+                className={`${timePlace} break-words`}
               >
                 교육관(서울베이커리)
               </Typography>
@@ -180,7 +180,7 @@ const TimeSection = () => {
                 variant={
                   mounted && isMobile ? "body1Medium" : "headlineRegular"
                 }
-                className={timePlace}
+                className={`${timePlace} break-words`}
               >
                 하나홀
               </Typography>

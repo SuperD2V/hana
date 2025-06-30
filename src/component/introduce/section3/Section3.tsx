@@ -1,7 +1,7 @@
 import React from "react";
 import SectionTitle from "../SectionTitle";
 import Image from "next/image";
-import pasterImg from "../../../../public/images/paster.png";
+
 import { Typography } from "@/component/shared";
 import { useResponsiveTypography } from "@/component/shared";
 
@@ -10,7 +10,7 @@ const Section3 = () => {
   return (
     <div
       className={`flex ${
-        mounted && isMobile ? "!p-[0px] flex-col !mt-[60px]" : "!p-[120px]"
+        mounted && isMobile ? "!p-[0px] flex-col !mt-[60px]" : "!pt-[120px]"
       } gap-[120px]`}
     >
       <div
@@ -21,7 +21,7 @@ const Section3 = () => {
         <SectionTitle EnglishTitle='Pastor' KoreanTitle='목사님' />
         <div
           className={`flex flex-col gap-[24px] ${
-            mounted && isMobile && "!p-[20px]"
+            mounted && isMobile ? "!p-[20px]" : "!p-[120px]"
           }`}
         >
           <div className='flex flex-col gap-[8px]'>
@@ -60,7 +60,7 @@ const Section3 = () => {
       {mounted && isMobile ? (
         <div className='w-full h-[400px] relative !px-[20px]'>
           <Image
-            src={pasterImg}
+            src='/images/paster.png'
             alt='pastor'
             fill
             style={{ objectFit: "cover", padding: "20px" }}
@@ -69,7 +69,7 @@ const Section3 = () => {
       ) : (
         <div className='relative'>
           <Image
-            src={pasterImg}
+            src='/images/paster.png'
             alt='pastor'
             width={499}
             height={454}

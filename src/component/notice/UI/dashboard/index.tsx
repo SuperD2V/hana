@@ -19,7 +19,7 @@ import {
 } from "@/component/shared";
 import { Pagination } from "./Pagination";
 import { SubMenuItem } from "@/component/shared/ui/subMenu";
-
+import { useRouter } from "next/navigation";
 const dummyData: { no: number; title: string; views: number }[] = [];
 
 const noticeData = [
@@ -33,18 +33,19 @@ const items: SubMenuItem[] = [
 ];
 
 export const Dashboard = () => {
-  const { isMobile } = useResponsiveTypography();
+  const { mounted, isMobile } = useResponsiveTypography();
   const [page, setPage] = React.useState(1);
   const [selected, setSelected] = useState(items[0].key);
+  const router = useRouter();
 
   const data = selected === "notice" ? noticeData : dummyData;
 
   return (
     <div className={noticeContainer}>
       <div className={noticeWrapper}>
-        <TypographyEn variant='largetitle2' className={title}>
+        <Typography variant={ mounted && isMobile ? "largetitle2Semibold" : "largetitle2Bold"} className={title}>
           공지 및 주보
-        </TypographyEn>
+        </Typography>
         <SubMenu items={items} selectedKey={selected} onSelect={setSelected} />
         <div style={{ width: "100%", maxWidth: "1680px", padding: "16px" }}>
           <table className={table}>
@@ -75,7 +76,11 @@ export const Dashboard = () => {
                   <td className={tdLeft}>
                     <Typography variant='headlineMedium'>{item.no}</Typography>
                   </td>
-                  <td className={tdCenter}>
+                  <td
+                    className={tdCenter}
+                    style={{ cursor: "pointer" }}
+                    onClick={() => router.push(`/notice/${item.no}`)}
+                  >
                     <Typography variant='title3Medium'>{item.title}</Typography>
                   </td>
                   <td className={tdRight}>

@@ -23,7 +23,11 @@ export const noticeWrapper = style({
   }
 });
 export const title = style({
-  color: color.brand[700]
+  color: "#1B5FB8",
+  textAlign: "center",
+  fontWeight: "800",
+  fontSize: "60px",
+  lineHeight: "72px"
 });
 
 export const table = style({

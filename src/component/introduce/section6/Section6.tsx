@@ -1,6 +1,6 @@
 import React from "react";
 import { Typography } from "@/component/shared";
-import arrowImg from "../../../../public/images/arrow.png";
+
 import Image from "next/image";
 import Button from "../Button";
 import { useResponsiveTypography } from "@/component/shared";
@@ -48,16 +48,20 @@ const Section6 = () => {
             1교회
           </Typography>
           <Image
-            src={arrowImg}
+            src='/images/arrow.png'
             alt='arrow'
+            width={34}
+            height={22}
             className={`w-[24px] ${mounted && isMobile && "rotate-[90deg]"}`}
           />
           <Typography variant='title2Bold' className='!text-[#1B5FB8]'>
             하나교회
           </Typography>
           <Image
-            src={arrowImg}
+            src='/images/arrow.png'
             alt='arrow'
+            width={34}
+            height={22}
             className={`w-[24px] ${mounted && isMobile && "rotate-[90deg]"}`}
           />
           <Typography variant='title2Bold' className='!text-[#1B5FB8]'>

@@ -1,9 +1,6 @@
 "use client";
 import Image from "next/image";
 import React from "react";
-import hanaVisionImg from "../../../../public/images/hanaVision.png";
-import knowGrowFlowImg from "../../../../public/images/know_grow_flow.png";
-import knowGrowFlowMobileImg from "../../../../public/images/know_grow_flow_mobile.png";
 
 import { Typography } from "@/component/shared";
 import { useResponsiveTypography } from "@/component/shared";
@@ -14,7 +11,7 @@ const MainTop = () => {
   return (
     <div className='w-full h-full flex flex-col items-center justify-center gap-10'>
       <Image
-        src={hanaVisionImg}
+        src='/images/hanaVision.png'
         alt='mainTop'
         width={mounted && isMobile ? 288 : 720}
         height={mounted && isMobile ? 192 : 360}
@@ -40,9 +37,13 @@ const MainTop = () => {
         </Typography>
       </div>
       <Image
-        src={mounted && isMobile ? knowGrowFlowMobileImg : knowGrowFlowImg}
+        src={
+          mounted && isMobile
+            ? "/images/know_grow_flow_mobile.png"
+            : "/images/know_grow_flow.png"
+        }
         alt='mainTop'
-        // width={720}
+        width={mounted && isMobile ? 335 : 720}
         height={mounted && isMobile ? 875 : 414}
         className='w-full'
       />

@@ -4,16 +4,27 @@ interface TypographyProps {
   variant?: keyof typeof text;
   children: React.ReactNode;
   className?: string;
+  fontFamily?: string;
+  style?: React.CSSProperties;
 }
 
 export const Typography: React.FC<TypographyProps> = ({
   variant = "body1Regular",
   children,
-  className = ""
+  className = "",
+  style = {},
+  fontFamily = "Pretendard"
 }) => {
   const textClass = text[variant];
 
-  return <span className={`${textClass} ${className}`}>{children}</span>;
+  return (
+    <span
+      className={`${textClass} ${className}`}
+      style={{ ...style, fontFamily }}
+    >
+      {children}
+    </span>
+  );
 };
 
 // 편의를 위한 특정 타이포그래피 컴포넌트들
