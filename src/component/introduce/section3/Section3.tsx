@@ -1,7 +1,7 @@
 import React from "react";
 import SectionTitle from "../SectionTitle";
 import Image from "next/image";
-import pasterImg from "/images/paster.png";
+
 import { Typography } from "@/component/shared";
 import { useResponsiveTypography } from "@/component/shared";
 
@@ -60,7 +60,7 @@ const Section3 = () => {
       {mounted && isMobile ? (
         <div className='w-full h-[400px] relative !px-[20px]'>
           <Image
-            src={pasterImg}
+            src='/images/paster.png'
             alt='pastor'
             fill
             style={{ objectFit: "cover", padding: "20px" }}
@@ -69,7 +69,7 @@ const Section3 = () => {
       ) : (
         <div className='relative'>
           <Image
-            src={pasterImg}
+            src='/images/paster.png'
             alt='pastor'
             width={499}
             height={454}

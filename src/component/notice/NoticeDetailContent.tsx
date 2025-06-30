@@ -2,7 +2,6 @@ import React from "react";
 import { Typography } from "@/component/shared";
 import { useResponsiveTypography } from "@/component/shared";
 import Image from "next/image";
-import fileImage from "/images/file.png";
 import Button from "../introduce/Button";
 
 const NoticeDetailContent = () => {
@@ -137,7 +136,7 @@ const NoticeDetailContent = () => {
             backgroundColor: "#FAFAF9"
           }}
         >
-          <Image src={fileImage} alt='file' width={64} height={64} />
+          <Image src='/images/file.png' alt='file' width={64} height={64} />
           {noticeData.attachments.map((attachment, index) => (
             <div key={index} className='flex items-center gap-3 mb-3'>
               {/* 파일 아이콘 */}
