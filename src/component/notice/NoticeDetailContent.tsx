@@ -4,10 +4,15 @@ import { useResponsiveTypography } from "@/component/shared";
 import Image from "next/image";
 import Button from "../introduce/Button";
 
-const NoticeDetailContent = () => {
+interface NoticeDetailContentProps {
+  id: string;
+}
+
+const NoticeDetailContent = ({ id }: NoticeDetailContentProps) => {
   const { mounted, isMobile } = useResponsiveTypography();
 
   const noticeData = {
+    id: id,
     title: "공지의 제목이 들어갑니다",
     category: "등록일",
     date: "2025.05.20",

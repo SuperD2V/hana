@@ -19,7 +19,7 @@ import {
 } from "@/component/shared";
 import { Pagination } from "./Pagination";
 import { SubMenuItem } from "@/component/shared/ui/subMenu";
-
+import { useRouter } from "next/navigation";
 const dummyData: { no: number; title: string; views: number }[] = [];
 
 const noticeData = [
@@ -36,6 +36,7 @@ export const Dashboard = () => {
   const { isMobile } = useResponsiveTypography();
   const [page, setPage] = React.useState(1);
   const [selected, setSelected] = useState(items[0].key);
+  const router = useRouter();
 
   const data = selected === "notice" ? noticeData : dummyData;
 
@@ -75,7 +76,11 @@ export const Dashboard = () => {
                   <td className={tdLeft}>
                     <Typography variant='headlineMedium'>{item.no}</Typography>
                   </td>
-                  <td className={tdCenter}>
+                  <td
+                    className={tdCenter}
+                    style={{ cursor: "pointer" }}
+                    onClick={() => router.push(`/notice/${item.no}`)}
+                  >
                     <Typography variant='title3Medium'>{item.title}</Typography>
                   </td>
                   <td className={tdRight}>
