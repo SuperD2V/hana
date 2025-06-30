@@ -33,7 +33,7 @@ const items: SubMenuItem[] = [
 ];
 
 export const Dashboard = () => {
-  const { isMobile } = useResponsiveTypography();
+  const { mounted, isMobile } = useResponsiveTypography();
   const [page, setPage] = React.useState(1);
   const [selected, setSelected] = useState(items[0].key);
   const router = useRouter();
@@ -43,9 +43,9 @@ export const Dashboard = () => {
   return (
     <div className={noticeContainer}>
       <div className={noticeWrapper}>
-        <TypographyEn variant='largetitle2' className={title}>
+        <Typography variant={ mounted && isMobile ? "largetitle2Semibold" : "largetitle2Bold"} className={title}>
           공지 및 주보
-        </TypographyEn>
+        </Typography>
         <SubMenu items={items} selectedKey={selected} onSelect={setSelected} />
         <div style={{ width: "100%", maxWidth: "1680px", padding: "16px" }}>
           <table className={table}>
