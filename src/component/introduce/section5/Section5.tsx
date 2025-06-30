@@ -23,7 +23,7 @@ const Section5 = () => {
       } flex flex-col gap-[40px]`}
     >
       <div
-        className={`flex flex-col   ${
+        className={`flex flex-row  items-baseline ${
           mounted && isMobile
             ? "!px-[20px] gap-[20px]"
             : "!px-[120px] gap-[40px]"
@@ -34,11 +34,12 @@ const Section5 = () => {
           className={`!text-[#0E4287] ${
             mounted && isMobile ? "!text-[40px]" : "!text-[80px]"
           }`}
+          fontFamily='Poppins'
         >
           {EnglishTitle}
         </Typography>
         <Typography
-          variant={mounted && isMobile ? "title3Semibold" : "title1Semibold"}
+          variant={mounted && isMobile ? "title1Semibold" : "title1Semibold"}
           className={`!text-[#0E4287] ${
             mounted && isMobile ? "!text-[20px]" : "!text-[28px]"
           }`}
