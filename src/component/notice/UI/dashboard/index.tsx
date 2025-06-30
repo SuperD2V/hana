@@ -86,7 +86,7 @@ export const Dashboard = () => {
             </tbody>
           </table>
         </div>
-        <Pagination current={page} total={data.length} onChange={setPage} />
+        <Pagination current={page} total={2} onChange={setPage} />
       </div>
     </div>
   );

@@ -90,18 +90,16 @@ export const leftBox = style({
   maxWidth: "1046px",
   "@media": {
     "screen and (max-width: 1440px)": {
-      flexBasis: "700px",
-      maxWidth: "700px"
+      flexBasis: "60%",
+      maxWidth: "60%"
     },
     "screen and (max-width: 1280px)": {
-      flexBasis: "100%",
-      maxWidth: "100%",
-      width: "100%"
+      flexBasis: "60%",
+      maxWidth: "60%"
     },
     "screen and (max-width: 1024px)": {
-      flexBasis: "100%",
-      maxWidth: "100%",
-      width: "100%"
+      flexBasis: "60%",
+      maxWidth: "60%"
     },
     "screen and (max-width: 768px)": {
       height: "611px",
@@ -122,23 +120,24 @@ export const rightBox = style({
   height: "675px",
   "@media": {
     "screen and (max-width: 1440px)": {
-      flexBasis: "100%",
-      maxWidth: "100%",
-      width: "100%"
+      flexBasis: "40%",
+      maxWidth: "40%",
+      minWidth: "400px"
     },
     "screen and (max-width: 1280px)": {
-      flexBasis: "100%",
-      maxWidth: "100%",
-      width: "100%"
+      flexBasis: "40%",
+      maxWidth: "40%",
+      minWidth: "350px"
     },
     "screen and (max-width: 1024px)": {
-      flexBasis: "100%",
-      maxWidth: "100%",
-      width: "100%"
+      flexBasis: "40%",
+      maxWidth: "40%",
+      minWidth: "300px"
     },
     "screen and (max-width: 768px)": {
       flexDirection: "column",
       width: "100%",
+      maxWidth: "100%",
       gap: "16px",
       height: "auto"
     }
