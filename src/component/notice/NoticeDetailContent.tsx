@@ -2,7 +2,7 @@ import React from "react";
 import { Typography } from "@/component/shared";
 import { useResponsiveTypography } from "@/component/shared";
 import Image from "next/image";
-import fileImage from "../../../public/images/file.png";
+import fileImage from "/images/file.png";
 import Button from "../introduce/Button";
 
 const NoticeDetailContent = () => {

@@ -1,6 +1,6 @@
 import React from "react";
 import { Typography } from "@/component/shared";
-import arrowImg from "../../../../public/images/arrow.png";
+import arrowImg from "/images/arrow.png";
 import Image from "next/image";
 import Button from "../Button";
 import { useResponsiveTypography } from "@/component/shared";

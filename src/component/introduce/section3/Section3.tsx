@@ -1,7 +1,7 @@
 import React from "react";
 import SectionTitle from "../SectionTitle";
 import Image from "next/image";
-import pasterImg from "../../../../public/images/paster.png";
+import pasterImg from "/images/paster.png";
 import { Typography } from "@/component/shared";
 import { useResponsiveTypography } from "@/component/shared";
 
