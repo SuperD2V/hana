@@ -1,11 +1,6 @@
 import { style } from "@vanilla-extract/css";
 import { color } from "@/component/shared/designed/color";
 
-export const homeContainer = style({
-  width: "100%",
-  height: "100vh"
-});
-
 export const homeWrapper = style({
   width: "100%",
   height: "934px",
@@ -13,11 +8,13 @@ export const homeWrapper = style({
   "@media": {
     "screen and (max-width: 768px)": {
       height: "auto",
-      minHeight: "369px"
+      minHeight: "369px",
+      marginTop: "52px"
     },
     "screen and (max-width: 425px)": {
       height: "auto",
-      minHeight: "300px"
+      minHeight: "300px",
+      marginTop: "52px"
     }
   }
 });
@@ -25,6 +22,7 @@ export const homeWrapper = style({
 export const homeWrapperInner = style({
   width: "100%",
   margin: "0 auto",
+  padding: "0 20px",
   height: "934px",
   backgroundColor: color.brand[100],
   backgroundImage: "url('/images/main.png')",
