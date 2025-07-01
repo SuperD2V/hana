@@ -15,8 +15,8 @@ const page = () => {
   const { mounted, isMobile } = useResponsiveTypography();
 
   return (
-    <div className='bg-[#FFFDF5]'>
-     {mounted && isMobile && (
+    <div className={`bg-[#FFFDF5] ${mounted && isMobile ? "mt-[-54px]" : ""}`}>
+    {mounted && isMobile && (
        <IntroduceNavigation />
      )}
       <div className='w-full bg-[#1350A0]'>
@@ -39,7 +39,7 @@ const page = () => {
         >
           <CategoryList />
         </div>
-      )}
+      )} 
       <div
         style={{
           padding: mounted && isMobile ? "60px 20px" : "120px 120px 98px 120px"

@@ -93,7 +93,8 @@ const Section4 = () => {
         {departmentData.map((dept, index) => (
           <div
             key={index}
-            className={`flex-shrink-0 flex flex-col items-center justify-center p-[16px] rounded-[8px] bg-[#FAFAF9]`}
+            className={`flex-shrink-0 flex flex-col items-center justify-center !p-[16px] rounded-[8px]  bg-[#FAFAF9]
+              `}
             style={
               mounted && isMobile
                 ? { width: "277px", minWidth: "277px" }

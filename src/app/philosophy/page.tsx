@@ -11,6 +11,7 @@ import PhilosophyCategory from "./PhilosophyCategory";
 import { usePhilosophyStore } from "../../../hooks/store/usePhilosophyStore";
 import { useShallow } from "zustand/shallow";
 import { useResponsiveTypography } from "@/component/shared";
+
 export default function Philosophy() {
   const philosophyContent = PhilosophyContent;
   const { mounted, isMobile } = useResponsiveTypography();
@@ -74,9 +75,10 @@ export default function Philosophy() {
             : {
                 gap: 10,
                 borderRadius: 20,
-                paddingTop: 40,
-                paddingBottom: 40,
-                backgroundColor: "#FFF"
+                padding: "40px 209px",
+                backgroundColor: "#FFF",
+                boxShadow: "0px 0px 20px 0px #2C25070A",
+                marginBottom: "160px"
               }
         }
       >

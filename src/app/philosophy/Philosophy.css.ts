@@ -4,7 +4,8 @@ export const philosophyContainer = style({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  justifyContent: "center"
+  justifyContent: "center",
+  backgroundColor: "#FFFDF5"
 });
 
 export const PhilosophyTitle = style({
@@ -31,8 +32,9 @@ export const PhilosophyContentStyle = style({
   fontSize: "18px",
   lineHeight: "28px",
   fontWeight: "400",
-  padding: "40px 209px",
   marginTop: "20px",
   whiteSpace: "pre-line",
-  marginBottom: "20px"
+  marginBottom: "20px",
+  textAlign: 'left',
+  wordWrap: 'break-word'
 });

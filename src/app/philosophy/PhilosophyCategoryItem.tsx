@@ -16,13 +16,15 @@ const PhilosophyCategoryItem = ({
 }) => {
   const { mounted, isMobile } = useResponsiveTypography();
   return (
-    <div className='flex items-center' style={style}>
+    <div className='flex items-center justify-center' style={style}>
       <div
-        className={`${
+        className={`
+          
+          ${
           isSelected ? "bg-white " : ""
         }  rounded-[999px] cursor-pointer`}
         style={{
-          padding: mounted && isMobile ? "12px 20px" : "12px 32px",
+          padding: mounted && isMobile ? "12px 15px" : "12px 32px",
           color: isSelected ? "#F5F9FF" : "#44423C",
           backgroundColor: isSelected ? "#1B5FB8" : "transparent",
           textAlign: "center"
@@ -30,6 +32,7 @@ const PhilosophyCategoryItem = ({
         onClick={onClick}
       >
         <Typography
+          className="whitespace-nowrap"
           variant={isMobile && mounted ? "headlineSemibold" : "title1Semibold"}
         >
           {title}
@@ -37,8 +40,8 @@ const PhilosophyCategoryItem = ({
       </div>
       {!isLast && (
         <div
-          className='w-[1px] h-[16px] bg-blue-500'
-          style={{ margin: "0 16px" }}
+          className='w-[1px] h-[16px] bg-[#D6D4D1]'
+          style={{ margin: "0 auto", zIndex: 10 }}
         />
       )}
     </div>
