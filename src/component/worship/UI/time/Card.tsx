@@ -16,7 +16,7 @@ export const Card = ({
 }: CardProps) => {
   return (
     <div className={styles.card}>
-      <div>
+      <div className={styles.textContainer}>
         <Typography
           variant={isMobile ? "title2Medium" : "title1Medium"}
           className={styles.title}

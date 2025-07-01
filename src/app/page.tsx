@@ -17,7 +17,6 @@ export default function Home() {
       <LineBanner />
       <Calendar />
       <Notice />
-
       <FloatingBar />
     </div>
   );

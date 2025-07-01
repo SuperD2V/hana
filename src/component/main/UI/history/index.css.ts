@@ -2,7 +2,7 @@ import { color } from "@/component/shared/designed/color";
 import { style } from "@vanilla-extract/css";
 
 export const historyContainer = style({
-  width: "100vw",
+  width: "100%",
   backgroundColor: color.brand[100],
   display: "flex",
   flexDirection: "column",
@@ -66,8 +66,7 @@ export const historyLine = style({
 export const historySquare = style({
   width: "min(371px, 90vw)",
   minWidth: "280px",
-  height: "auto",
-  minHeight: "104px",
+  height: "104px",
   backgroundColor: color.brand[200],
   border: `1px solid ${color.brand[600]}`,
   borderRadius: "999px",
@@ -77,13 +76,11 @@ export const historySquare = style({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  padding: "16px 20px",
   wordBreak: "keep-all",
   overflowWrap: "break-word",
+  padding: "40px 28px",
   "@media": {
     "(max-width: 768px)": {
-      width: "188px !important",
-      height: "48px !important",
       marginLeft: "4%",
       padding: "12px 16px"
     }
@@ -97,8 +94,6 @@ export const historySquareFlipped = style({
   marginRight: "6.71875% !important",
   "@media": {
     "(max-width: 768px)": {
-      width: "188px",
-      height: "48px",
       marginRight: "4% !important"
     }
   }
@@ -111,8 +106,6 @@ export const historySquareLast = style({
   padding: "16px 0",
   "@media": {
     "(max-width: 768px)": {
-      width: "188px",
-      height: "48px",
       padding: "12px 0"
     }
   }
@@ -137,7 +130,6 @@ export const lastKeywordContainer = style({
   display: "flex",
   flexDirection: "column",
   gap: "4px",
-  maxWidth: "100%",
   "@media": {
     "(max-width: 768px)": {
       alignItems: "flex-start",
@@ -159,9 +151,9 @@ export const textLineClamp = style({
 export const responsiveKeyword = style({
   "@media": {
     "(max-width: 768px)": {
-      fontSize: "20px !important",
-      lineHeight: "28px !important",
-      fontWeight: "700 !important"
+      fontSize: "20px",
+      lineHeight: "28px",
+      fontWeight: "700"
     }
   }
 });

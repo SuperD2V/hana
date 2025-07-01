@@ -35,7 +35,13 @@ export const titleContainer = style({
   flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
-  gap: "12px"
+  gap: "12px",
+  "@media": {
+    "(max-width: 768px)": {
+      width: "332px",
+      margin: "0 auto"
+    }
+  }
 });
 
 export const title = style({
@@ -55,9 +61,15 @@ export const card = style({
   "@media": {
     "(max-width: 768px)": {
       width: "100%",
-      maxWidth: "320px"
+      maxWidth: "332px"
     }
   }
+});
+
+export const textContainer = style({
+  display: "flex",
+  flexDirection: "column",
+  gap: "12px"
 });
 
 export const description = style({
@@ -74,14 +86,19 @@ export const timeContainer = style({
 });
 
 export const buttonContainer = style({
+  marginLeft: "auto",
+  marginRight: "auto",
   display: "flex",
   justifyContent: "center",
+  alignItems: "center",
   width: "100%",
   gap: "12px",
   "@media": {
     "(max-width: 768px)": {
+      width: "332px",
       flexDirection: "column",
-      alignItems: "center"
+      alignItems: "center",
+      justifyContent: "center"
     }
   }
 });
@@ -95,8 +112,7 @@ export const button = style({
   cursor: "pointer",
   "@media": {
     "(max-width: 768px)": {
-      width: "100%",
-      maxWidth: "240px"
+      width: "332px"
     }
   }
 });
