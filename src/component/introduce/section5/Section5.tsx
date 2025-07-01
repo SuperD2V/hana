@@ -23,7 +23,7 @@ const Section5 = () => {
       } flex flex-col gap-[40px]`}
     >
       <div
-        className={`flex flex-row  items-baseline ${
+        className={`flex ${mounted && isMobile ? "flex-col" : "flex-row"}  items-baseline ${
           mounted && isMobile
             ? "!px-[20px] gap-[20px]"
             : "!px-[120px] gap-[40px]"
@@ -87,11 +87,16 @@ const Section5 = () => {
             {circleData.map((item, index) => (
               <div
                 key={index}
-                className='w-[120px] h-[120px] rounded-full bg-white flex items-center justify-center !px-[21.5px] !py-[32px]'
+                className={`${mounted && isMobile ? "w-[30%] h-[106px]" : "w-[120px] h-[120px]"} rounded-full bg-white flex items-center justify-center  ${mounted && isMobile ? "!px-[17px] !py-[17.5px]" : "!px-[32px] !py-[37px]"}`}
               >
                 <Typography
-                  variant='caption1Medium'
-                  className='text-center text-[#1B5FB8] !text-[16px] leading-[20px]'
+                  variant={`${mounted && isMobile ? 'body1Medium' : 'headlineSemibold'}`}
+                  className=' text-center
+                              text-[#1B5FB8]
+                              !text-[16px]
+                              leading-[20px]
+                              whitespace-pre-wrap
+                              break-words'
                 >
                   {item.text}
                 </Typography>

@@ -10,7 +10,7 @@ const Section6 = () => {
   return (
     <div
       className={`flex ${
-        mounted && isMobile ? "flex-col gap-[40px]" : "flex-row"
+        mounted && isMobile ? "flex-col gap-[40px]" : "flex-row gap-[20px]"
       } justify-between items-center ${
         mounted && isMobile ? "!px-[20px]" : "!px-[120px]"
       } !py-[100px]`}
@@ -18,7 +18,7 @@ const Section6 = () => {
       {/* 왼쪽 영역: 교회 이름 변천사 */}
       <div
         className={`flex flex-col items-center rounded-[20px] bg-[#FFFFFF] ${
-          mounted && isMobile ? "h-full" : "h-[396px]"
+          mounted && isMobile ? "h-full w-full" : "h-[396px] w-[68.8%]"
         }  !p-[40px]`}
       >
         <Typography
@@ -36,14 +36,14 @@ const Section6 = () => {
           하나교회로, (본질 개척되면서) 하나교회가 하나비전교회로 되었습니다.
           조직에서 시작되었지만, 이름이 변화되면서 '함께 하나님 나라를
           바라본다'(하나비전)는 의미를 가지게 되었습니다. (원천하나비전교회는
-          줄여서 하나비전교회로 부릅니다.)
+          줄여서 하나비전교회로 부릅니다.) 
         </Typography>
 
         <div
           className={`flex ${
             mounted && isMobile && "flex-col"
           } items-center gap-[12px] !mt-[40px] bg-[#F5F9FF] rounded-[12px] w-full !py-[20px] justify-center !mb-[20px]`}
-        >
+        > 
           <Typography variant='title2Bold' className='!text-[#1B5FB8]'>
             1교회
           </Typography>
@@ -75,7 +75,7 @@ const Section6 = () => {
       {/* 오른쪽 영역: 소속 정보 */}
       <div
         className={`flex flex-col items-center rounded-[20px] bg-[#FFFFFF] ${
-          mounted && isMobile ? "h-full" : "h-[396px]"
+          mounted && isMobile ? "h-full w-full" : "h-[396px] w-[31.2%]"
         }  !p-[40px]`}
       >
         <Typography

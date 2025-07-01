@@ -28,7 +28,7 @@ export function Navigation() {
   const pathName = usePathname();
 
   const width = useWindowWidth();
-  const isMobile = width < 1280; // 예: 2xl 기준
+  const isMobile = width && width < 1280; // 예: 2xl 기준
 
   useEffect(() => {
     if (!isMobile) setIsMobileMenuOpen(false);
@@ -161,12 +161,11 @@ export function Navigation() {
 }
 
 export function useWindowWidth() {
-  const [width, setWidth] = useState(
-    typeof window !== "undefined" ? window.innerWidth : 0
-  );
+  const [width, setWidth] = useState<number | undefined>(undefined);
 
   useEffect(() => {
     const handleResize = () => setWidth(window.innerWidth);
+    handleResize(); // 초기 실행
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
