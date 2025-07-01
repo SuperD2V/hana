@@ -6,6 +6,7 @@ import {
   Calendar,
   Notice
 } from "@/component/main";
+import { FloatingBar } from "@/component/main/UI/floatingMenu";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
@@ -16,6 +17,8 @@ export default function Home() {
       <LineBanner />
       <Calendar />
       <Notice />
+
+      <FloatingBar />
     </div>
   );
 }

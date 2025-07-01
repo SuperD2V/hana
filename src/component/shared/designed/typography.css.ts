@@ -212,6 +212,12 @@ export const typographyEn = {
     })
   },
   largetitle_03: {
+    extrabold: style({
+      fontFamily: fontFamily.poppins,
+      fontSize: "40px",
+      lineHeight: "48px",
+      fontWeight: fontWeight.extrabold
+    }),
     bold: style({
       fontFamily: fontFamily.poppins,
       fontSize: "40px",
@@ -317,6 +323,7 @@ export const textEn = {
   // Large Title
   largetitle1: typographyEn.largetitle_01.bold,
   largetitle2: typographyEn.largetitle_02.extrabold,
+  largetitle3ExtraBold: typographyEn.largetitle_03.extrabold,
   largetitle3Bold: typographyEn.largetitle_03.bold,
   largetitle3Medium: typographyEn.largetitle_03.medium,
 
