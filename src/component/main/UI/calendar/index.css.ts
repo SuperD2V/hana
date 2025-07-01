@@ -19,8 +19,8 @@ export const calendarContainer = style({
     },
     "(max-width: 768px)": {
       padding: "40px 0 24px 0",
-      height: "auto",
-      marginBottom: "80px"
+      marginBottom: "80px",
+      height: "520px"
     }
   }
 });
@@ -40,7 +40,8 @@ export const calendarTitle = style({
   color: color.brand[800],
   display: "flex",
   alignItems: "center",
-  justifyContent: "flex-start"
+  justifyContent: "flex-start",
+  padding: "0 20px"
 });
 
 export const calendarContent = style({
@@ -116,18 +117,46 @@ export const cardContainer = style({
   borderRadius: "20px",
   padding: "20px",
   flexShrink: 0,
+  display: "flex",
+  flexDirection: "column",
   "@media": {
     "(max-width: 768px)": {
       width: "92%",
       height: "auto",
-      minHeight: "140px",
+      minHeight: "180px",
       padding: "16px"
     }
   }
 });
 
 export const cardTitle = style({
-  color: color.brand[900]
+  color: color.brand[900],
+  marginBottom: "8px"
+});
+
+export const cardDescription = style({
+  color: color.gray[900],
+  marginBottom: "48px",
+  "@media": {
+    "(max-width: 768px)": {
+      marginBottom: "24px"
+    }
+  }
+});
+
+export const cardDurationContainer = style({
+  display: "flex",
+  gap: "8px",
+  "@media": {
+    "(max-width: 768px)": {
+      flexDirection: "column",
+      gap: "4px"
+    }
+  }
+});
+
+export const cardDuration = style({
+  color: color.gray[600]
 });
 
 export const arrow = style({
@@ -142,7 +171,6 @@ export const arrow = style({
   "@media": {
     "(max-width: 768px)": {
       width: "32px",
-      height: "140px",
       minWidth: "32px",
       minHeight: "140px",
       borderRadius: "8px"
