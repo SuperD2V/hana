@@ -15,9 +15,9 @@ export const navigationContainer = style({
   borderRadius: "999px",
   "@media": {
     "(max-width: 1280px)": {
-      height: "52px",
+      height: "51px",
       width: "100vw",
-      top: 0,
+      top: -1,
       left: 0,
       transform: "none",
       borderRadius: "0px",

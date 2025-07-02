@@ -30,7 +30,7 @@ export const historyRight = style({
 
 export const number = style({
   color: color.brand[700],
-  lineHeight: "100% !important"
+  lineHeight: "100% !important",
 });
 
 export const historyLeftInner = style({
@@ -42,6 +42,7 @@ export const historyLeftInner = style({
   "@media": {
     "(max-width: 768px)": {
       gap: "10px",
+      textAlign: "center",
       paddingLeft: "4%",
       flexDirection: "column",
       alignItems: "center"
