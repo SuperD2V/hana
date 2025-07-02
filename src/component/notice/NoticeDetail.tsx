@@ -12,10 +12,10 @@ const NoticeDetail = ({ id }: NoticeDetailProps) => {
 
   return (
     <div
-      className={`flex flex-col gap-[20px] ${
+      className={`w-full h-full flex flex-col gap-[20px] bg-[#FFFDF5] ${
         isMobile && mounted
-          ? "!mt-[52px] !px-[20px]"
-          : "!mt-[192px] !px-[120px]"
+          ? "!pt-[92px] !px-[20px]"
+          : "!pt-[192px] !px-[120px]"
       } `}
     >
       <div className='flex justify-start'>
