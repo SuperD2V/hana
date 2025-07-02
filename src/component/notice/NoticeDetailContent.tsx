@@ -93,8 +93,8 @@ const NoticeDetailContent = ({ id }: NoticeDetailContentProps) => {
     >
       <div
         className={`flex flex-col gap-[20px]  ${
-          mounted && isMobile ? "!py-[40px]" : "!py-[20px]"
-        }  border-t-1 border-[#D6D4D1] `}
+          mounted && isMobile ? "!py-[20px]" : "!py-[40px]"
+        }  border-y-1 border-[#D6D4D1] `}
       >
         {/* 제목 */}
         <Typography
@@ -107,9 +107,6 @@ const NoticeDetailContent = ({ id }: NoticeDetailContentProps) => {
         {/* 메타 정보 */}
         <div
           className='flex items-center gap-4 mb-8 pb-4'
-          style={{
-            borderBottom: "1px solid #E5E5E5"
-          }}
         >
           <div className='flex items-center gap-2'>
             <Typography
@@ -143,7 +140,7 @@ const NoticeDetailContent = ({ id }: NoticeDetailContentProps) => {
       </div>
 
       {/* 본문 내용 */}
-      <div className='mb-12'>
+      <div className={`mb-12 ${mounted && isMobile ? "!px-[12px] !py-[20px]" : "!p-[40px]"}`}>
         {noticeData.content.map((paragraph: string, index: number) => (
           <div key={index}>
             {paragraph === "" ? (
@@ -163,13 +160,13 @@ const NoticeDetailContent = ({ id }: NoticeDetailContentProps) => {
       {/* 첨부파일 */}
       {noticeData.attachments.length > 0 && (
         <div
-          className='border-t pt-6 flex items-center gap-4 !p-[40px]'
+          className={`!mb-[20px] flex items-center gap-4  ${mounted && isMobile ? "!flex-col !p-[20px]" : "flex-row !p-[40px]"}`}
           style={{
             // borderColor: "#E5E5E5",
             backgroundColor: "#FAFAF9"
           }}
         >
-          <Image src='/images/file.png' alt='file' width={64} height={64} />
+          <Image src='/images/file.png' alt='file' width={64} height={64} style={ (isMobile && mounted) ? {alignSelf:'center'} : undefined}/>
           {noticeData.attachments.map((attachment, index: number) => (
             <div key={index} className='flex items-center gap-3 mb-3'>
               {/* 파일 아이콘 */}
@@ -191,6 +188,7 @@ const NoticeDetailContent = ({ id }: NoticeDetailContentProps) => {
               <Typography
                 variant={mounted && isMobile ? "body2Regular" : "body1Regular"}
                 className='!text-[#666666]'
+                style={{textDecoration:'underline'}}
               >
                 {attachment.fileName}
               </Typography>
@@ -209,13 +207,13 @@ const NoticeDetailContent = ({ id }: NoticeDetailContentProps) => {
       )}
 
       <div
-        className={`flex items-center ${
+        className={`flex items-center border-t border-[#D6D4D1] !pt-[20px] ${
           isMobile && mounted ? "justify-center" : "justify-end"
         }  flex-row gap-[4px] !mb-[160px]`}
       >
         <Button title='이전글' onClick={() => {}} />
         <Button title='다음글' onClick={() => {}} />
-        <Button title='목록으로' onClick={() => {}} />
+        <Button title='목록' onClick={() => {}} />
       </div>
     </div>
   );

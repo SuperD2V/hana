@@ -69,7 +69,9 @@ const Section6 = () => {
           </Typography>
         </div>
 
-        <Button title={"원천교회 바로가기"} onClick={() => {}} />
+        <Button title={"원천교회 바로가기"} onClick={() => {
+          window.open("https://www.wonchon.org/", "_blank");
+        }} />
       </div>
 
       {/* 오른쪽 영역: 소속 정보 */}
@@ -95,7 +97,9 @@ const Section6 = () => {
           라이프하우스처치(홍민기목사) 등이 소속되어 있습니다.
         </Typography>
 
-        <Button title={"소속연합 바로가기"} onClick={() => {}} />
+        <Button title={"소속연합 바로가기"} onClick={() => {
+          window.open("https://home.kaicam.org/index.asp", "_blank");
+        }} />
       </div>
     </div>
   );
