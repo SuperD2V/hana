@@ -52,7 +52,7 @@ export const FloatingBar = () => {
       </div>
       <div className={scrollTopContainer}>
         <Image
-          src={"/images/receipt.svg"}
+          src={"/images/arrowup.svg"}
           alt='맨위로'
           width={28}
           height={28}

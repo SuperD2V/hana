@@ -93,8 +93,7 @@ export const historyLine = style({
 });
 
 export const historySquare = style({
-  width: "min(371px, 90vw)",
-  minWidth: "280px",
+  width: "371px",
   height: "104px",
   backgroundColor: color.brand[200],
   border: `1px solid ${color.brand[600]}`,
@@ -110,6 +109,8 @@ export const historySquare = style({
   padding: "40px 28px",
   "@media": {
     "(max-width: 768px)": {
+      width: "186px",
+      height: "44px",
       marginLeft: "4%",
       padding: "12px 16px"
     }
@@ -117,12 +118,14 @@ export const historySquare = style({
 });
 
 export const historySquareFlipped = style({
-  width: "min(499px, 90vw) !important",
-  minWidth: "280px !important",
+  width: "499px",
+  height: "104px",
   marginLeft: "auto !important",
   marginRight: "6.71875% !important",
   "@media": {
     "(max-width: 768px)": {
+      width: "250px",
+      height: "44px",
       marginRight: "4% !important"
     }
   }
@@ -135,7 +138,8 @@ export const historySquareLast = style({
   padding: "16px 0",
   "@media": {
     "(max-width: 768px)": {
-      padding: "12px 0"
+      padding: "12px 0",
+      height: "72px"
     }
   }
 });
@@ -143,8 +147,8 @@ export const historySquareLast = style({
 export const keywordGroup = style({
   display: "flex",
   gap: "8px",
-  alignItems: "baseline",
   justifyContent: "center",
+  alignItems: "flex-start",
   flexWrap: "wrap",
   maxWidth: "100%",
   "@media": {
