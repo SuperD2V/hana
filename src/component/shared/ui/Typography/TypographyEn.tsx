@@ -4,16 +4,23 @@ interface TypographyEnProps {
   variant?: keyof typeof textEn;
   children: React.ReactNode;
   className?: string;
+  fontFamily?: string;
+  style?: React.CSSProperties;
 }
 
 export const TypographyEn: React.FC<TypographyEnProps> = ({
   variant = "headlineMedium",
   children,
-  className = ""
+  className = "",
+  style = {}
 }) => {
   const textClass = textEn[variant];
 
-  return <div className={`${textClass} ${className}`}>{children}</div>;
+  return (
+    <div className={`${textClass} ${className}`} style={style}>
+      {children}
+    </div>
+  );
 };
 
 // 편의를 위한 특정 타이포그래피 컴포넌트들 (영어)
