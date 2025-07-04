@@ -16,6 +16,19 @@ export const historyContainer = style({
   }
 });
 
+export const title = style({
+  fontWeight: "700 !important",
+  fontSize: "60px !important",
+  lineHeight: "70px !important",
+  letterSpacing: "0.41% !important",
+  "@media": {
+    "(max-width: 768px)": {
+      fontSize: "28px !important",
+      lineHeight: "36px !important",
+      letterSpacing: "0.36px !important"
+    }
+  }
+});
 export const historyLeft = style({
   width: "100%",
   height: "100%",
@@ -30,7 +43,22 @@ export const historyRight = style({
 
 export const number = style({
   color: color.brand[700],
+  lineHeight: "100% !important"
+});
+
+export const numberTitle = style({
+  fontStyle: "italic",
+  fontWeight: "600 !important",
+  fontSize: "28px !important",
   lineHeight: "100% !important",
+  letterSpacing: "0 !important",
+  "@media": {
+    "(max-width: 768px)": {
+      fontSize: "16px !important",
+      lineHeight: "100% !important",
+      letterSpacing: "0 !important"
+    }
+  }
 });
 
 export const historyLeftInner = style({

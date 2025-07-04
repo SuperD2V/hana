@@ -13,7 +13,9 @@ import {
   lastKeywordContainer,
   number,
   textLineClamp,
-  responsiveKeyword
+  responsiveKeyword,
+  numberTitle,
+  title
 } from "./index.css";
 import { color } from "@/component/shared/designed/color";
 
@@ -36,10 +38,15 @@ export const HistoryItemLayout: React.FC<HistoryItemProps> = ({
   return (
     <div className={historyLeft}>
       <div className={historyLeftInner}>
-        <TypographyEn variant='title1Semibold' className={number}>
+        <TypographyEn
+          variant='title1Semibold'
+          className={`${number} ${numberTitle}`}
+        >
           {String(index + 1).padStart(2, "0")}
         </TypographyEn>
-        <Typography variant='largetitle1'>{item.title}</Typography>
+        <Typography variant='largetitle1' className={title}>
+          {item.title}
+        </Typography>
       </div>
       <div className={historyLineContainer}>
         <div

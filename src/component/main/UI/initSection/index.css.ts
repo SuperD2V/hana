@@ -25,7 +25,7 @@ export const homeWrapperInner = style({
   padding: "0 20px",
   height: "934px",
   backgroundColor: color.brand[100],
-  backgroundImage: "url('/images/main.png')",
+  backgroundImage: "url('/images/main.gif')",
   backgroundSize: "cover",
   backgroundPosition: "center",
   backgroundRepeat: "no-repeat",
