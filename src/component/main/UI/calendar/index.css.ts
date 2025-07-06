@@ -32,7 +32,8 @@ export const calendarWrapper = style({
   alignItems: "center",
   justifyContent: "center",
   gap: "12px",
-  marginBottom: "12px"
+  marginBottom: "12px",
+  padding: "0 20px"
 });
 
 export const calendarTitle = style({
@@ -52,6 +53,7 @@ export const calendarContent = style({
   justifyContent: "space-between",
   backgroundColor: color.brand[800],
   borderRadius: "12px",
+  padding: "0 20px",
   "@media": {
     "(max-width: 768px)": {
       borderRadius: "0"

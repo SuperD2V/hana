@@ -31,33 +31,42 @@ const MonthList = ({
   if (isMobile) {
     const sliderSettings = {
       dots: false,
-      infinite: true,
+      infinite: false,
       speed: 400,
       slidesToShow: 7,
-      slidesToScroll: 1,
+      slidesToScroll: 7,
       arrows: false,
       centerMode: true,
       centerPadding: "12%",
       initialSlide: selectedMonth,
+      swipe: true,
+      draggable: true,
+      swipeToSlide: true,
       responsive: [
         {
           breakpoint: 768,
           settings: {
             slidesToShow: 4,
-            slidesToScroll: 1,
+            slidesToScroll: 4,
             centerMode: true,
             centerPadding: "12%",
-            initialSlide: selectedMonth
+            initialSlide: selectedMonth,
+            swipe: true,
+            draggable: true,
+            swipeToSlide: true
           }
         },
         {
           breakpoint: 425,
           settings: {
             slidesToShow: 4,
-            slidesToScroll: 1,
+            slidesToScroll: 4,
             centerMode: true,
             centerPadding: "8%",
-            initialSlide: selectedMonth
+            initialSlide: selectedMonth,
+            swipe: true,
+            draggable: true,
+            swipeToSlide: true
           }
         }
       ]

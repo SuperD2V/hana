@@ -69,6 +69,7 @@ export const historyLeftInner = style({
   gap: "20px",
   paddingLeft: "6.71875%",
   color: color.brand[900],
+  marginRight: "15px",
   "@media": {
     "(max-width: 768px)": {
       gap: "10px",

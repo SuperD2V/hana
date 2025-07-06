@@ -56,6 +56,7 @@ export const noticeWrapper = style({
       padding: "0 8px"
     },
     "screen and (max-width: 768px)": {
+      paddingTop: "60px",
       flexDirection: "column",
       maxWidth: "100%",
       width: "100%"
@@ -86,24 +87,24 @@ export const sectionBox = style({
 
 export const leftBox = style({
   flex: 1,
-  flexBasis: "1046px",
-  maxWidth: "1046px",
+  flexBasis: "62.3%",
+  maxWidth: "62.3%",
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
   "@media": {
     "screen and (max-width: 1440px)": {
-      flexBasis: "60%",
-      maxWidth: "60%"
+      flexBasis: "62.3%",
+      maxWidth: "62.3%"
     },
     "screen and (max-width: 1280px)": {
-      flexBasis: "60%",
-      maxWidth: "60%"
+      flexBasis: "62.3%",
+      maxWidth: "62.3%"
     },
     "screen and (max-width: 1024px)": {
-      flexBasis: "60%",
-      maxWidth: "60%"
+      flexBasis: "62.3%",
+      maxWidth: "62.3%"
     },
     "screen and (max-width: 768px)": {
       height: "611px",
@@ -151,8 +152,8 @@ export const rightBox = style({
 });
 
 export const timeBox = style({
-  width: "614px",
-  height: "403px",
+  width: "100%",
+  minHeight: "403px",
   "@media": {
     "screen and (max-width: 768px)": {
       height: "550px"
@@ -161,12 +162,12 @@ export const timeBox = style({
 });
 
 export const helpBox = style({
-  width: "614px",
-  height: "310px",
+  width: "100%",
+  minHeight: "252px",
   flex: 1,
   "@media": {
     "screen and (max-width: 768px)": {
-      height: "230px",
+      minHeight: "180px",
       flex: "unset"
     }
   }
@@ -179,7 +180,7 @@ export const newsContainer = style({
 });
 
 export const newsMobileBox = style({
-  width: "1046px",
+  width: "100%",
   "@media": {
     "screen and (max-width: 768px)": {
       height: "611px",
@@ -240,7 +241,7 @@ export const newsItemFirst = style({
 });
 
 export const badge = style({
-  background: "#F8F8E1",
+  background: color.brand_yellow[2],
   color: "#3888FF",
   borderRadius: "8px",
   fontSize: "14px",
@@ -359,7 +360,13 @@ export const timeMainSchedule = style({
   backgroundColor: color.brand_yellow[2],
   padding: "12px 0",
   borderRadius: "8px",
-  marginBottom: "16px"
+  marginBottom: "16px",
+  "@media": {
+    "screen and (max-width: 768px)": {
+      marginBottom: "4px",
+      marginTop: "20px"
+    }
+  }
 });
 
 export const timeScheduleList = style({

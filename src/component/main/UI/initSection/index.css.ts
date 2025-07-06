@@ -31,6 +31,7 @@ export const homeWrapperInner = style({
   backgroundRepeat: "no-repeat",
   borderRadius: "0 0 40px 40px",
   overflow: "hidden",
+  color: "white",
   "@media": {
     "screen and (max-width: 768px)": {
       height: "auto",
@@ -54,4 +55,27 @@ export const homeWrapperInner = style({
       backgroundPosition: "center"
     }
   }
+});
+
+export const contentContainer = style({
+  display: "flex",
+  justifyContent: "center",
+  flexDirection: "column",
+  alignItems: "center"
+});
+
+export const titleContainer = style({
+  display: "flex",
+  justifyContent: "flex-start",
+  width: "1471px",
+  "@media": {
+    "screen and (max-width: 768px)": {
+      width: "305px"
+    }
+  }
+});
+
+export const titleText = style({
+  color: "#FFFFFF",
+  marginBottom: "4px"
 });

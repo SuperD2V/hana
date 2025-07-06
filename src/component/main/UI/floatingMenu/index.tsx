@@ -11,6 +11,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { Typography, useResponsiveTypography } from "@/component/shared";
+import Link from "next/link";
 
 export const FloatingBar = () => {
   const router = useRouter();
@@ -33,10 +34,20 @@ export const FloatingBar = () => {
           />
           <Typography variant='body2Medium'>온라인헌금</Typography>
         </div>
-        <div className={floatingBarItem} onClick={() => router.push("")}>
-          <Image src={"/images/speak.svg"} alt='설교' width={28} height={28} />
-          <Typography variant='body2Medium'>설교듣기</Typography>
-        </div>
+        <Link
+          href='https://youtube.com/@hanavisionch?si=_KQD1m_YA_iSD5B8'
+          target='_blank'
+        >
+          <div className={floatingBarItem}>
+            <Image
+              src={"/images/speak.svg"}
+              alt='설교'
+              width={28}
+              height={28}
+            />
+            <Typography variant='body2Medium'>설교듣기</Typography>
+          </div>
+        </Link>
         <div
           className={floatingBarItem}
           onClick={() => window.open("h", "_blank")}
