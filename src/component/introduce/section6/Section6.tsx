@@ -10,7 +10,7 @@ const Section6 = () => {
   return (
     <div
       className={`flex ${
-        mounted && isMobile ? "flex-col gap-[40px]" : "flex-row gap-[20px]"
+        mounted && isMobile ? "flex-col gap-[20px]" : "flex-row gap-[20px]"
       } justify-between items-center ${
         mounted && isMobile ? "!px-[20px]" : "!px-[120px]"
       } !py-[100px]`}
@@ -20,6 +20,9 @@ const Section6 = () => {
         className={`flex flex-col items-center rounded-[20px] bg-[#FFFFFF] ${
           mounted && isMobile ? "h-full w-full" : "h-[396px] w-[68.8%]"
         }  !p-[40px]`}
+        style={{
+          boxShadow: "0px 0px 20px 0px #2C25070A"
+        }}
       >
         <Typography
           variant='largetitle2Bold'

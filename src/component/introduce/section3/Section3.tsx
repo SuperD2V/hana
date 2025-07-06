@@ -11,7 +11,7 @@ const Section3 = () => {
     <div
       className={`flex ${
         mounted && isMobile ? "!p-[0px] flex-col !mt-[60px]" : "!pt-[120px] flex justify-between"
-      } gap-[120px]`}
+      } ${mounted && isMobile ? "!gap-[40px]" : "!gap-[120px]"}`}
     >
       <div
         className={`flex flex-col ${
@@ -67,7 +67,7 @@ const Section3 = () => {
         </div>
       </div>
       {mounted && isMobile ? (
-        <div className='w-full h-[384px] relative !px-[20px] '>
+        <div className='w-full h-[384px] relative !px-[20px]  '>
           <Image
             src='/images/paster.png'
             alt='pastor'

@@ -11,8 +11,8 @@ const SectionTitle = ({
   const { mounted, isMobile } = useResponsiveTypography();
   return (
     <div
-      className={`flex flex-row gap-[40px] items-baseline ${
-        mounted && isMobile ? "!px-[20px]" : "!pl-[120px]"
+      className={`flex flex-row  items-baseline ${
+        mounted && isMobile ? "!px-[20px] gap-[20px] " : "!pl-[120px] gap-[40px]"
       }`}
     >
       <Typography

@@ -1,4 +1,4 @@
-"use client";
+
 import Image from "next/image";
 import React from "react";
 
@@ -25,7 +25,7 @@ const MAIN_TOP_IMAGE = [
     alt: "flow",
     koreanTitle: '세상으로 넘쳐흐르는',
     englishTitle: 'Flowing into the world',
-    description: '"물이 바다를 덮음같이 여호와를 아는 지식이\n세상에 충만할 것임이니라!"(호 6:3)',
+    description: '"물이 바다를 덮음같이 여호와를 아는 지식이\n세상에 충만할 것임이니라!"(사 11:9)',
   },
 ];
 
