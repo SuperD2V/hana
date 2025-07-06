@@ -3,12 +3,12 @@ import SectionTitle from "../SectionTitle";
 import { Typography } from "@/component/shared";
 import { useResponsiveTypography } from "@/component/shared";
 const circleData = [
-  { text: "성경지식의 성숙" },
-  { text: "사회적 성숙" },
-  { text: "영적 성숙" },
-  { text: "관계적 성숙" },
-  { text: "정서적 성숙" },
-  { text: "가정적 성숙" }
+  { text: "성경지식의 \n성숙" },
+  { text: "사회적 \n성숙" },
+  { text: "영적 \n성숙" },
+  { text: "관계적 \n성숙" },
+  { text: "정서적 \n성숙" },
+  { text: "가정적 \n성숙" }
 ];
 
 const EnglishTitle = "Discipleship System";
@@ -83,11 +83,12 @@ const Section5 = () => {
 
         <div className='flex flex-col items-center gap-[32px]'>
           {/* 원형 버튼들 */}
-          <div className='flex flex-wrap gap-[12px] justify-center'>
+          <div className='flex flex-wrap gap-[12px] justify-between w-full'>
             {circleData.map((item, index) => (
+              <div className={`w-[${mounted && isMobile ? '30%' : '120px'}] flex justify-center`}>
               <div
                 key={index}
-                className={`${mounted && isMobile ? "w-[30%] h-[106px]" : "w-[120px] h-[120px]"} rounded-full bg-white flex items-center justify-center  ${mounted && isMobile ? "!px-[17px] !py-[17.5px]" : "!px-[32px] !py-[37px]"}`}
+                className={`bg-[#FFFDF5] border border-[#F6E6A5]  ${mounted && isMobile ? "w-[106px] h-[106px]" : "w-[120px] h-[120px]"} rounded-full bg-white flex items-center justify-center  ${mounted && isMobile ? "!px-[15px] !py-[17.5px]" : "!px-[17px] !py-[37px]"}`}
               >
                 <Typography
                   variant={`${mounted && isMobile ? 'body1Medium' : 'headlineSemibold'}`}
@@ -101,18 +102,19 @@ const Section5 = () => {
                   {item.text}
                 </Typography>
               </div>
+              </div>
             ))}
           </div>
 
           {/* 하단 텍스트 박스들 */}
           <div className='flex flex-col gap-[12px] w-full'>
-            <div className='w-full h-[52px] bg-[#FFF8E4] rounded-[8px] flex items-center justify-center'>
-              <Typography variant='body1Medium' className='text-[#292724]'>
+            <div className='w-full h-[52px] bg-[#FFF8E4] rounded-[12px] flex items-center justify-center'>
+              <Typography variant={mounted && isMobile ? 'headlineRegular' : 'body1Regular'} className='text-[#292724]'>
                 하나비전교회 베이직 (신앙의 기초)
               </Typography>
             </div>
-            <div className='w-full h-[52px] bg-[#FFF8E4] rounded-[8px] flex items-center justify-center'>
-              <Typography variant='body1Medium' className='text-[#292724]'>
+            <div className='w-full h-[52px] bg-[#F6E6A5] rounded-[12px] flex items-center justify-center'>
+              <Typography variant={mounted && isMobile ? 'headlineRegular' : 'body1Regular'} className='text-[#292724]'>
                 하나비전교회, 출발! (새가족)
               </Typography>
             </div>

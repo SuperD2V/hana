@@ -20,16 +20,19 @@ const page = () => {
        <IntroduceNavigation />
      )}
       <div className='w-full bg-[#1350A0]'>
-        <div className='w-full flex flex-col items-center !pt-[36px] !gap-[28px]'>
+        <div className='w-full flex flex-col items-center !pt-[32px] !gap-[28px]'>
         {mounted && !isMobile && (
+          <>
           <IntroduceNavigation />
-        )}
+       
           <Typography
             variant='title1Bold'
             className='text-white !font-semibold'
           >
             소개
           </Typography>
+          </>
+           )}
         </div>
       </div>
       {!isMobile && (
@@ -42,7 +45,7 @@ const page = () => {
       )} 
       <div
         style={{
-          padding: mounted && isMobile ? "60px 20px" : "120px 120px 98px 120px"
+          padding: mounted && isMobile ? "112px 20px" : "120px 120px 98px 120px"
         }}
       >
         <MainTop />

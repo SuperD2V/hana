@@ -3,6 +3,7 @@ import { Typography } from "../shared";
 import { useIntroduceStore } from "../../../hooks/store/useIntroduceStore";
 import { useShallow } from "zustand/shallow";
 import { useResponsiveTypography } from "../shared";
+import Image from "next/image";
 
 type Content = {
   date: string;
@@ -50,13 +51,14 @@ const HistoryContent = ({
           {/* 모바일 메인 타이틀 */}
           <div className='flex flex-col left-[51px] top-[39px] !pl-[51px] !pt-[39px] !mb-[51px]'>
             <Typography
-              variant='title1Bold'
-              className='!text-[#1B5FB8] !text-[32px] !mb-[4px]'
+              variant='largetitle2Bold'
+              className='!text-[#1B5FB8] !text-[32px] !mb-[4px] !font-bold'
             >
               {mainTitleDate.content}
             </Typography>
             <Typography
-              variant='title2Bold'
+              fontFamily={mounted && isMobile ? 'Poppins' : 'Pretendard'}
+              variant={mounted && isMobile ? 'title1Medium' : 'title1Medium'}
               className='!text-[#1B5FB8] !text-[24px]'
             >
               {mainTitleDate.date}
@@ -70,7 +72,7 @@ const HistoryContent = ({
             ))}
           </div>
         </div>
-        <div className='absolute bottom-[40px] w-full flex px-[20px] text-[#276FCD]'>
+        <div className='absolute bottom-[40px] w-full flex !px-[20px] text-[#276FCD]'>
           {/* 이전/다음 네비게이션 */}
           <div className='flex w-full  justify-between mt-[60px] items-center'>
             {prevContentTitle.id ? (
@@ -78,7 +80,7 @@ const HistoryContent = ({
                 className='flex items-center gap-[8px] cursor-pointer'
                 onClick={handlePrevClick}
               >
-                <svg width='20' height='20' viewBox='0 0 24 24' fill='none'>
+                {/* <svg width='20' height='20' viewBox='0 0 24 24' fill='none'>
                   <path
                     d='M15 18L9 12L15 6'
                     stroke='#276FCD'
@@ -86,13 +88,15 @@ const HistoryContent = ({
                     strokeLinecap='round'
                     strokeLinejoin='round'
                   />
-                </svg>
+                </svg> */}
+                <Image src={'/images/prevArrow.png'} alt='arrow-left' width={isMobile ? 20 : 30} height={isMobile ? 40 : 60} />
                 <div className='flex flex-col'>
                   <Typography variant='title2Bold' className='!text-[#98C2F9]'>
                     {prevContentTitle.content}
                   </Typography>
                   <Typography
-                    variant='body2Regular'
+                  fontFamily={mounted && isMobile ? 'Poppins' : 'Pretendard'}
+                    variant={mounted && isMobile ? 'headlineMedium' : 'body2Regular'}
                     className='!text-[#98C2F9]'
                   >
                     {prevContentTitle.date}
@@ -112,21 +116,14 @@ const HistoryContent = ({
                     {nextContentTitle.content}
                   </Typography>
                   <Typography
-                    variant='body2Regular'
-                    className='!text-[#98C2F9]'
+                          fontFamily={mounted && isMobile ? 'Poppins' : 'Pretendard'}
+                          variant={mounted && isMobile ? 'headlineMedium' : 'body2Regular'}
+                          className='!text-[#98C2F9]'
                   >
                     {nextContentTitle.date}
                   </Typography>
                 </div>
-                <svg width='20' height='20' viewBox='0 0 24 24' fill='none'>
-                  <path
-                    d='M9 6L15 12L9 18'
-                    stroke='#276FCD'
-                    strokeWidth='2'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                  />
-                </svg>
+                <Image src={'/images/prevArrow.png'} alt='arrow-left' width={isMobile ? 20 : 30} height={isMobile ? 40 : 60} className="rotate-180" />
               </div>
             ) : (
               <div />
@@ -267,13 +264,15 @@ const HistoryContent = ({
 
 // 모바일용 HistoryContentItem 컴포넌트
 const MobileHistoryContentItem = ({ content }: { content: Content }) => {
+  const { mounted, isMobile } = useResponsiveTypography();
   return (
-    <div className='flex gap-[20px] items-start pl-[16px]'>
+    <div className='flex gap-[38px] items-start pl-[16px]'>
       <div className='w-[13px] h-[13px] rounded-full bg-[#276FCD] mt-[8px] relative top-[9px] left-[14px]' />
       <div className='flex flex-col gap-[8px]'>
         <Typography
-          variant='title3Bold'
-          className='!text-[#1B5FB8] !text-[18px]'
+          variant={mounted && isMobile ? 'title2Semibold' : 'title3Bold'}
+          fontFamily={mounted && isMobile ? 'Poppins' : ''}
+          className={`!text-[#1B5FB8] !text-[${mounted && isMobile ? '24px' : '28px'}]`}
         >
           {content.date}
         </Typography>
