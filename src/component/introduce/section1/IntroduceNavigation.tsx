@@ -47,8 +47,8 @@ export function IntroduceNavigation() {
     setIsMobileMenuOpen(false);
   };
 
-  return mounted ? (
-    <nav className={`${navigationContainer} ${isMobile ? "!top-[0]" : ""}`}>
+  return (
+    <nav className={navigationContainer}>
       <div className={navWrapper}>
         <div className='logo'>
           <Link href='/'>
@@ -87,10 +87,7 @@ export function IntroduceNavigation() {
               height={36}
             />
           </Link>
-          <Link
-            href='https://www.facebook.com/hanavision.official/'
-            target='_blank'
-          >
+          <Link href='https://www.facebook.com/hanavisionch' target='_blank'>
             <Image
               src='/images/facebook.png'
               alt='facebook'
@@ -112,7 +109,7 @@ export function IntroduceNavigation() {
       </div>
       {/* 모바일 메뉴 */}
       <div
-        className={ 
+        className={
           isMobileMenuOpen ? `${mobileMenu} ${mobileMenuOpen}` : mobileMenu
         }
         style={{ display: isMobileMenuOpen ? "block" : "none" }}
@@ -147,7 +144,7 @@ export function IntroduceNavigation() {
                 height={28}
               />
             </Link>
-            <Link href='https://www.facebook.com/hanavision.official/'>
+            <Link href='https://www.facebook.com/hanavisionch'>
               <Image
                 src='/images/facebook.png'
                 alt='facebook'
@@ -159,7 +156,7 @@ export function IntroduceNavigation() {
         </div>
       </div>
     </nav>
-  ) : null;
+  );
 }
 
 export function useWindowWidth() {
