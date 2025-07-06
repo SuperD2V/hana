@@ -17,10 +17,12 @@ export const historyContainer = style({
 });
 
 export const title = style({
+  textAlign: "center",
   fontWeight: "700 !important",
   fontSize: "60px !important",
   lineHeight: "70px !important",
   letterSpacing: "0.41% !important",
+  whiteSpace: "pre-line",
   "@media": {
     "(max-width: 768px)": {
       fontSize: "28px !important",
@@ -70,10 +72,7 @@ export const historyLeftInner = style({
   "@media": {
     "(max-width: 768px)": {
       gap: "10px",
-      textAlign: "center",
-      paddingLeft: "4%",
-      flexDirection: "column",
-      alignItems: "center"
+      paddingLeft: "4%"
     }
   }
 });
@@ -146,16 +145,9 @@ export const historySquareLast = style({
 
 export const keywordGroup = style({
   display: "flex",
+  alignItems: "center",
   gap: "8px",
-  justifyContent: "center",
-  alignItems: "flex-start",
-  flexWrap: "wrap",
-  maxWidth: "100%",
-  "@media": {
-    "(max-width: 768px)": {
-      alignItems: "flex-start"
-    }
-  }
+  maxWidth: "100%"
 });
 
 export const lastKeywordContainer = style({
@@ -187,6 +179,24 @@ export const responsiveKeyword = style({
       fontSize: "20px",
       lineHeight: "28px",
       fontWeight: "700"
+    }
+  }
+});
+
+export const firstKeyword = style({
+  fontSize: "28px !important",
+  lineHeight: "36px !important",
+  fontWeight: "600 !important",
+  display: "flex",
+  alignItems: "flex-start",
+  paddingBottom: "13px",
+  "@media": {
+    "(max-width: 768px)": {
+      fontSize: "18px !important",
+      lineHeight: "26px !important",
+      fontWeight: "500 !important",
+      letterSpacing: "0px !important",
+      paddingBottom: "3px"
     }
   }
 });

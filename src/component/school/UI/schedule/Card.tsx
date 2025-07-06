@@ -29,9 +29,10 @@ export const Card = ({
   if (!mounted) return null;
   return (
     <div
-      className={`${styles.card} ${isSelected ? styles.cardSelected : ""}`}
+      className={`${styles.card} ${isSelected ? styles.cardSelected : ""} ${
+        onClick ? styles.cardClickable : ""
+      }`}
       onClick={onClick}
-      style={{ cursor: onClick ? "pointer" : "default" }}
     >
       <div className={styles.cardLeft}>
         <div className={styles.cardDate}>
@@ -51,13 +52,18 @@ export const Card = ({
           </div>
         </div>
         <div className={styles.cardContent}>
-          <Image
-            src='/images/school.jpg'
-            alt='school-bread'
-            width={126}
-            height={126}
-          />
-          <Typography variant={isMobile ? "title3Medium" : "title1Medium"}>
+          <div className={styles.imageContainer}>
+            <Image
+              src='/images/school.jpg'
+              alt='school-bread'
+              fill
+              className={styles.image}
+            />
+          </div>
+          <Typography
+            variant={isMobile ? "title3Medium" : "title1Medium"}
+            className={styles.titleText}
+          >
             {title}
           </Typography>
         </div>

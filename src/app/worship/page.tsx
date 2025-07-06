@@ -3,6 +3,7 @@
 import {
   SubMenu,
   Typography,
+  TypographyEn,
   useResponsiveTypography
 } from "@/component/shared";
 import {
@@ -25,14 +26,12 @@ export default function Worship() {
   return (
     <div className={worshipContainer}>
       <div className={worshipWrapper}>
-        <Typography
-          variant={
-            mounted && isMobile ? "largetitle2Semibold" : "largetitle2Bold"
-          }
+        <TypographyEn
+          variant={mounted && isMobile ? "largetitle2" : "largetitle3ExtraBold"}
           className={title}
         >
           예배안내
-        </Typography>
+        </TypographyEn>
         <SubMenu items={items} selectedKey={selected} onSelect={setSelected} />
         <div className={worshipContent}>
           {selected === "place" && <Place />}

@@ -18,8 +18,8 @@ export const Place = () => {
             <Image
               src='/images/call.svg'
               alt='전화'
-              width={24}
-              height={24}
+              width={18}
+              height={18}
               className={styles.iconImage}
             />
             <span>전화번호</span>
@@ -33,8 +33,8 @@ export const Place = () => {
             <Image
               src='/images/pin.svg'
               alt='위치'
-              width={24}
-              height={24}
+              width={18}
+              height={18}
               className={styles.iconImage}
             />
             <span>위치</span>
@@ -67,7 +67,7 @@ export const Place = () => {
             alt='주차'
             width={24}
             height={24}
-            className={styles.iconImage}
+            className={styles.parkingIcon}
           />
           <Typography variant={variant} className={styles.parkingText}>
             주차는 교회 주차장을 이용해주시고, 만석 시

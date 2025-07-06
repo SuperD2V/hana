@@ -1,7 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
-import { TypographyEn, useResponsiveTypography } from "@/component/shared";
+import {
+  Typography,
+  TypographyEn,
+  useResponsiveTypography
+} from "@/component/shared";
 import * as styles from "./index.css";
 import { Card } from "./Card";
 import { ApplicationModal } from "./ApplicationModal";
@@ -60,7 +64,11 @@ export const Schedule = () => {
 
       <ApplicationModal
         scheduleData={scheduleData}
-        trigger={<button className={styles.button}>신청하기</button>}
+        trigger={
+          <button className={styles.button}>
+            <Typography variant='headlineMedium'>신청하기</Typography>
+          </button>
+        }
       />
     </div>
   );

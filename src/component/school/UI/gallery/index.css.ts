@@ -10,12 +10,12 @@ export const container = style({
   backgroundColor: color.brand[800]
 });
 export const wrapper = style({
-  padding: "120px 0",
+  padding: "100px 0 120px 0",
   width: "90%",
   margin: "0 auto",
   "@media": {
     "(max-width: 768px)": {
-      padding: "110px 0px"
+      padding: "52px 0px 111px 0px"
     }
   }
 });

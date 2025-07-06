@@ -16,14 +16,10 @@ const page = () => {
 
   return (
     <div className={`bg-[#FFFDF5] ${mounted && isMobile ? "mt-[-54px]" : ""}`}>
-    {mounted && isMobile && (
-       <IntroduceNavigation />
-     )}
+      {mounted && isMobile && <IntroduceNavigation />}
       <div className='w-full bg-[#1350A0]'>
         <div className='w-full flex flex-col items-center !pt-[36px] !gap-[28px]'>
-        {mounted && !isMobile && (
-          <IntroduceNavigation />
-        )}
+          {mounted && !isMobile && <IntroduceNavigation />}
           <Typography
             variant='title1Bold'
             className='text-white !font-semibold'
@@ -39,7 +35,7 @@ const page = () => {
         >
           <CategoryList />
         </div>
-      )} 
+      )}
       <div
         style={{
           padding: mounted && isMobile ? "60px 20px" : "120px 120px 98px 120px"

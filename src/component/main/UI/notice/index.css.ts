@@ -56,7 +56,6 @@ export const noticeWrapper = style({
     },
     "screen and (max-width: 768px)": {
       flexDirection: "column",
-      padding: "24px 8px",
       maxWidth: "100%",
       width: "100%"
     }
@@ -65,19 +64,20 @@ export const noticeWrapper = style({
 
 export const sectionBox = style({
   backgroundColor: "#fff",
-  borderRadius: "20px",
+  borderRadius: "40px",
   boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
   padding: "32px 24px",
   display: "flex",
   flexDirection: "column",
-  minWidth: 0,
   minHeight: "320px",
   height: "675px",
   "@media": {
     "screen and (max-width: 768px)": {
       minHeight: "180px",
-      padding: "20px 8px",
+      width: "335px",
       marginBottom: "16px",
+      marginLeft: "20px",
+      marginRight: "20px",
       height: "auto"
     }
   }
@@ -85,9 +85,12 @@ export const sectionBox = style({
 
 export const leftBox = style({
   flex: 1,
-  minWidth: 0,
   flexBasis: "1046px",
   maxWidth: "1046px",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
   "@media": {
     "screen and (max-width: 1440px)": {
       flexBasis: "60%",
@@ -111,13 +114,16 @@ export const leftBox = style({
 });
 
 export const rightBox = style({
-  display: "flex",
-  flexDirection: "column",
   flex: 1,
   gap: "24px",
   minWidth: 0,
   justifyContent: "space-between",
   height: "675px",
+  width: "100%",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  margin: "0 auto",
   "@media": {
     "screen and (max-width: 1440px)": {
       flexBasis: "40%",
@@ -135,8 +141,7 @@ export const rightBox = style({
       minWidth: "300px"
     },
     "screen and (max-width: 768px)": {
-      flexDirection: "column",
-      width: "100%",
+      width: "335px",
       maxWidth: "100%",
       gap: "16px",
       height: "auto"
@@ -145,6 +150,7 @@ export const rightBox = style({
 });
 
 export const timeBox = style({
+  width: "614px",
   height: "403px",
   "@media": {
     "screen and (max-width: 768px)": {
@@ -154,11 +160,11 @@ export const timeBox = style({
 });
 
 export const helpBox = style({
+  width: "614px",
   height: "310px",
   flex: 1,
   "@media": {
     "screen and (max-width: 768px)": {
-      padding: "23px",
       height: "230px",
       flex: "unset"
     }
@@ -168,14 +174,15 @@ export const helpBox = style({
 export const newsContainer = style({
   width: "100%",
   height: "100%",
-  backgroundColor: "rgb(255, 255, 255, 1)",
-  padding: "40px 48px"
+  backgroundColor: "rgb(255, 255, 255, 1)"
 });
 
 export const newsMobileBox = style({
+  width: "1046px",
   "@media": {
     "screen and (max-width: 768px)": {
-      height: "611px"
+      height: "611px",
+      width: "335px"
     }
   }
 });
@@ -190,18 +197,17 @@ export const title = style({
 // 공지사항 리스트 스타일
 export const newsList = style({
   marginTop: 32,
-  borderRadius: "16px",
   background: "#fff",
-  overflow: "hidden",
-  boxShadow: "0 2px 8px rgba(0,0,0,0.04)"
+  overflow: "hidden"
 });
 
 export const newsItem = style({
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",
-  padding: "20px 32px",
   borderBottom: `1px solid #E6EEF7`,
+  paddingTop: "17.5px",
+  paddingBottom: "17.5px",
   position: "relative",
   cursor: "pointer",
   transition: "background 0.2s",
@@ -213,8 +219,7 @@ export const newsItem = style({
       right: 0,
       bottom: 0,
       height: "3px",
-      background: "#3888FF",
-      borderRadius: "2px"
+      background: "#3888FF"
     },
     "&:hover": {
       background: "#F5F9FF"
@@ -296,6 +301,7 @@ export const timeDept = style({
   width: "130px",
   display: "inline-block",
   flexShrink: 0,
+  color: color.brand[800],
   "@media": {
     "screen and (max-width: 768px)": {
       marginRight: "0",
@@ -318,7 +324,7 @@ export const timeHour = style({
 
 export const timeBar = style({
   margin: "0 8px",
-  color: "#B0B0B0",
+  color: color.gray[300],
   fontWeight: 400,
   "@media": {
     "screen and (max-width: 768px)": {
@@ -366,7 +372,7 @@ export const timeScheduleList = style({
   "@media": {
     "screen and (max-width: 768px)": {
       width: "100%",
-      gap: "0"
+      gap: "12ㅔㅌ"
     }
   }
 });
@@ -396,7 +402,8 @@ export const helpItem = style({
 });
 
 export const helpText = style({
-  flex: 1
+  flex: 1,
+  color: color.gray[700]
 });
 
 export const helpIcon = style({

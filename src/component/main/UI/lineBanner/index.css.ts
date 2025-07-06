@@ -28,10 +28,10 @@ export const lineBanner = style({
 export const bannerText = style({
   color: color.brand[500],
   textShadow: `
-    -1px -1px 0 ${color.common.white},
-    -1px 1px 0 ${color.common.white},
-    1px -1px 0 ${color.common.white},
-    1px 1px 0 ${color.common.white}
+    -1px -1px 0 ${"#88B3EB"},
+    -1px 1px 0 ${"#88B3E9"},
+    1px -1px 0 ${"#88B3E9"},
+    1px 1px 0 ${"#88B3E9"}
   `,
   whiteSpace: "nowrap",
   animation: `${scrollAnimation} 15s linear infinite`

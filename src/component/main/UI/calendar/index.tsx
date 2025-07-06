@@ -59,15 +59,24 @@ export const Calendar = () => {
     slidesToScroll: 1,
     arrows: false,
     centerMode: true,
-    centerPadding: "16px",
+    centerPadding: "8px",
     responsive: [
       {
-        breakpoint: 1280,
+        breakpoint: 1441,
         settings: {
           slidesToShow: 4,
           slidesToScroll: 1,
           centerMode: true,
-          centerPadding: "20px"
+          centerPadding: "8px"
+        }
+      },
+      {
+        breakpoint: 1280,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          centerMode: true,
+          centerPadding: "48px"
         }
       },
       {
@@ -76,16 +85,25 @@ export const Calendar = () => {
           slidesToShow: 3,
           slidesToScroll: 1,
           centerMode: true,
-          centerPadding: "24px"
+          centerPadding: "8px"
         }
       },
       {
-        breakpoint: 480,
+        breakpoint: 425,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
           centerMode: true,
-          centerPadding: "12px"
+          centerPadding: "15%"
+        }
+      },
+      {
+        breakpoint: 375,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          centerMode: true,
+          centerPadding: "11%"
         }
       }
     ]

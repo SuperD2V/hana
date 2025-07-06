@@ -21,10 +21,11 @@ export const schoolWrapper = style({
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
-  gap: "60px",
+  gap: "40px",
   "@media": {
     "(max-width: 1280px)": {
-      width: "100%"
+      width: "100%",
+      gap: "20px"
     }
   }
 });

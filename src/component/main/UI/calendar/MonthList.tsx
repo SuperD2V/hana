@@ -106,9 +106,7 @@ const MonthList = ({
                     }}
                   >
                     <TypographyEn
-                      variant={
-                        isSelectedMonth ? "title2Bold" : "title3Semibold"
-                      }
+                      variant={"title3Semibold"}
                       className={
                         isSelectedMonth ? undefined : calendarMonthTextWhite
                       }
@@ -154,11 +152,7 @@ const MonthList = ({
                 justifyContent: "center"
               }}
             >
-              <TypographyEn
-                variant={isSelectedMonth ? "title2Bold" : "title3Semibold"}
-              >
-                {month}
-              </TypographyEn>
+              <TypographyEn variant={"title3Semibold"}>{month}</TypographyEn>
             </div>
           </div>
         );

@@ -95,10 +95,11 @@ export const calendarDays = style({
 
 export const cardWrapper = style({
   width: "100%",
+  padding: "0 20px",
   display: "flex",
   alignItems: "stretch",
   justifyContent: "flex-start",
-  gap: "12px",
+  gap: "4px",
   position: "relative",
   "@media": {
     "(max-width: 1440px)": {
@@ -121,7 +122,7 @@ export const cardContainer = style({
   flexDirection: "column",
   "@media": {
     "(max-width: 768px)": {
-      width: "92%",
+      width: "193px",
       height: "auto",
       minHeight: "180px",
       padding: "16px"

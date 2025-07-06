@@ -15,7 +15,8 @@ import {
   textLineClamp,
   responsiveKeyword,
   numberTitle,
-  title
+  title,
+  firstKeyword
 } from "./index.css";
 import { color } from "@/component/shared/designed/color";
 
@@ -59,7 +60,7 @@ export const HistoryItemLayout: React.FC<HistoryItemProps> = ({
               <div className={keywordGroup}>
                 <TypographyEn
                   variant='headlineMedium'
-                  className={`${number} ${textLineClamp}`}
+                  className={`${number} ${textLineClamp} ${firstKeyword}`}
                 >
                   {item.keyword[0]}
                 </TypographyEn>

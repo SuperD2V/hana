@@ -17,7 +17,8 @@ export const imageWrapper = style({
   "@media": {
     "(max-width: 900px)": {
       width: "100%",
-      padding: "0 20px"
+      padding: "0 20px",
+      margin: "0"
     }
   }
 });

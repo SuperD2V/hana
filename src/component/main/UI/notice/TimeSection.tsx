@@ -42,11 +42,13 @@ const TimeSection = () => {
         </div>
         <div className={timeScheduleList}>
           <div className={timeRow}>
-            <span className={timeDept}>영아부</span>
+            <Typography variant={"body1Medium"} className={timeDept}>
+              영아부
+            </Typography>
             <div className={timeInfoRow}>
               <Typography
                 variant={
-                  mounted && isMobile ? "body1Medium" : "headlineRegular"
+                  mounted && isMobile ? "body1Regular" : "headlineRegular"
                 }
                 className={timeHour}
               >
@@ -54,7 +56,7 @@ const TimeSection = () => {
               </Typography>
               <Typography
                 variant={
-                  mounted && isMobile ? "body1Medium" : "headlineRegular"
+                  mounted && isMobile ? "body1Regular" : "headlineRegular"
                 }
                 className={timeBar}
               >
@@ -62,7 +64,7 @@ const TimeSection = () => {
               </Typography>
               <Typography
                 variant={
-                  mounted && isMobile ? "body1Medium" : "headlineRegular"
+                  mounted && isMobile ? "body1Regular" : "headlineRegular"
                 }
                 className={`${timePlace} break-words`}
               >

@@ -1,5 +1,5 @@
 "use client";
-import { Typography } from "@/component/shared";
+import { Typography, TypographyEn } from "@/component/shared";
 import {
   PhilosophyTitle,
   PhilosophyImage,
@@ -27,17 +27,15 @@ export default function Philosophy() {
       className={philosophyContainer}
       style={{
         padding:
-          mounted && isMobile ? "60px 20px 80px 20px" : "192px 120px 0 120px"
+          mounted && isMobile ? "107px 20px 80px 20px" : "192px 120px 0 120px"
       }}
     >
-      <Typography
-        variant={
-          mounted && isMobile ? "largetitle2Semibold" : "largetitle2Bold"
-        }
+      <TypographyEn
+        variant={mounted && isMobile ? "largetitle2" : "largetitle3ExtraBold"}
         className={PhilosophyTitle}
       >
         목회철학
-      </Typography>
+      </TypographyEn>
       <div
         className='w-full  top-0'
         style={{ padding: "16px 0", marginTop: 60 }}

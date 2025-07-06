@@ -6,7 +6,7 @@ export const container = style({
   flexDirection: "column",
   gap: "16px",
   maxWidth: "1680px",
-  margin: "0 auto",
+  margin: "0 auto  160px",
   "@media": {
     "(max-width: 768px)": {
       paddingBottom: "80px"
@@ -88,6 +88,7 @@ export const timeContainer = style({
 export const buttonContainer = style({
   marginLeft: "auto",
   marginRight: "auto",
+  marginTop: "60px",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",

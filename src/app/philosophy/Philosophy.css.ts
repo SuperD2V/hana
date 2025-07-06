@@ -35,6 +35,6 @@ export const PhilosophyContentStyle = style({
   marginTop: "20px",
   whiteSpace: "pre-line",
   marginBottom: "20px",
-  textAlign: 'left',
-  wordWrap: 'break-word'
+  textAlign: "left",
+  wordWrap: "break-word"
 });

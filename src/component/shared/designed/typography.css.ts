@@ -36,12 +36,20 @@ export const typography = {
       letterSpacing: "0.37px",
       fontWeight: fontWeight.bold
     }),
+
     semibold: style({
       fontFamily: fontFamily.pretendard,
       fontSize: "36px",
       lineHeight: "44px",
       letterSpacing: "0.37px",
       fontWeight: fontWeight.semibold
+    }),
+    extrabold: style({
+      fontFamily: fontFamily.pretendard,
+      fontSize: "36px",
+      lineHeight: "44px",
+      letterSpacing: "0.37px",
+      fontWeight: fontWeight.extrabold
     })
   },
   title_01: {
@@ -289,7 +297,7 @@ export const text = {
   largetitle1: typography.largetitle_01.bold,
   largetitle2Bold: typography.largetitle_02.bold,
   largetitle2Semibold: typography.largetitle_02.semibold,
-
+  largetitle2Extrabold: typography.largetitle_02.extrabold,
   // Title
   title1Semibold: typography.title_01.semibold,
   title1Medium: typography.title_01.medium,
@@ -300,7 +308,6 @@ export const text = {
   title3Semibold: typography.title_03.semibold,
   title3Medium: typography.title_03.medium,
   title3Bold: typography.title_03.bold,
-
   // Headline
   headlineSemibold: typography.headline_01.semibold,
   headlineMedium: typography.headline_01.medium,

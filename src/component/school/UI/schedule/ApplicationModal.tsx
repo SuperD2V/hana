@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/dialog";
 import * as styles from "./ApplicationModal.css";
 import { X } from "lucide-react";
-import { useResponsiveTypography } from "@/component/shared";
+import { Typography, useResponsiveTypography } from "@/component/shared";
 
 interface ScheduleItem {
   id: number;
@@ -77,11 +77,15 @@ export const ApplicationModal: React.FC<ApplicationModalProps> = ({
             </div>
             <DialogFooter>
               <div className={styles.buttonContainer}>
-                <button className={styles.submitButton}>+ 신청하기</button>
+                <button className={styles.submitButton}>
+                  <Typography variant={"headlineMedium"}>+ 신청하기</Typography>
+                </button>
                 {/* 모바일용 닫기 버튼 */}
                 <DialogClose asChild>
                   <button className={styles.closeButton} aria-label='닫기'>
-                    닫기
+                    <Typography variant={"headlineMedium"}>
+                      {isMobile && "닫기"}
+                    </Typography>
                   </button>
                 </DialogClose>
               </div>

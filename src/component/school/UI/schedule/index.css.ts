@@ -7,7 +7,6 @@ export const container = style({
   margin: "0 auto",
   display: "flex",
   flexDirection: "column",
-  gap: "40px",
   padding: "0 120px",
   "@media": {
     "(max-width: 768px)": {
@@ -17,7 +16,8 @@ export const container = style({
 });
 
 export const title = style({
-  color: color.brand[800]
+  color: color.brand[800],
+  marginBottom: "40px"
 });
 
 export const scheduleList = style({
@@ -29,16 +29,18 @@ export const scheduleList = style({
 export const divider = style({
   height: "1px",
   backgroundColor: color.gray[200],
-  margin: "20px 0",
-  width: "100%"
+  margin: "0 0 8px 0",
+  width: "100%",
+  color: color.gray[200]
 });
 
 export const card = style({
   display: "flex",
   justifyContent: "space-between",
   padding: "20px",
-  borderRadius: "8px",
-  transition: "background-color 0.2s ease",
+  transition: "background-color 0.2s ease, border-bottom-color 0.2s ease",
+  cursor: "default",
+  borderBottom: "2px solid transparent",
   "@media": {
     "(max-width: 768px)": {
       flexDirection: "column",
@@ -47,15 +49,21 @@ export const card = style({
   }
 });
 
+export const cardClickable = style({
+  cursor: "pointer"
+});
+
 export const cardSelected = style({
-  backgroundColor: color.brand[100]
+  backgroundColor: color.brand[100],
+  borderBottomColor: color.brand[200]
 });
 
 export const cardContent = style({
-  display: "flex",
-  gap: "20px",
+  width: "462px",
   color: color.gray[800],
-  padding: "0 20px",
+  display: "flex",
+  alignItems: "center",
+  gap: "12px",
   "@media": {
     "(max-width: 768px)": {
       gap: "12px"
@@ -114,4 +122,34 @@ export const button = style({
   border: "none",
   padding: "12px 89px",
   margin: "0 auto"
+});
+
+// 이미지 컨테이너 스타일
+export const imageContainer = style({
+  position: "relative",
+  width: "126px",
+  height: "126px",
+  "@media": {
+    "(max-width: 768px)": {
+      width: "81px",
+      height: "81px"
+    }
+  }
+});
+
+// 이미지 스타일
+export const image = style({
+  position: "absolute"
+});
+
+// 제목 텍스트 스타일
+export const titleText = style({
+  width: "325px",
+  wordWrap: "break-word",
+  overflowWrap: "break-word",
+  "@media": {
+    "(max-width: 768px)": {
+      width: "170px"
+    }
+  }
 });

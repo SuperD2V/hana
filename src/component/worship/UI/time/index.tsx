@@ -36,7 +36,7 @@ export const Time = () => {
         >
           <button type='button' className={styles.button}>
             <Typography variant={isMobile ? "body1Medium" : "headlineMedium"}>
-              주일설교 유투브
+              주일설교 유튜브
             </Typography>
           </button>
         </Link>

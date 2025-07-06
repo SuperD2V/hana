@@ -144,7 +144,8 @@ export const submitButton = style({
   "@media": {
     "(max-width: 768px)": {
       padding: "14px 0",
-      fontSize: "16px"
+      fontSize: "16px",
+      flex: 1
     }
   }
 });
@@ -178,7 +179,8 @@ export const closeButton = style({
       borderRadius: "12px",
       fontSize: "16px",
       fontWeight: 600,
-      color: "#666"
+      color: "#666",
+      flex: 1
     }
   }
 });

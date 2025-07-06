@@ -1,16 +1,23 @@
+import { color } from "@/component/shared/designed/color";
 import { style } from "@vanilla-extract/css";
 
 export const container = style({
   background: "#fdfcf6",
   padding: "32px 24px",
+  marginBottom: "160px",
   borderRadius: "8px",
-  width: "100%"
+  width: "100%",
+  "@media": {
+    "(max-width: 768px)": {
+      marginBottom: "80px"
+    }
+  }
 });
 
 export const infoList = style({
   display: "flex",
   flexDirection: "column",
-  padding: "0 24px",
+  padding: "0 12px",
   gap: "0"
 });
 
@@ -21,6 +28,7 @@ export const infoRow = style({
   borderBottom: "1px solid #f2f1ea",
   fontSize: "18px",
   color: "#222",
+  marginBottom: "12px",
   "@media": {
     "(max-width: 600px)": {
       fontSize: "15px",
@@ -42,12 +50,23 @@ export const iconLabel = style({
 });
 
 export const iconImage = style({
-  width: "24px !important",
-  height: "24px !important",
-  minWidth: "24px !important",
-  minHeight: "24px !important",
-  maxWidth: "24px !important",
-  maxHeight: "24px !important"
+  width: "18px !important",
+  height: "18px !important",
+  minWidth: "18px !important",
+  minHeight: "18px !important",
+  maxWidth: "18px !important",
+  maxHeight: "18px !important"
+});
+
+export const parkingIcon = style({
+  width: "18px !important",
+  height: "18px !important",
+  minWidth: "18px !important",
+  minHeight: "18px !important",
+  maxWidth: "18px !important",
+  maxHeight: "18px !important",
+  backgroundColor: color.brand[600],
+  borderRadius: "999px"
 });
 
 export const infoValue = style({
