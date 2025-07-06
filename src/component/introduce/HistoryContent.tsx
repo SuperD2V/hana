@@ -168,13 +168,13 @@ const HistoryContent = ({
       </div>
 
       {/* 이전/다음 네비게이션 */}
-      <div className='absolute bottom-[40px] w-full flex justify-between px-[120px] text-[#276FCD]'>
+      <div className='absolute bottom-[40px] w-full flex justify-between !px-[120px] text-[#276FCD]'>
         {prevContentTitle.id ? (
           <div
-            className='flex items-center gap-[8px] cursor-pointer'
+            className={`flex items-center cursor-pointer ${mounted && isMobile ? '!gap-[8px]' : 'gap-[27.5px]'}`}
             onClick={handlePrevClick}
           >
-            <svg width='24' height='24' viewBox='0 0 24 24' fill='none'>
+            {/* <svg width='24' height='24' viewBox='0 0 24 24' fill='none'>
               <path
                 d='M15 18L9 12L15 6'
                 stroke='currentColor'
@@ -182,7 +182,8 @@ const HistoryContent = ({
                 strokeLinecap='round'
                 strokeLinejoin='round'
               />
-            </svg>
+            </svg> */}
+            <Image src={'/images/prevArrow.png'} alt='arrow-left' width={isMobile ? 20 : 30} height={isMobile ? 40 : 60} />
             <div className='flex flex-col'>
               <span
                 className='text-[#98C2F9]'
@@ -244,7 +245,7 @@ const HistoryContent = ({
                 {nextContentTitle.date}
               </span>
             </div>
-            <svg width='24' height='24' viewBox='0 0 24 24' fill='none'>
+            {/* <svg width='24' height='24' viewBox='0 0 24 24' fill='none'>
               <path
                 d='M9 6L15 12L9 18'
                 stroke='currentColor'
@@ -252,7 +253,8 @@ const HistoryContent = ({
                 strokeLinecap='round'
                 strokeLinejoin='round'
               />
-            </svg>
+            </svg> */}
+            <Image src={'/images/nextArrow.png'} alt='arrow-right' width={isMobile ? 20 : 30} height={isMobile ? 40 : 60} className="rotate-180" />
           </div>
         ) : (
           <div />

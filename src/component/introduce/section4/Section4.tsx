@@ -2,6 +2,8 @@ import React from "react";
 import SectionTitle from "../SectionTitle";
 import { Typography } from "@/component/shared";
 import { useResponsiveTypography } from "@/component/shared";
+import { scrollContainer } from "./index.css";
+
 const EnglishTitle = "Next Generation";
 const KoreanTitle = "다음 세대";
 
@@ -62,7 +64,6 @@ const Section4 = () => {
       </div>
       <Typography
         variant='headlineRegular'
-        
         className={`!text-[#292724] !text-center !max-w-[725px] ${
           mounted && !isMobile
             ? "!whitespace-pre-line !mb-[40px] "
@@ -80,17 +81,9 @@ const Section4 = () => {
       <div
         className={`flex w-full ${
           mounted && isMobile
-            ? "!px-[20px] overflow-x-scroll flex-nowrap scrollbar-hide"
+            ? "!px-[20px] "
             : "!px-[120px] justify-between"
-        } !mb-[91px] gap-[20px]`}
-        style={
-          mounted && isMobile
-            ? {
-                WebkitOverflowScrolling: "touch",
-                scrollbarColor: "transparent transparent"
-              }
-            : {}
-        }
+        } !mb-[91px] gap-[20px] overflow-x-scroll flex-nowrap ${scrollContainer}`}
       >
         {departmentData.map((dept, index) => (
           <div
