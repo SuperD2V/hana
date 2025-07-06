@@ -5,7 +5,8 @@ export const noticeContainer = style({
   width: "100%",
   height: "100%",
   padding: "160px 120px",
-  backgroundColor: color.brand[800],
+  background: "url('/images/bg.png') no-repeat center center",
+  backgroundSize: "cover",
   "@media": {
     "screen and (max-width: 1920px)": {
       padding: "120px 80px"

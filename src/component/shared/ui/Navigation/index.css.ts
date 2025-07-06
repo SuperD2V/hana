@@ -90,7 +90,13 @@ export const socialLinks = style({
 export const navLink = style({
   color: color.gray[800],
   textDecoration: "none",
-  transition: "color 0.2s ease"
+  transition: "color 0.2s ease",
+  outline: "none",
+  border: "none",
+  ":focus": {
+    outline: "none",
+    border: "none"
+  }
 });
 
 export const mobileMenuButton = style({
@@ -99,6 +105,11 @@ export const mobileMenuButton = style({
   border: "none",
   cursor: "pointer",
   padding: "0.5rem",
+  outline: "none",
+  ":focus": {
+    outline: "none",
+    border: "none"
+  },
   "@media": {
     "(max-width: 1280px)": {
       display: "flex",
@@ -150,8 +161,14 @@ export const mobileNavLink = style({
   padding: "0.75rem 0",
   borderBottom: `1px solid ${color.brand[600]}`,
   transition: "color 0.2s ease",
+  outline: "none",
+  border: "none",
   ":hover": {
     color: color.brand[0]
+  },
+  ":focus": {
+    outline: "none",
+    border: "none"
   },
   ":last-child": {
     borderBottom: "none"
