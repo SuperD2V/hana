@@ -12,7 +12,7 @@ const NoticeDetail = ({ id }: NoticeDetailProps) => {
 
   return (
     <div
-      className={`w-full h-full flex flex-col gap-[20px] bg-[#FFFDF5] ${
+      className={`w-full h-full flex flex-col gap-[20px] bg-[#FFFDF5] max-w-[1680px] !mx-auto ${
         isMobile && mounted
           ? "!pt-[92px] !px-[20px]"
           : "!pt-[192px] !px-[120px]"

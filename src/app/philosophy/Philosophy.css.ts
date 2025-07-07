@@ -5,7 +5,9 @@ export const philosophyContainer = style({
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
-  backgroundColor: "#FFFDF5"
+  backgroundColor: "#FFFDF5",
+  maxWidth: "1680px",
+  margin: "0 auto"
 });
 
 export const PhilosophyTitle = style({

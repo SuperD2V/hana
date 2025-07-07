@@ -1,8 +1,14 @@
 import { color } from "@/component/shared/designed/color";
 import { style } from "@vanilla-extract/css";
 
+export const topContainer = style({
+  width: "100vw",
+  backgroundColor: color.brand[100]
+});
 export const historyContainer = style({
   width: "100%",
+  maxWidth: "1680px",
+  margin: "0 auto",
   backgroundColor: color.brand[100],
   display: "flex",
   flexDirection: "column",

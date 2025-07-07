@@ -1,6 +1,6 @@
 "use client";
 
-import { historyContainer } from "./index.css";
+import { historyContainer, topContainer } from "./index.css";
 import { HistoryItemLayout } from "./HistoryItemLayout";
 import { historyData } from "./historyData";
 import AOS from "aos";
@@ -18,16 +18,18 @@ export const HistorySection = () => {
   }, []);
 
   return (
-    <div className={historyContainer}>
-      {historyData.map((item, index) => (
-        <HistoryItemLayout
-          key={item.title}
-          item={item}
-          index={index}
-          isFlipped={index === 1}
-          isLast={index === historyData.length - 1}
-        />
-      ))}
+    <div className={topContainer}>
+      <div className={historyContainer}>
+        {historyData.map((item, index) => (
+          <HistoryItemLayout
+            key={item.title}
+            item={item}
+            index={index}
+            isFlipped={index === 1}
+            isLast={index === historyData.length - 1}
+          />
+        ))}
+      </div>
     </div>
   );
 };

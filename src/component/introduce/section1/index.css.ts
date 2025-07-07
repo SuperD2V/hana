@@ -3,6 +3,7 @@ import { color } from "../../shared/designed/color";
 
 export const navigationContainer = style({
   width: "90vw",
+  maxWidth: "1680px",
   // position: "fixed",
   top: "0px",
   left: 0,
@@ -17,7 +18,7 @@ export const navigationContainer = style({
     "(max-width: 1280px)": {
       height: "51px",
       width: "100vw",
-        position: "fixed",
+      position: "fixed",
       top: -1,
       left: 0,
       transform: "none",

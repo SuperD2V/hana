@@ -15,22 +15,26 @@ const page = () => {
   const { mounted, isMobile } = useResponsiveTypography();
 
   return (
-    <div className={`bg-[#FFFDF5] ${mounted && isMobile ? "mt-[-54px]" : ""}`}>
+    <div
+      className={`bg-[#FFFDF5] max-w-[1680px] !mx-auto ${
+        mounted && isMobile ? "mt-[-54px]" : ""
+      }`}
+    >
       {mounted && isMobile && <IntroduceNavigation />}
       <div className='w-full bg-[#1350A0]'>
         <div className='w-full flex flex-col items-center !pt-[32px] !gap-[28px]'>
-        {mounted && !isMobile && (
-          <>
-          <IntroduceNavigation />
-       
-          <Typography
-            variant='title1Bold'
-            className='text-white !font-semibold'
-          >
-            소개
-          </Typography>
-          </>
-           )}
+          {mounted && !isMobile && (
+            <>
+              <IntroduceNavigation />
+
+              <Typography
+                variant='title1Bold'
+                className='text-white !font-semibold'
+              >
+                소개
+              </Typography>
+            </>
+          )}
         </div>
       </div>
       {!isMobile && (

@@ -3,6 +3,7 @@ import { color } from "../../designed/color";
 
 export const navigationContainer = style({
   width: "90vw",
+  maxWidth: "1680px",
   position: "fixed",
   top: "32px",
   left: "50%",
