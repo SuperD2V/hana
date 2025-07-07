@@ -5,6 +5,7 @@ import { TypographyEn } from "@/component/shared";
 import { useResponsiveTypography } from "@/component/shared";
 import { ImageModal } from "./ImageModal";
 import * as styles from "./index.css";
+import { color } from "@/component/shared/designed/color";
 
 // 임시 이미지 데이터 (실제 이미지 경로로 교체하세요)
 const galleryImages = [
@@ -39,40 +40,42 @@ export const Gallery = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.wrapper}>
-        <TypographyEn
-          variant={isMobile ? "largetitle3Bold" : "largetitle1"}
-          className={styles.title}
-        >
-          GALLERY
-        </TypographyEn>
+    <div className={`flex justify-center bg-[${color.brand[800]}]`}>
+      <div className={styles.container}>
+        <div className={styles.wrapper}>
+          <TypographyEn
+            variant={isMobile ? "largetitle3Bold" : "largetitle1"}
+            className={styles.title}
+          >
+            GALLERY
+          </TypographyEn>
 
-        <div className={styles.imageGrid}>
-          {galleryImages.map((imageSrc, index) => (
-            <div
-              key={index}
-              className={styles.imageItem}
-              onClick={() => handleImageClick(imageSrc, index)}
-            >
-              <img
-                src={imageSrc}
-                alt={`Gallery image ${index + 1}`}
-                className={styles.image}
-              />
-            </div>
-          ))}
+          <div className={styles.imageGrid}>
+            {galleryImages.map((imageSrc, index) => (
+              <div
+                key={index}
+                className={styles.imageItem}
+                onClick={() => handleImageClick(imageSrc, index)}
+              >
+                <img
+                  src={imageSrc}
+                  alt={`Gallery image ${index + 1}`}
+                  className={styles.image}
+                />
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
 
-      {selectedImage && (
-        <ImageModal
-          isOpen={isModalOpen}
-          onClose={handleCloseModal}
-          imageSrc={selectedImage.src}
-          imageAlt={selectedImage.alt}
-        />
-      )}
+        {selectedImage && (
+          <ImageModal
+            isOpen={isModalOpen}
+            onClose={handleCloseModal}
+            imageSrc={selectedImage.src}
+            imageAlt={selectedImage.alt}
+          />
+        )}
+      </div>
     </div>
   );
 };

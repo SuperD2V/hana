@@ -9,7 +9,7 @@ const Section6 = () => {
   const { mounted, isMobile } = useResponsiveTypography();
   return (
     <div
-      className={`flex ${
+      className={`flex !mx-auto max-w-[1680px] ${
         mounted && isMobile ? "flex-col gap-[20px]" : "flex-row gap-[20px]"
       } justify-between items-center ${
         mounted && isMobile ? "!px-[20px]" : "!px-[120px]"
@@ -39,14 +39,14 @@ const Section6 = () => {
           하나교회로, (본질 개척되면서) 하나교회가 하나비전교회로 되었습니다.
           조직에서 시작되었지만, 이름이 변화되면서 '함께 하나님 나라를
           바라본다'(하나비전)는 의미를 가지게 되었습니다. (원천하나비전교회는
-          줄여서 하나비전교회로 부릅니다.) 
+          줄여서 하나비전교회로 부릅니다.)
         </Typography>
 
         <div
           className={`flex ${
             mounted && isMobile && "flex-col"
           } items-center gap-[12px] !mt-[40px] bg-[#F5F9FF] rounded-[12px] w-full !py-[20px] justify-center !mb-[20px]`}
-        > 
+        >
           <Typography variant='title2Bold' className='!text-[#1B5FB8]'>
             1교회
           </Typography>
@@ -72,9 +72,12 @@ const Section6 = () => {
           </Typography>
         </div>
 
-        <Button title={"원천교회 바로가기"} onClick={() => {
-          window.open("https://www.wonchon.org/", "_blank");
-        }} />
+        <Button
+          title={"원천교회 바로가기"}
+          onClick={() => {
+            window.open("https://www.wonchon.org/", "_blank");
+          }}
+        />
       </div>
 
       {/* 오른쪽 영역: 소속 정보 */}
@@ -100,9 +103,12 @@ const Section6 = () => {
           라이프하우스처치(홍민기목사) 등이 소속되어 있습니다.
         </Typography>
 
-        <Button title={"소속연합 바로가기"} onClick={() => {
-          window.open("https://home.kaicam.org/index.asp", "_blank");
-        }} />
+        <Button
+          title={"소속연합 바로가기"}
+          onClick={() => {
+            window.open("https://home.kaicam.org/index.asp", "_blank");
+          }}
+        />
       </div>
     </div>
   );

@@ -6,6 +6,8 @@ export const title = style({
 });
 export const container = style({
   width: "100%",
+  maxWidth: "1680px",
+  margin: "0 auto",
   height: "100%",
   backgroundColor: color.brand[800]
 });

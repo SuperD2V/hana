@@ -1,4 +1,3 @@
-
 import Image from "next/image";
 import React from "react";
 
@@ -9,31 +8,33 @@ const MAIN_TOP_IMAGE = [
   {
     src: "/images/know.png",
     alt: "know",
-    koreanTitle: '하나님을 바로 알고',
-    englishTitle: 'Knowing him',
-    description: '"그러므로 우리가 여호와를 알자\n힘써 여호와를 알자"(호 6:3)',
+    koreanTitle: "하나님을 바로 알고",
+    englishTitle: "Knowing him",
+    description: '"그러므로 우리가 여호와를 알자\n힘써 여호와를 알자"(호 6:3)'
   },
   {
     src: "/images/grow.png",
     alt: "grow",
-    koreanTitle: '함께 성장하며',
-    englishTitle: 'Growing together',
-    description: '"오직 우리 주 곧 구주 예수 그리스도의 은혜와\n그를 아는 지식에서 자라가라!"(벧후 3:18)',
+    koreanTitle: "함께 성장하며",
+    englishTitle: "Growing together",
+    description:
+      '"오직 우리 주 곧 구주 예수 그리스도의 은혜와\n그를 아는 지식에서 자라가라!"(벧후 3:18)'
   },
   {
     src: "/images/flow.png",
     alt: "flow",
-    koreanTitle: '세상으로 넘쳐흐르는',
-    englishTitle: 'Flowing into the world',
-    description: '"물이 바다를 덮음같이 여호와를 아는 지식이\n세상에 충만할 것임이니라!"(사 11:9)',
-  },
+    koreanTitle: "세상으로 넘쳐흐르는",
+    englishTitle: "Flowing into the world",
+    description:
+      '"물이 바다를 덮음같이 여호와를 아는 지식이\n세상에 충만할 것임이니라!"(사 11:9)'
+  }
 ];
 
 const MainTop = () => {
   const { mounted, isMobile } = useResponsiveTypography();
 
   return (
-    <div className='w-full h-full flex flex-col items-center justify-center gap-10'>
+    <div className='w-full h-full flex flex-col items-center justify-center gap-10 !mx-auto max-w-[1680px]'>
       <Image
         src='/images/visionTop.png'
         alt='mainTop'
@@ -61,27 +62,48 @@ const MainTop = () => {
         </Typography>
       </div>
 
-      <div className={`w-full bg-[#F5F9FF] ${mounted && isMobile ? "!px-[24px] !py-[24px]" : "!px-[80px] !py-[40px]"} rounded-[40px] flex ${mounted && isMobile ? "flex-col" : "flex-row"} justify-between items-center gap-[40px]`}>
+      <div
+        className={`w-full bg-[#F5F9FF] ${
+          mounted && isMobile
+            ? "!px-[24px] !py-[24px]"
+            : "!px-[80px] !py-[40px]"
+        } rounded-[40px] flex ${
+          mounted && isMobile ? "flex-col" : "flex-row"
+        } justify-between items-center gap-[40px]`}
+      >
         {MAIN_TOP_IMAGE.map((item, index) => (
-          <div key={item.alt} className="flex flex-col gap-[40px]">
-          <Image
-            key={index}
-            src={item.src}
-            alt={item.alt}
-            width={mounted && isMobile ? 335 : 395}
-            height={mounted && isMobile ? 875 : 150}
-          />
-          <div className="flex flex-col">
-            <Typography variant={mounted && isMobile ? "title1Bold" : "largetitle2Bold"} className="text-[#0E4287] !mb-[4px]">
-              {item.koreanTitle}
-            </Typography>
-            <Typography variant={mounted && isMobile ? "headlineMedium" : "title3Medium"} className="text-[#0E4287] !mb-[12px]">
-              {item.englishTitle}
-            </Typography>
-            <Typography variant={mounted && isMobile ? "body1Regular" : "headlineRegular"} className="text-[#44423C] whitespace-pre-line !leading-[28px]">
-              {item.description}
-            </Typography>
-          </div>
+          <div key={item.alt} className='flex flex-col gap-[40px]'>
+            <Image
+              key={index}
+              src={item.src}
+              alt={item.alt}
+              width={mounted && isMobile ? 335 : 395}
+              height={mounted && isMobile ? 875 : 150}
+            />
+            <div className='flex flex-col'>
+              <Typography
+                variant={mounted && isMobile ? "title1Bold" : "largetitle2Bold"}
+                className='text-[#0E4287] !mb-[4px]'
+              >
+                {item.koreanTitle}
+              </Typography>
+              <Typography
+                variant={
+                  mounted && isMobile ? "headlineMedium" : "title3Medium"
+                }
+                className='text-[#0E4287] !mb-[12px]'
+              >
+                {item.englishTitle}
+              </Typography>
+              <Typography
+                variant={
+                  mounted && isMobile ? "body1Regular" : "headlineRegular"
+                }
+                className='text-[#44423C] whitespace-pre-line !leading-[28px]'
+              >
+                {item.description}
+              </Typography>
+            </div>
           </div>
         ))}
       </div>

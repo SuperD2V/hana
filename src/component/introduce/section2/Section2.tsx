@@ -105,28 +105,30 @@ const Section2 = () => {
   const hasNext = currentIndex < historyContent.length - 1;
 
   return (
-    <div className='flex flex-col gap-[36px]'>
-      <SectionTitle EnglishTitle='History' KoreanTitle='교회연혁' />
-      <HistoryContent
-        mainTitleDate={historyContent[currentIndex].content.mainTitleDate}
-        content={historyContent[currentIndex].content.content}
-        nextContentTitle={
-          hasNext
-            ? {
-                ...historyContent[currentIndex + 1].content.mainTitleDate,
-                id: historyContent[currentIndex + 1].id
-              }
-            : { date: "", content: "", id: 0 }
-        }
-        prevContentTitle={
-          hasPrev
-            ? {
-                ...historyContent[currentIndex - 1].content.mainTitleDate,
-                id: historyContent[currentIndex - 1].id
-              }
-            : { date: "", content: "", id: 0 }
-        }
-      />
+    <div className='w-full'>
+      <div className='flex flex-col gap-[36px]'>
+        <SectionTitle EnglishTitle='History' KoreanTitle='교회연혁' />
+        <HistoryContent
+          mainTitleDate={historyContent[currentIndex].content.mainTitleDate}
+          content={historyContent[currentIndex].content.content}
+          nextContentTitle={
+            hasNext
+              ? {
+                  ...historyContent[currentIndex + 1].content.mainTitleDate,
+                  id: historyContent[currentIndex + 1].id
+                }
+              : { date: "", content: "", id: 0 }
+          }
+          prevContentTitle={
+            hasPrev
+              ? {
+                  ...historyContent[currentIndex - 1].content.mainTitleDate,
+                  id: historyContent[currentIndex - 1].id
+                }
+              : { date: "", content: "", id: 0 }
+          }
+        />
+      </div>
     </div>
   );
 };

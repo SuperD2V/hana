@@ -57,8 +57,8 @@ const HistoryContent = ({
               {mainTitleDate.content}
             </Typography>
             <Typography
-              fontFamily={mounted && isMobile ? 'Poppins' : 'Pretendard'}
-              variant={mounted && isMobile ? 'title1Medium' : 'title1Medium'}
+              fontFamily={mounted && isMobile ? "Poppins" : "Pretendard"}
+              variant={mounted && isMobile ? "title1Medium" : "title1Medium"}
               className='!text-[#1B5FB8] !text-[24px]'
             >
               {mainTitleDate.date}
@@ -89,14 +89,21 @@ const HistoryContent = ({
                     strokeLinejoin='round'
                   />
                 </svg> */}
-                <Image src={'/images/prevArrow.png'} alt='arrow-left' width={isMobile ? 20 : 30} height={isMobile ? 40 : 60} />
+                <Image
+                  src={"/images/prevArrow.png"}
+                  alt='arrow-left'
+                  width={isMobile ? 20 : 30}
+                  height={isMobile ? 40 : 60}
+                />
                 <div className='flex flex-col'>
                   <Typography variant='title2Bold' className='!text-[#98C2F9]'>
                     {prevContentTitle.content}
                   </Typography>
                   <Typography
-                  fontFamily={mounted && isMobile ? 'Poppins' : 'Pretendard'}
-                    variant={mounted && isMobile ? 'headlineMedium' : 'body2Regular'}
+                    fontFamily={mounted && isMobile ? "Poppins" : "Pretendard"}
+                    variant={
+                      mounted && isMobile ? "headlineMedium" : "body2Regular"
+                    }
                     className='!text-[#98C2F9]'
                   >
                     {prevContentTitle.date}
@@ -116,14 +123,22 @@ const HistoryContent = ({
                     {nextContentTitle.content}
                   </Typography>
                   <Typography
-                          fontFamily={mounted && isMobile ? 'Poppins' : 'Pretendard'}
-                          variant={mounted && isMobile ? 'headlineMedium' : 'body2Regular'}
-                          className='!text-[#98C2F9]'
+                    fontFamily={mounted && isMobile ? "Poppins" : "Pretendard"}
+                    variant={
+                      mounted && isMobile ? "headlineMedium" : "body2Regular"
+                    }
+                    className='!text-[#98C2F9]'
                   >
                     {nextContentTitle.date}
                   </Typography>
                 </div>
-                <Image src={'/images/prevArrow.png'} alt='arrow-left' width={isMobile ? 20 : 30} height={isMobile ? 40 : 60} className="rotate-180" />
+                <Image
+                  src={"/images/prevArrow.png"}
+                  alt='arrow-left'
+                  width={isMobile ? 20 : 30}
+                  height={isMobile ? 40 : 60}
+                  className='rotate-180'
+                />
               </div>
             ) : (
               <div />
@@ -135,46 +150,51 @@ const HistoryContent = ({
   }
 
   return (
-    <div className='w-full h-[874px] bg-[#D7E8FF] relative'>
-      <div
-        style={{
-          position: "absolute",
-          top: "109px",
-          left: "120px",
-          display: "flex",
-          flexDirection: "column",
-          gap: "7px"
-        }}
-      >
-        <span style={{ fontWeight: "700", fontSize: "60px", color: "#1B5FB8" }}>
-          {mainTitleDate.content}
-        </span>
-        <span
+    <div className='w-full bg-[#D7E8FF] !mx-auto'>
+      <div className='w-full !mx-auto max-w-[1680px] h-[874px] relative'>
+        <div
           style={{
-            fontWeight: "500",
-            fontSize: "40px",
-            color: "#1B5FB8",
-            fontFamily: "popins"
+            position: "absolute",
+            top: "109px",
+            left: "120px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "7px"
           }}
         >
-          {mainTitleDate.date}
-        </span>
-      </div>
-      <div className='border-[1px] border-[#276FCD] h-full absolute top-0 bottom-0 left-[901px]' />
-      <div className='absolute top-[108px] left-[885px] flex flex-col gap-[40px]'>
-        {content.map((item, index) => (
-          <HistoryContentItem key={index} content={item} />
-        ))}
-      </div>
-
-      {/* 이전/다음 네비게이션 */}
-      <div className='absolute bottom-[40px] w-full flex justify-between !px-[120px] text-[#276FCD]'>
-        {prevContentTitle.id ? (
-          <div
-            className={`flex items-center cursor-pointer ${mounted && isMobile ? '!gap-[8px]' : 'gap-[27.5px]'}`}
-            onClick={handlePrevClick}
+          <span
+            style={{ fontWeight: "700", fontSize: "60px", color: "#1B5FB8" }}
           >
-            {/* <svg width='24' height='24' viewBox='0 0 24 24' fill='none'>
+            {mainTitleDate.content}
+          </span>
+          <span
+            style={{
+              fontWeight: "500",
+              fontSize: "40px",
+              color: "#1B5FB8",
+              fontFamily: "popins"
+            }}
+          >
+            {mainTitleDate.date}
+          </span>
+        </div>
+        <div className='border-[1px] border-[#276FCD] h-full absolute top-0 bottom-0 left-[901px]' />
+        <div className='absolute top-[108px] left-[885px] flex flex-col gap-[40px]'>
+          {content.map((item, index) => (
+            <HistoryContentItem key={index} content={item} />
+          ))}
+        </div>
+
+        {/* 이전/다음 네비게이션 */}
+        <div className='absolute bottom-[40px] w-full flex justify-between !px-[120px] text-[#276FCD]'>
+          {prevContentTitle.id ? (
+            <div
+              className={`flex items-center cursor-pointer ${
+                mounted && isMobile ? "!gap-[8px]" : "gap-[27.5px]"
+              }`}
+              onClick={handlePrevClick}
+            >
+              {/* <svg width='24' height='24' viewBox='0 0 24 24' fill='none'>
               <path
                 d='M15 18L9 12L15 6'
                 stroke='currentColor'
@@ -183,69 +203,74 @@ const HistoryContent = ({
                 strokeLinejoin='round'
               />
             </svg> */}
-            <Image src={'/images/prevArrow.png'} alt='arrow-left' width={isMobile ? 20 : 30} height={isMobile ? 40 : 60} />
-            <div className='flex flex-col'>
-              <span
-                className='text-[#98C2F9]'
-                style={{
-                  fontFamily: "Pretendard",
-                  fontWeight: "600",
-                  fontSize: "60px",
-                  lineHeight: "100%",
-                  letterSpacing: "0%"
-                }}
-              >
-                {prevContentTitle.content}
-              </span>
-              <span
-                className='text-[#98C2F9]'
-                style={{
-                  fontFamily: "Pretendard",
-                  fontWeight: "500",
-                  fontSize: "36px",
-                  lineHeight: "100%",
-                  letterSpacing: "-3.2%"
-                }}
-              >
-                {prevContentTitle.date}
-              </span>
+              <Image
+                src={"/images/prevArrow.png"}
+                alt='arrow-left'
+                width={isMobile ? 20 : 30}
+                height={isMobile ? 40 : 60}
+              />
+              <div className='flex flex-col'>
+                <span
+                  className='text-[#98C2F9]'
+                  style={{
+                    fontFamily: "Pretendard",
+                    fontWeight: "600",
+                    fontSize: "60px",
+                    lineHeight: "100%",
+                    letterSpacing: "0%"
+                  }}
+                >
+                  {prevContentTitle.content}
+                </span>
+                <span
+                  className='text-[#98C2F9]'
+                  style={{
+                    fontFamily: "Pretendard",
+                    fontWeight: "500",
+                    fontSize: "36px",
+                    lineHeight: "100%",
+                    letterSpacing: "-3.2%"
+                  }}
+                >
+                  {prevContentTitle.date}
+                </span>
+              </div>
             </div>
-          </div>
-        ) : (
-          <div />
-        )}
-        {nextContentTitle.id ? (
-          <div
-            className='flex items-center gap-[8px] cursor-pointer'
-            onClick={handleNextClick}
-          >
-            <div className='flex flex-col items-end'>
-              <span
-                className='text-[#98C2F9]'
-                style={{
-                  fontFamily: "Pretendard",
-                  fontWeight: "600",
-                  fontSize: "60px",
-                  lineHeight: "100%",
-                  letterSpacing: "0%"
-                }}
-              >
-                {nextContentTitle.content}
-              </span>
-              <span
-                className='text-[#98C2F9]'
-                style={{
-                  fontFamily: "Pretendard",
-                  fontWeight: "500",
-                  fontSize: "36px",
-                  lineHeight: "100%",
-                  letterSpacing: "-3.2%"
-                }}
-              >
-                {nextContentTitle.date}
-              </span>
-            </div>
-            {/* <svg width='24' height='24' viewBox='0 0 24 24' fill='none'>
+          ) : (
+            <div />
+          )}
+          {nextContentTitle.id ? (
+            <div
+              className='flex items-center gap-[8px] cursor-pointer'
+              onClick={handleNextClick}
+            >
+              <div className='flex flex-col items-end'>
+                <span
+                  className='text-[#98C2F9]'
+                  style={{
+                    fontFamily: "Pretendard",
+                    fontWeight: "600",
+                    fontSize: "60px",
+                    lineHeight: "100%",
+                    letterSpacing: "0%"
+                  }}
+                >
+                  {nextContentTitle.content}
+                </span>
+                <span
+                  className='text-[#98C2F9]'
+                  style={{
+                    fontFamily: "Pretendard",
+                    fontWeight: "500",
+                    fontSize: "36px",
+                    lineHeight: "100%",
+                    letterSpacing: "-3.2%"
+                  }}
+                >
+                  {nextContentTitle.date}
+                </span>
+              </div>
+              {/* <svg width='24' height='24' viewBox='0 0 24 24' fill='none'>
               <path
                 d='M9 6L15 12L9 18'
                 stroke='currentColor'
@@ -254,11 +279,18 @@ const HistoryContent = ({
                 strokeLinejoin='round'
               />
             </svg> */}
-            <Image src={'/images/nextArrow.png'} alt='arrow-right' width={isMobile ? 20 : 30} height={isMobile ? 40 : 60} className="rotate-180" />
-          </div>
-        ) : (
-          <div />
-        )}
+              <Image
+                src={"/images/nextArrow.png"}
+                alt='arrow-right'
+                width={isMobile ? 20 : 30}
+                height={isMobile ? 40 : 60}
+                className='rotate-180'
+              />
+            </div>
+          ) : (
+            <div />
+          )}
+        </div>
       </div>
     </div>
   );
@@ -272,9 +304,11 @@ const MobileHistoryContentItem = ({ content }: { content: Content }) => {
       <div className='w-[13px] h-[13px] rounded-full bg-[#276FCD] mt-[8px] relative top-[9px] left-[14px]' />
       <div className='flex flex-col gap-[8px]'>
         <Typography
-          variant={mounted && isMobile ? 'title2Semibold' : 'title3Bold'}
-          fontFamily={mounted && isMobile ? 'Poppins' : ''}
-          className={`!text-[#1B5FB8] !text-[${mounted && isMobile ? '24px' : '28px'}]`}
+          variant={mounted && isMobile ? "title2Semibold" : "title3Bold"}
+          fontFamily={mounted && isMobile ? "Poppins" : ""}
+          className={`!text-[#1B5FB8] !text-[${
+            mounted && isMobile ? "24px" : "28px"
+          }]`}
         >
           {content.date}
         </Typography>

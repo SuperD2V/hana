@@ -38,14 +38,14 @@ const departmentData = [
 const Section4 = () => {
   const { mounted, isMobile } = useResponsiveTypography();
   return (
-    <div className='flex justify-center items-center flex-col !pt-[80px] !px-[20px]'>
+    <div className='flex justify-center items-center flex-col !pt-[80px] !px-[20px] !mx-auto max-w-[1680px]'>
       <div
         className={`flex flex-col ${
           mounted && isMobile ? "gap-[12px]" : "gap-[40px]"
         } items-center`}
       >
         <Typography
-          fontFamily={mounted && isMobile ? 'Poppins' : ''}
+          fontFamily={mounted && isMobile ? "Poppins" : ""}
           variant={mounted && isMobile ? "largetitle2Bold" : "largetitle1"}
           className={`!text-[#0E4287] ${
             mounted && isMobile ? "!text-[40px]" : "!text-[80px]"
@@ -68,7 +68,9 @@ const Section4 = () => {
           mounted && !isMobile
             ? "!whitespace-pre-line !mb-[40px] "
             : "!mb-[60px] !px-[20px]"
-        } !mt-[20px] !font-[400] !text-[${mounted && isMobile ? '16px' : '18px'}] !leading-[${mounted && isMobile ? '26px' : '28px'}]`}
+        } !mt-[20px] !font-[400] !text-[${
+          mounted && isMobile ? "16px" : "18px"
+        }] !leading-[${mounted && isMobile ? "26px" : "28px"}]`}
       >
         하나비전교회의 다음 세대 사역은 정교하고 발전된 교육 시스템을 지향하지
         않습니다. 교회를 확대된 가정이라고 생각하고 가정에서 부모가 자녀들을
@@ -80,15 +82,13 @@ const Section4 = () => {
       {/* 부서 정보 */}
       <div
         className={`flex w-full ${
-          mounted && isMobile
-            ? "!px-[20px] "
-            : "!px-[120px] justify-between"
+          mounted && isMobile ? "!px-[20px] " : "!px-[120px] justify-between"
         } !mb-[91px] gap-[20px] overflow-x-scroll flex-nowrap ${scrollContainer}`}
       >
         {departmentData.map((dept, index) => (
           <div
             key={index}
-            className={`flex-shrink-0 flex flex-col items-center justify-center !p-[16px] rounded-[8px]  bg-[#FAFAF9] !box-shadow: 0px 0px 20px 0px #2C25070A'
+            className={`flex flex-col items-center justify-center !p-[16px] rounded-[8px]  bg-[#FAFAF9] !box-shadow: 0px 0px 20px 0px #2C25070A'
               `}
             style={
               mounted && isMobile
