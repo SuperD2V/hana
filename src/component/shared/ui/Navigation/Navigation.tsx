@@ -25,10 +25,15 @@ import { usePathname } from "next/navigation";
 
 export function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isClient, setIsClient] = useState(false);
   const pathName = usePathname();
 
   const width = useWindowWidth();
-  const isMobile = width && width < 1280; // 예: 2xl 기준
+  const isMobile = isClient && width && width < 1280; // 예: 2xl 기준
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   useEffect(() => {
     if (!isMobile) setIsMobileMenuOpen(false);
@@ -164,6 +169,9 @@ export function useWindowWidth() {
   const [width, setWidth] = useState<number | undefined>(undefined);
 
   useEffect(() => {
+    // 서버 사이드 렌더링 시에는 실행하지 않음
+    if (typeof window === "undefined") return;
+
     const handleResize = () => setWidth(window.innerWidth);
     handleResize(); // 초기 실행
     window.addEventListener("resize", handleResize);

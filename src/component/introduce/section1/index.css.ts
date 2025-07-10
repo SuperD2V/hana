@@ -2,9 +2,10 @@ import { style } from "@vanilla-extract/css";
 import { color } from "../../shared/designed/color";
 
 export const navigationContainer = style({
-  width: "90vw",
-  maxWidth: "1680px",
   // position: "fixed",
+  width: "100%",
+  maxWidth: "1680px",
+  height: "100px",
   top: "0px",
   left: 0,
   // transform: "translateX(-50%)",
@@ -35,7 +36,6 @@ export const navWrapper = style({
   padding: "0 1rem",
   display: "flex",
   alignItems: "center",
-  justifyContent: "space-around",
   gap: "80px",
   "@media": {
     "(max-width: 1280px)": {
@@ -92,9 +92,17 @@ export const socialLinks = style({
 export const navLink = style({
   color: color.gray[800],
   textDecoration: "none",
-  transition: "color 0.2s ease"
+  transition: "color 0.2s ease",
+  outline: "none",
+  border: "none",
+  ":hover": {
+    color: color.brand[700]
+  },
+  ":focus": {
+    outline: "none",
+    border: "none"
+  }
 });
-
 export const mobileMenuButton = style({
   display: "none",
   background: "none",

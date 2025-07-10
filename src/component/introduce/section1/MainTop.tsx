@@ -48,7 +48,7 @@ const MainTop = () => {
           }
           className='text-center text-[#292724] '
         >
-          함께 하나님나라를 소망하는 하나비전교회
+          함께 하나님나라를 대망하는 하나비전교회
         </Typography>
 
         <Typography

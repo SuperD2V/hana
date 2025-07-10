@@ -2,8 +2,9 @@ import { style } from "@vanilla-extract/css";
 import { color } from "../../designed/color";
 
 export const navigationContainer = style({
-  width: "90vw",
+  width: "100%",
   maxWidth: "1680px",
+  height: "100px",
   position: "fixed",
   top: "32px",
   left: "50%",
@@ -34,7 +35,6 @@ export const navWrapper = style({
   padding: "0 1rem",
   display: "flex",
   alignItems: "center",
-  justifyContent: "space-around",
   gap: "80px",
   "@media": {
     "(max-width: 1280px)": {
@@ -94,6 +94,9 @@ export const navLink = style({
   transition: "color 0.2s ease",
   outline: "none",
   border: "none",
+  ":hover": {
+    color: color.brand[700]
+  },
   ":focus": {
     outline: "none",
     border: "none"

@@ -25,7 +25,12 @@ export const FloatingBar = () => {
   return (
     <div className={floatingBar}>
       <div className={floatingBarList}>
-        <div className={floatingBarItem} onClick={() => router.push("")}>
+        <div
+          className={floatingBarItem}
+          onClick={() =>
+            window.open("https://forms.gle/Mdojk2Y41qFP5oVi9", "_blank")
+          }
+        >
           <Image
             src={"/images/money.svg"}
             alt='온라인헌금'
@@ -34,10 +39,7 @@ export const FloatingBar = () => {
           />
           <Typography variant='body2Medium'>온라인헌금</Typography>
         </div>
-        <Link
-          href='https://youtube.com/@hanavisionch?si=_KQD1m_YA_iSD5B8'
-          target='_blank'
-        >
+        <Link href='https://www.band.us/band/89951906/post/320' target='_blank'>
           <div className={floatingBarItem}>
             <Image
               src={"/images/speak.svg"}

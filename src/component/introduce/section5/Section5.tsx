@@ -88,12 +88,12 @@ const Section5 = () => {
             <div className='flex flex-wrap gap-[4px] min-w-[780px] justify-between w-full'>
               {circleData.map((item, index) => (
                 <div
+                  key={index}
                   className={`w-[${
                     mounted && isMobile ? "30%" : "120px"
                   }] flex justify-center`}
                 >
                   <div
-                    key={index}
                     className={`bg-[#FFFDF5] border border-[#F6E6A5]  ${
                       mounted && isMobile
                         ? "w-[106px] h-[106px]"

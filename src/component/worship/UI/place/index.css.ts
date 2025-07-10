@@ -91,7 +91,7 @@ export const mapWrapper = style({
 export const parkingInfo = style({
   display: "flex",
   flexDirection: "row",
-  alignItems: "flex-start",
+  alignItems: "center",
   gap: "12px",
   padding: "12px 16px",
   background: "#f6fafd",

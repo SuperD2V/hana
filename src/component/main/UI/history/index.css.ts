@@ -92,10 +92,10 @@ export const historyLineContainer = style({
 export const historyLine = style({
   position: "absolute",
   top: "50%",
-  left: 0,
-  transform: "translateY(-50%)",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
   zIndex: 0,
-  width: "100%"
+  width: "100vw"
 });
 
 export const historySquare = style({
