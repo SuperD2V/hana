@@ -26,7 +26,6 @@ export default function RootLayout({
       <body suppressHydrationWarning={true}>
         <div className='flex flex-col h-full min-h-screen'>
           <main className={mainContent}>{children}</main>
-          <Footer />
         </div>
       </body>
     </html>

@@ -17,25 +17,40 @@ import { Pagination } from "./Pagination";
 import { SubMenuItem } from "@/component/shared/ui/subMenu";
 import { DesktopTable } from "./DesktopTable";
 import { MobileTable } from "./MobileTable";
-const dummyData: { no: number; title: string; date: string; views: number }[] =
-  [];
-
-const noticeData = [
-  { no: 1, title: "홈페이지 새단장", date: "2024.12.20", views: 0 },
-  { no: 2, title: "2025년 하계 전교인 리트릿", date: "2024.12.19", views: 0 }
-];
+import { DashboardProps, NoticeItem } from "../../type";
 
 const items: SubMenuItem[] = [
   { key: "notice", label: "공지" },
   { key: "worship", label: "주보" }
 ];
 
-export const Dashboard = () => {
+export const Dashboard: React.FC<DashboardProps> = ({
+  data,
+  title = "공지 및 주보",
+  onItemClick,
+  onPageChange,
+  onCategoryChange
+}) => {
   const { mounted, isMobile } = useResponsiveTypography();
   const [page, setPage] = React.useState(1);
   const [selected, setSelected] = useState(items[0].key);
 
-  const data = selected === "notice" ? noticeData : dummyData;
+  const currentData = data[selected as keyof typeof data] || [];
+
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
+    onPageChange?.(newPage);
+  };
+
+  const handleCategoryChange = (category: string) => {
+    setSelected(category);
+    setPage(1); // 카테고리 변경 시 페이지를 1로 리셋
+    onCategoryChange?.(category);
+  };
+
+  const handleItemClick = (item: NoticeItem) => {
+    onItemClick?.(item);
+  };
 
   return (
     <div className={noticeContainer}>
@@ -44,18 +59,22 @@ export const Dashboard = () => {
           variant={mounted && isMobile ? "largetitle2" : "largetitle3ExtraBold"}
           className={title}
         >
-          공지 및 주보
+          {title}
         </TypographyEn>
-        <SubMenu items={items} selectedKey={selected} onSelect={setSelected} />
+        <SubMenu
+          items={items}
+          selectedKey={selected}
+          onSelect={handleCategoryChange}
+        />
         <div className={tableContainer}>
           {!isMobile ? (
-            <DesktopTable data={data} />
+            <DesktopTable data={currentData} onItemClick={handleItemClick} />
           ) : (
-            <MobileTable data={data} />
+            <MobileTable data={currentData} onItemClick={handleItemClick} />
           )}
         </div>
         <div className={paginationContainer}>
-          <Pagination current={page} total={2} onChange={setPage} />
+          <Pagination current={page} total={2} onChange={handlePageChange} />
         </div>
       </div>
     </div>

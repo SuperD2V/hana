@@ -15,33 +15,38 @@ import {
 import { TypographyEn, Typography } from "@/component/shared";
 import { useResponsiveTypography } from "@/component/shared/hooks/useResponsiveTypography";
 import { useRouter } from "next/navigation";
+import { NewsSectionProps, NewsItem } from "../../type";
 
-const newsData = [
-  { id: 1, title: "홈페이지 새단장", date: "25.06.30", isNotice: true },
-  {
-    id: 2,
-    title: "2025년 하계 전교인 리트릿",
-    date: "25.06.30",
-    isNotice: true
-  }
-];
-
-const NewsSection = () => {
+const NewsSection: React.FC<NewsSectionProps> = ({
+  data,
+  title = "NEWS",
+  onItemClick
+}) => {
   const { mounted, isMobile } = useResponsiveTypography();
   const router = useRouter();
+
+  const handleItemClick = (item: NewsItem) => {
+    if (onItemClick) {
+      onItemClick(item);
+    } else {
+      // 기본 동작: 라우터로 이동
+      router.push(`/notice/${item.id}`);
+    }
+  };
+
   return (
     <div className={`${sectionBox} ${newsMobileBox}`}>
       <div className={title}>
         <TypographyEn
           variant={mounted && isMobile ? "largetitle3Bold" : "largetitle1"}
         >
-          NEWS
+          {title}
         </TypographyEn>
       </div>
       <div className={newsList}>
-        {newsData.map((item, idx) => (
+        {data.map((item, idx) => (
           <div
-            onClick={() => router.push(`/notice/${item.id}`)}
+            onClick={() => handleItemClick(item)}
             key={item.id}
             className={idx === 0 ? `${newsItem} ${newsItemFirst}` : newsItem}
           >

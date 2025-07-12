@@ -10,6 +10,7 @@ export default function RootLayout({
     <>
       <Navigation />
       <main className={mainContent}>{children}</main>
+      <Footer />
     </>
   );
 }

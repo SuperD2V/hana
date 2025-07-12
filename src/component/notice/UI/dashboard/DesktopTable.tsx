@@ -2,20 +2,27 @@ import React from "react";
 import { table, th, tdLeft, tdCenter, tdRight } from "./index.css";
 import { Typography } from "@/component/shared";
 import { useRouter } from "next/navigation";
-
-interface TableData {
-  no: number;
-  title: string;
-  date: string;
-  views: number;
-}
+import { NoticeItem } from "../../type";
 
 interface DesktopTableProps {
-  data: TableData[];
+  data: NoticeItem[];
+  onItemClick?: (item: NoticeItem) => void;
 }
 
-export const DesktopTable: React.FC<DesktopTableProps> = ({ data }) => {
+export const DesktopTable: React.FC<DesktopTableProps> = ({
+  data,
+  onItemClick
+}) => {
   const router = useRouter();
+
+  const handleItemClick = (item: NoticeItem) => {
+    if (onItemClick) {
+      onItemClick(item);
+    } else {
+      // 기본 동작: 라우터로 이동
+      router.push(`/notice/${item.no}`);
+    }
+  };
 
   return (
     <table className={table}>
@@ -44,7 +51,7 @@ export const DesktopTable: React.FC<DesktopTableProps> = ({ data }) => {
             <td
               className={tdCenter}
               style={{ cursor: "pointer" }}
-              onClick={() => router.push(`/notice/${item.no}`)}
+              onClick={() => handleItemClick(item)}
             >
               <Typography variant='title3Medium'>{item.title}</Typography>
             </td>
