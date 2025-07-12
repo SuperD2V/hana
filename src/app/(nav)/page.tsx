@@ -1,4 +1,4 @@
-import { homeContainer } from "./index.css";
+import { homeContainer } from "../index.css";
 import {
   InitSection,
   HistorySection,

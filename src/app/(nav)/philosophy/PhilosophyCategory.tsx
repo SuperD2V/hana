@@ -3,7 +3,7 @@ import React from "react";
 import { IntroduceCategory } from "@/component/introduce/type";
 import PhilosophyCategoryItem from "./PhilosophyCategoryItem";
 import { useShallow } from "zustand/shallow";
-import { usePhilosophyStore } from "../../../hooks/store/usePhilosophyStore";
+import { usePhilosophyStore } from "../../../../hooks/store/usePhilosophyStore";
 import { useResponsiveTypography } from "@/component/shared";
 
 const PhilosophyCategory = () => {

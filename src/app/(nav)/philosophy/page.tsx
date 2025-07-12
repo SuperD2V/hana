@@ -8,7 +8,7 @@ import {
 } from "./Philosophy.css";
 import { PhilosophyContent } from "./utils/PhilosophyContent";
 import PhilosophyCategory from "./PhilosophyCategory";
-import { usePhilosophyStore } from "../../../hooks/store/usePhilosophyStore";
+import { usePhilosophyStore } from "../../../../hooks/store/usePhilosophyStore";
 import { useShallow } from "zustand/shallow";
 import { useResponsiveTypography } from "@/component/shared";
 

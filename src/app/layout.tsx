@@ -25,7 +25,6 @@ export default function RootLayout({
     <html lang='ko' className={poppins.variable}>
       <body suppressHydrationWarning={true}>
         <div className='flex flex-col h-full min-h-screen'>
-          <Navigation />
           <main className={mainContent}>{children}</main>
           <Footer />
         </div>
