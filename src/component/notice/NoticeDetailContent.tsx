@@ -63,6 +63,52 @@ const NoticeDetailContent = ({ id }: NoticeDetailContentProps) => {
           url: "#"
         }
       ]
+    },
+    {
+      id: 3,
+      title: "외부/ 손님 헌금 안내",
+      category: "등록일",
+      date: "2025.06.30",
+      viewLabel: "조회수",
+      viewCount: "0",
+      content: [
+        "하나은행 913-910011-91304 하나비전교회",
+        "영수증 신청은 아래로 접속해주세요.  ",
+        "https://forms.gle/Mdojk2Y41qFP5oVi9"
+      ],
+      attachments: [
+        {
+          name: "첨부파일",
+          fileName: "첨부파일첨부파일의 제목이 들어갑니다.확장자명",
+          url: "#"
+        }
+      ]
+    },
+    {
+      id: 4,
+      title: "교인 헌금 안내",
+      category: "등록일",
+      date: "2025.06.30",
+      viewLabel: "조회수",
+      viewCount: "0",
+      content: [
+        "하나은행 913-910011-91304 하나비전교회",
+        "온라인 헌금의 예)",
+        "- 십일조: 홍길동십일조",
+        "- 감사헌금: 홍길동감사",
+        "- 엄경영선교사후원: 홍길동엄경영",
+        "- 절기: 홍길동부활절",
+        "하신 헌금은 <오직 온라인 교인센터>를 통해 확인하실 수 있습니다. ",
+        "온라인 교인센터 이용 방법",
+        "https://www.band.us/band/89951906/post/320"
+      ],
+      attachments: [
+        {
+          name: "첨부파일",
+          fileName: "첨부파일첨부파일의 제목이 들어갑니다.확장자명",
+          url: "#"
+        }
+      ]
     }
   ];
 
@@ -105,9 +151,7 @@ const NoticeDetailContent = ({ id }: NoticeDetailContentProps) => {
         </Typography>
 
         {/* 메타 정보 */}
-        <div
-          className='flex items-center gap-4 mb-8 pb-4'
-        >
+        <div className='flex items-center gap-4 mb-8 pb-4'>
           <div className='flex items-center gap-2'>
             <Typography
               variant={mounted && isMobile ? "body2Regular" : "body1Regular"}
@@ -140,7 +184,11 @@ const NoticeDetailContent = ({ id }: NoticeDetailContentProps) => {
       </div>
 
       {/* 본문 내용 */}
-      <div className={`mb-12 ${mounted && isMobile ? "!px-[12px] !py-[20px]" : "!p-[40px]"}`}>
+      <div
+        className={`mb-12 ${
+          mounted && isMobile ? "!px-[12px] !py-[20px]" : "!p-[40px]"
+        }`}
+      >
         {noticeData.content.map((paragraph: string, index: number) => (
           <div key={index}>
             {paragraph === "" ? (
@@ -160,13 +208,21 @@ const NoticeDetailContent = ({ id }: NoticeDetailContentProps) => {
       {/* 첨부파일 */}
       {noticeData.attachments.length > 0 && (
         <div
-          className={`!mb-[20px] flex items-center gap-4  ${mounted && isMobile ? "!flex-col !p-[20px]" : "flex-row !p-[40px]"}`}
+          className={`!mb-[20px] flex items-center gap-4  ${
+            mounted && isMobile ? "!flex-col !p-[20px]" : "flex-row !p-[40px]"
+          }`}
           style={{
             // borderColor: "#E5E5E5",
             backgroundColor: "#FAFAF9"
           }}
         >
-          <Image src='/images/file.png' alt='file' width={64} height={64} style={ (isMobile && mounted) ? {alignSelf:'center'} : undefined}/>
+          <Image
+            src='/images/file.png'
+            alt='file'
+            width={64}
+            height={64}
+            style={isMobile && mounted ? { alignSelf: "center" } : undefined}
+          />
           {noticeData.attachments.map((attachment, index: number) => (
             <div key={index} className='flex items-center gap-3 mb-3'>
               {/* 파일 아이콘 */}
@@ -188,7 +244,7 @@ const NoticeDetailContent = ({ id }: NoticeDetailContentProps) => {
               <Typography
                 variant={mounted && isMobile ? "body2Regular" : "body1Regular"}
                 className='!text-[#666666]'
-                style={{textDecoration:'underline'}}
+                style={{ textDecoration: "underline" }}
               >
                 {attachment.fileName}
               </Typography>
