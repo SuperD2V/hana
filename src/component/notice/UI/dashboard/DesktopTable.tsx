@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { table, th, tdLeft, tdCenter, tdRight } from "./index.css";
 import { Typography } from "@/component/shared";

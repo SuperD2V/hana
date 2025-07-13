@@ -7,6 +7,7 @@ import TimeSection from "./TimeSection";
 import HelpSection from "./HelpSection";
 import { NewsItem } from "../../type";
 import { useRouter } from "next/navigation";
+import { newsDummyData } from "../../data/dummyData";
 
 interface NoticeProps {
   newsData?: NewsItem[];
@@ -14,15 +15,7 @@ interface NoticeProps {
 }
 
 export const Notice: React.FC<NoticeProps> = ({
-  newsData = [
-    { id: 1, title: "홈페이지 새단장", date: "25.06.30", isNotice: true },
-    {
-      id: 2,
-      title: "2025년 하계 전교인 리트릿",
-      date: "25.06.30",
-      isNotice: true
-    }
-  ],
+  newsData = newsDummyData,
   onNewsItemClick
 }) => {
   const router = useRouter();

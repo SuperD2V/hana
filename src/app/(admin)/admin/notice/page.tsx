@@ -1,7 +1,13 @@
-import React from "react";
+"use client";
+
+import { DesktopTable } from "@/component/notice/UI/dashboard/DesktopTable";
 
 const Page = () => {
-  return <div>공지사항1</div>;
+  return (
+    <div>
+      <DesktopTable data={[]} onItemClick={() => {}} />
+    </div>
+  );
 };
 
 export default Page;

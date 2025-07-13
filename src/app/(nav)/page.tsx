@@ -11,20 +11,10 @@ import {
 import { FloatingBar } from "@/component/main/UI/floatingMenu";
 import { useRouter } from "next/navigation";
 import { NewsItem } from "@/component/main/type";
+import { newsDummyData } from "@/component/main/data/dummyData";
 
 export default function Home() {
   const router = useRouter();
-
-  // 실제로는 API에서 데이터를 가져와야 합니다
-  const newsData: NewsItem[] = [
-    { id: 1, title: "홈페이지 새단장", date: "25.06.30", isNotice: true },
-    {
-      id: 2,
-      title: "2025년 하계 전교인 리트릿",
-      date: "25.06.30",
-      isNotice: true
-    }
-  ];
 
   const handleNewsItemClick = (item: NewsItem) => {
     // 뉴스 아이템 클릭 시 상세 페이지로 이동
@@ -37,7 +27,7 @@ export default function Home() {
       <HistorySection />
       <LineBanner />
       <Calendar />
-      <Notice newsData={newsData} onNewsItemClick={handleNewsItemClick} />
+      <Notice newsData={newsDummyData} onNewsItemClick={handleNewsItemClick} />
       <FloatingBar />
     </div>
   );
