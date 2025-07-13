@@ -21,8 +21,10 @@ const dummyData: { no: number; title: string; date: string; views: number }[] =
   [];
 
 const noticeData = [
-  { no: 1, title: "홈페이지 새단장", date: "2024.12.20", views: 0 },
-  { no: 2, title: "2025년 하계 전교인 리트릿", date: "2024.12.19", views: 0 }
+  { no: 1, title: "홈페이지 새단장", date: "2025.06.30", views: 0 },
+  { no: 2, title: "2025년 하계 전교인 리트릿", date: "2025.06.30", views: 0 },
+  { no: 3, title: "외부/ 손님 헌금 안내", date: "2025.07.13", views: 0 },
+  { no: 4, title: "교인 헌금 안내", date: "2025.07.13", views: 0 }
 ];
 
 const items: SubMenuItem[] = [

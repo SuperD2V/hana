@@ -26,16 +26,36 @@ const page = () => {
     6: useRef<HTMLDivElement>(null)
   };
 
-  const { selectedCateogry } = useIntroduceStore(
+  const { selectedCateogry, reset } = useIntroduceStore(
     useShallow((state: any) => ({
-      selectedCateogry: state.selectedCateogry
+      selectedCateogry: state.selectedCateogry,
+      reset: state.reset
     }))
   );
 
-  // 선택된 카테고리가 변경될 때 해당 섹션으로 스크롤
+  // 페이지 마운트 시 스토어 초기화 및 스크롤 맨 위로
   useEffect(() => {
-    if (
+    reset();
+    window.scrollTo(0, 0);
+  }, []);
+
+  // 페이지 언마운트 시 스토어 초기화
+  useEffect(() => {
+    return () => {
+      reset();
+    };
+  }, [reset]);
+
+  // 선택된 카테고리가 변경될 때 해당 섹션으로 스크롤 (1번일 때만 1번 섹션으로 이동)
+  useEffect(() => {
+    if (selectedCateogry && selectedCateogry === 1 && sectionRefs[1]?.current) {
+      sectionRefs[1].current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    } else if (
       selectedCateogry &&
+      selectedCateogry !== 1 &&
       sectionRefs[selectedCateogry as keyof typeof sectionRefs]?.current
     ) {
       sectionRefs[

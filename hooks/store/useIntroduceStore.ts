@@ -14,7 +14,7 @@ export type IntroduceStore = {
 };
 
 const initState: IntroduceStore = {
-  selectedCateogry: 1,
+  selectedCateogry: 0,
   selectSection2Content: 3
 };
 

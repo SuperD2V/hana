@@ -6,7 +6,6 @@ import {
   DialogContent,
   DialogFooter,
   DialogHeader,
-  DialogTrigger,
   DialogOverlay,
   DialogClose,
   DialogTitle
@@ -24,19 +23,20 @@ interface ScheduleItem {
 
 interface ApplicationModalProps {
   scheduleData: ScheduleItem[];
-  trigger: React.ReactNode;
+  isOpen: boolean;
+  onClose: () => void;
 }
 
 export const ApplicationModal: React.FC<ApplicationModalProps> = ({
   scheduleData,
-  trigger
+  isOpen,
+  onClose
 }) => {
   const { mounted, isMobile } = useResponsiveTypography();
   if (!mounted) return null;
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>{trigger}</DialogTrigger>
+    <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogOverlay className={styles.overlay} />
       <DialogContent className={styles.content} showCloseButton={false}>
         {/* 데스크톱용 오른쪽 위 X 닫기 버튼 */}
