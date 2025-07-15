@@ -2,6 +2,7 @@ import React from "react";
 import SectionTitle from "../SectionTitle";
 import { Typography } from "@/component/shared";
 import { useResponsiveTypography } from "@/component/shared";
+
 const circleData = [
   { text: "성경지식의 \n성숙" },
   { text: "사회적 \n성숙" },
@@ -11,11 +12,22 @@ const circleData = [
   { text: "가정적 \n성숙" }
 ];
 
+const chunkArray = <T,>(array: T[], size: number): T[][] => {
+  const chunks: T[][] = [];
+  for (let i = 0; i < array.length; i += size) {
+    chunks.push(array.slice(i, i + size));
+  }
+  return chunks;
+};
+
 const EnglishTitle = "Discipleship System";
 const KoreanTitle = "양육시스템";
 
 const Section5 = () => {
   const { mounted, isMobile } = useResponsiveTypography();
+  const chunkedData =
+    mounted && isMobile ? chunkArray(circleData, 3) : [circleData];
+
   return (
     <div className='bg-[#D7E8FF] '>
       <div
@@ -52,8 +64,8 @@ const Section5 = () => {
         </div>
 
         <div
-          className={`flex gap-[120px] ${
-            mounted && isMobile ? "flex-col gap-[40px]" : "flex-row"
+          className={`flex  ${
+            mounted && isMobile ? "flex-col gap-[40px]" : "flex-row gap-[120px]"
           } justify-between ${
             mounted && isMobile ? "!px-[20px]" : "!px-[120px]"
           }`}
@@ -69,10 +81,10 @@ const Section5 = () => {
               variant='body1Regular'
               className='!text-[#44423C] whitespace-pre-line'
             >
-              하나비전교회는 ‘단계별’ 제자 훈련을 하지 않습니다. 본래 제자
+              하나비전교회는 '단계별' 제자 훈련을 하지 않습니다. 본래 제자
               훈련이란, 예수 그리스도를 따르기 위해 훈련돼야 할 소양을 기르는
-              훈련 과정을 말합니다. 그러나 한국 교회에서는 ‘나는 제자 훈련을 몇
-              단계까지 받았다’ 는 식의, 특정 훈련 단계를 거쳐 올라가는 것으로
+              훈련 과정을 말합니다. 그러나 한국 교회에서는 '나는 제자 훈련을 몇
+              단계까지 받았다' 는 식의, 특정 훈련 단계를 거쳐 올라가는 것으로
               오해되어 왔습니다. 본 교회에서는 그러한 식의 제자 훈련을 하지
               않습니다.{"\n"} 하나비전교회는 신앙의 기초를 닦은 이후에는
               수직적인 단계가 아닌 수평적으로, 다양한 분야의 다양한 주제 대한
@@ -85,39 +97,58 @@ const Section5 = () => {
 
           <div className='flex flex-col items-center gap-[32px]'>
             {/* 원형 버튼들 */}
-            <div className='flex flex-wrap gap-[4px] min-w-[780px] justify-between w-full'>
-              {circleData.map((item, index) => (
+            <div
+              className={`flex flex-col gap-[12px] ${
+                mounted && isMobile ? "w-full" : "min-w-[780px] w-full"
+              }`}
+            >
+              {chunkedData.map((chunk, chunkIndex) => (
                 <div
-                  key={index}
-                  className={`w-[${
-                    mounted && isMobile ? "30%" : "120px"
-                  }] flex justify-center`}
+                  key={chunkIndex}
+                  className={`flex ${
+                    mounted && isMobile
+                      ? "justify-center gap-[8px]"
+                      : "justify-between gap-[4px]"
+                  } w-full`}
                 >
-                  <div
-                    className={`bg-[#FFFDF5] border border-[#F6E6A5]  ${
-                      mounted && isMobile
-                        ? "w-[106px] h-[106px]"
-                        : "w-[120px] h-[120px]"
-                    } rounded-full bg-white flex items-center justify-center  ${
-                      mounted && isMobile
-                        ? "!px-[15px] !py-[17.5px]"
-                        : "!px-[17px] !py-[37px]"
-                    }`}
-                  >
-                    <Typography
-                      variant={`${
-                        mounted && isMobile ? "body1Medium" : "headlineSemibold"
-                      }`}
-                      className=' text-center
-                              text-[#1B5FB8]
-                              !text-[16px]
-                              leading-[20px]
-                              whitespace-pre-wrap
-                              break-words'
+                  {chunk.map((item, index) => (
+                    <div
+                      key={index}
+                      className={`${
+                        mounted && isMobile
+                          ? "flex-1 max-w-[106px]"
+                          : "w-[120px]"
+                      } flex justify-center`}
                     >
-                      {item.text}
-                    </Typography>
-                  </div>
+                      <div
+                        className={`bg-[#FFFDF5] border border-[#F6E6A5]  ${
+                          mounted && isMobile
+                            ? "w-[106px] h-[106px]"
+                            : "w-[120px] h-[120px]"
+                        } rounded-full bg-white flex items-center justify-center  ${
+                          mounted && isMobile
+                            ? "!px-[15px] !py-[17.5px]"
+                            : "!px-[17px] !py-[37px]"
+                        }`}
+                      >
+                        <Typography
+                          variant={`${
+                            mounted && isMobile
+                              ? "body1Medium"
+                              : "headlineSemibold"
+                          }`}
+                          className=' text-center
+                                  text-[#1B5FB8]
+                                  !text-[16px]
+                                  leading-[20px]
+                                  whitespace-pre-wrap
+                                  break-words'
+                        >
+                          {item.text}
+                        </Typography>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               ))}
             </div>

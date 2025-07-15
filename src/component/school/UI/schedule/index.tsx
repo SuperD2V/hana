@@ -12,6 +12,7 @@ import { ApplicationModal } from "./ApplicationModal";
 
 export const Schedule = () => {
   const [selectedCardId, setSelectedCardId] = useState<number | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // 예시 데이터 - 실제로는 props나 API에서 받아올 수 있습니다
   const scheduleData = [
@@ -30,6 +31,12 @@ export const Schedule = () => {
 
   const handleCardClick = (cardId: number) => {
     setSelectedCardId(cardId);
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    setSelectedCardId(null);
   };
 
   if (!mounted) return null;
@@ -64,11 +71,8 @@ export const Schedule = () => {
 
       <ApplicationModal
         scheduleData={scheduleData}
-        trigger={
-          <button className={styles.button}>
-            <Typography variant='headlineMedium'>신청하기</Typography>
-          </button>
-        }
+        isOpen={isModalOpen}
+        onClose={handleModalClose}
       />
     </div>
   );

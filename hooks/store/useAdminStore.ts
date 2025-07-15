@@ -8,22 +8,22 @@ import {
   PropertyStringPath
 } from "../../types/zustand";
 
-export type IntroduceStore = {
-  selectedCateogry: number;
-  selectSection2Content: 1 | 2 | 3;
+export type AdminStore = {
+  selectedCateogry: 1 | 2 | 3 | 4 | 5;
+  selectedId: string | null;
 };
 
-const initState: IntroduceStore = {
-  selectedCateogry: 0,
-  selectSection2Content: 3
+const initState: AdminStore = {
+  selectedCateogry: 1,
+  selectedId: null
 };
 
-export const useIntroduceStore = create(
+export const useAdminStore = create(
   immer(
     combine(initState, (set, get) => ({
-      setState: <Path extends PropertyStringPath<IntroduceStore>>(
+      setState: <Path extends PropertyStringPath<AdminStore>>(
         path: Path,
-        value: NestedValueOf<IntroduceStore, PathSplit<Path>>
+        value: NestedValueOf<AdminStore, PathSplit<Path>>
       ) => {
         set(state => {
           lodashSet(state, path, value);

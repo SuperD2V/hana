@@ -53,7 +53,7 @@ const MainTop = () => {
 
         <Typography
           variant={mounted && isMobile ? "body1Medium" : "headlineMedium"}
-          className='text-[#44423C] whitespace-pre-line text-center'
+          className='text-[#44423C] whitespace-pre-line text-center max-w-[624px]'
         >
           원천하나비전교회는 세대간 간극이 점점 커져가는 이 시대에 모든 세대가
           행복하게 교회 생활하고, 하나님을 바로, 깊이 알기를 힘쓰며,

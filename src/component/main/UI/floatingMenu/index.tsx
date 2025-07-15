@@ -27,9 +27,7 @@ export const FloatingBar = () => {
       <div className={floatingBarList}>
         <div
           className={floatingBarItem}
-          onClick={() =>
-            window.open("https://forms.gle/Mdojk2Y41qFP5oVi9", "_blank")
-          }
+          onClick={() => router.push("/notice/3")}
         >
           <Image
             src={"/images/money.svg"}
@@ -39,17 +37,13 @@ export const FloatingBar = () => {
           />
           <Typography variant='body2Medium'>온라인헌금</Typography>
         </div>
-        <Link href='https://www.band.us/band/89951906/post/320' target='_blank'>
-          <div className={floatingBarItem}>
-            <Image
-              src={"/images/speak.svg"}
-              alt='설교'
-              width={28}
-              height={28}
-            />
-            <Typography variant='body2Medium'>설교듣기</Typography>
-          </div>
-        </Link>
+        <div
+          className={floatingBarItem}
+          onClick={() => router.push("/notice/4")}
+        >
+          <Image src={"/images/speak.svg"} alt='설교' width={28} height={28} />
+          <Typography variant='body2Medium'>설교듣기</Typography>
+        </div>
         <div
           className={floatingBarItem}
           onClick={() => window.open("h", "_blank")}

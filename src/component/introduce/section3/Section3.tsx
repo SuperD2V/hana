@@ -20,7 +20,7 @@ const Section3 = () => {
           mounted && isMobile ? "gap-[40px] w-full" : "gap-[60px] !pb-[96px]"
         }`}
       >
-        <SectionTitle EnglishTitle='Pastor' KoreanTitle='목사님 소개' />
+        <SectionTitle EnglishTitle='Pastor' KoreanTitle='담임목사 소개' />
         <div
           className={`flex flex-col gap-[24px] ${
             mounted && isMobile ? "!p-[20px]" : "!pl-[120px] !mt-[40px]"
@@ -43,8 +43,10 @@ const Section3 = () => {
               }`}
             >
               London Bible College(현 London School of Theology, 성경해석학 석사
-              졸), Fuller Theological Seminary(목회학박사 과정 중)에서
-              공부했습니다.{"\n"}
+              졸)에서 공부하고 , Fuller Theological Seminary에서 '프로그램
+              매니저'로, 제일성도교회에서 '청년교회' 총괄 담임으로 섬겼으며,
+              원천교회 1교회 담임목사로 17년간 섬기면서 원천하나기독학교
+              대표로도 섬겼습니다. {"\n"}
               Fuller Theological Seminary에서 '프로그램 매니저'로,
               제일성도교회에서 '청보교회' 출발 담임으로 섬겼으며, 원천교회에서
               1교회 담임목사로 17년간 섬기면서 원천하나기독학교 대표로도
