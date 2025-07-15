@@ -1,5 +1,6 @@
 "use client";
 
+import React from 'react';
 import { useAdminStore } from "../../../../hooks/store/useAdminStore";
 import { useShallow } from "zustand/shallow";
 import Banner from "../Banner/page";
@@ -7,26 +8,30 @@ import Notice from "../Notice/page";
 import Bulletin from "../Bulletin/page";
 import Class from "../Class/page";
 import Gallery from "../Gallery/page";
+import NoticeDetail from "../Notice/[id]/page";
 
-type ContentType = React.ComponentType;
-type ContentSelector = Record<1 | 2 | 3 | 4 | 5, ContentType>;
-
-const useContentSelector = (): ContentType => {
-  const { selectedCateogry } = useAdminStore(
+const useContentSelector = (): React.ReactElement | null => {
+  const { selectedCateogry, selectedId } = useAdminStore(
     useShallow(state => ({
-      selectedCateogry: state.selectedCateogry
+      selectedCateogry: state.selectedCateogry,
+      selectedId: state.selectedId
     }))
   );
 
-  const CONTENT_SELECTOR: ContentSelector = {
-    1: Banner,
-    2: Notice,
-    3: Bulletin,
-    4: Class,
-    5: Gallery
-  };
-
-  return CONTENT_SELECTOR[selectedCateogry];
+  switch (selectedCateogry) {
+    case 1:
+      return React.createElement(Banner);
+    case 2:
+      return React.createElement(NoticeDetail, { id: selectedId || "1" });
+    case 3:
+      return React.createElement(Bulletin);
+    case 4:
+      return React.createElement(Class);
+    case 5:
+      return React.createElement(Gallery);
+    default:
+      return null;
+  }
 };
 
 export default useContentSelector;

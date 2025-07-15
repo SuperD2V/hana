@@ -10,10 +10,12 @@ import {
 
 export type AdminStore = {
   selectedCateogry: 1 | 2 | 3 | 4 | 5;
+  selectedId: string | null;
 };
 
 const initState: AdminStore = {
-  selectedCateogry: 1
+  selectedCateogry: 1,
+  selectedId: null
 };
 
 export const useAdminStore = create(

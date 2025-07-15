@@ -16,7 +16,7 @@ const AdminContent = () => {
 
   return (
     <div>
-      <ContentComponent />
+      {ContentComponent}
     </div>
   );
 };
