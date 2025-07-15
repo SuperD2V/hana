@@ -1,4 +1,5 @@
 import { Typography } from "@/component/shared";
+import Image from "next/image";
 import { color } from "@/component/shared/designed/color";
 import React from "react";
 
@@ -43,24 +44,27 @@ export const Pagination = ({ current, total, onChange }: PaginationProps) => {
         style={{
           background: "transparent",
           border: "none",
-          cursor: "pointer",
-          fontSize: 18
+          cursor: "pointer"
         }}
         aria-label='다음'
       >
-        &gt;
+        <Image src='/images/right.svg' alt='다음' width={24} height={24} />
       </button>
       <button
         onClick={() => onChange(total)}
         style={{
           background: "transparent",
           border: "none",
-          cursor: "pointer",
-          fontSize: 18
+          cursor: "pointer"
         }}
         aria-label='마지막'
       >
-        &gt;&gt;
+        <Image
+          src='/images/double_arrow_right.svg'
+          alt='다음'
+          width={24}
+          height={24}
+        />
       </button>
     </div>
   );

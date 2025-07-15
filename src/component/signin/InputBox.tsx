@@ -1,13 +1,22 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { Typography } from "../shared";
 import { inputBox, inputStyle } from "./index.css";
 
-export const InputBox = () => {
-  const [id, setId] = useState("");
-  const [password, setPassword] = useState("");
+interface InputBoxProps {
+  id: string;
+  password: string;
+  setId: (value: string) => void;
+  setPassword: (value: string) => void;
+}
 
+export const InputBox = ({
+  id,
+  password,
+  setId,
+  setPassword
+}: InputBoxProps) => {
   const handleIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setId(e.target.value);
   };

@@ -5,12 +5,12 @@ import { noticeContainer, noticePageContainer } from "./index.css";
 import { AdminHeader } from "@/component/shared";
 import { Pagination } from "@/component/notice/UI/dashboard/Pagination";
 
-const AdminNoticePage = () => {
+const AdminWorshipPage = () => {
   return (
     <div className={noticePageContainer}>
       <div className={noticeContainer}>
         <AdminHeader
-          title='공지'
+          title='주보'
           buttonText='등록하기'
           buttonClick={() => {}}
           isButton={true}
@@ -22,4 +22,4 @@ const AdminNoticePage = () => {
   );
 };
 
-export default AdminNoticePage;
+export default AdminWorshipPage;

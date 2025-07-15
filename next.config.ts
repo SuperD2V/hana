@@ -20,6 +20,61 @@ const nextConfig: NextConfig = {
       }
     }
   },
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          {
+            key: "X-DNS-Prefetch-Control",
+            value: "on"
+          },
+          {
+            key: "X-Frame-Options",
+            value: "DENY"
+          },
+          {
+            key: "X-Content-Type-Options",
+            value: "nosniff"
+          },
+          {
+            key: "Referrer-Policy",
+            value: "origin-when-cross-origin"
+          }
+        ]
+      },
+      {
+        source: "/sitemap.xml",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=86400, stale-while-revalidate"
+          }
+        ]
+      },
+      {
+        source: "/robots.txt",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=86400"
+          }
+        ]
+      }
+    ];
+  },
+
+  async rewrites() {
+    if (process.env.NODE_ENV === "development") {
+      return [
+        {
+          source: "/api/:path*",
+          destination: "https://52.79.145.244.sslip.io/:path*"
+        }
+      ];
+    }
+    return [];
+  },
   images: {
     remotePatterns: [
       {
