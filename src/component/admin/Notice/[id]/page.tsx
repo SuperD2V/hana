@@ -1,7 +1,7 @@
 
 import NoticeDetailContent from '@/component/notice/NoticeDetailContent';
 import { useResponsiveTypography } from '@/component/shared';
-import { Button } from '@/components/ui/button';
+import Button from '@/component/introduce/Button';
 import React from 'react'
 
 interface NoticeDetailProps {
