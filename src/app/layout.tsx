@@ -3,6 +3,7 @@ import "./globals.css";
 import { Navigation, Footer } from "@/component/shared";
 import { mainContent } from "./layout.css";
 import { Poppins } from "next/font/google";
+import { QueryProvider } from "./_provider/QueryProvider";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -24,9 +25,11 @@ export default function RootLayout({
   return (
     <html lang='ko' className={poppins.variable}>
       <body suppressHydrationWarning={true}>
-        <div className='flex flex-col h-full min-h-screen'>
-          <main className={mainContent}>{children}</main>
-        </div>
+        <QueryProvider>
+          <div className='flex flex-col h-full min-h-screen'>
+            <main className={mainContent}>{children}</main>
+          </div>
+        </QueryProvider>
       </body>
     </html>
   );

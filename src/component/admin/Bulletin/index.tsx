@@ -1,9 +1,34 @@
+"use client";
+
 import { DesktopTable } from "@/component/notice/UI/dashboard/DesktopTable";
 import { Pagination } from "@/component/notice/UI/dashboard/Pagination";
 import { AdminHeader } from "@/component/shared";
 import { noticePageContainer, noticeContainer } from "./index.css";
+import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
+import { getBulletinList } from "./api";
+import { NoticeItem } from "@/component/notice/type";
+import { formatDateOnly } from "@/lib/utils";
 
 const Bulletin = () => {
+  const [currentPage, setCurrentPage] = useState(0);
+  const pageSize = 10;
+
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["bulletinList", currentPage],
+    queryFn: () => getBulletinList({ page: currentPage, size: pageSize }),
+    staleTime: 5 * 60 * 1000, // 5분
+    gcTime: 10 * 60 * 1000 // 10분
+  });
+
+  const convertedData: NoticeItem[] =
+    data?.content?.map(notice => ({
+      no: notice.announcementId,
+      title: notice.title,
+      date: formatDateOnly(notice.updatedAt),
+      views: notice.views
+    })) || [];
+
   return (
     <div className={noticePageContainer}>
       <div className={noticeContainer}>
@@ -13,7 +38,7 @@ const Bulletin = () => {
           buttonClick={() => {}}
           isButton={true}
         />
-        <DesktopTable data={[]} onItemClick={() => {}} />
+        <DesktopTable data={convertedData} onItemClick={() => {}} />
         <Pagination current={1} total={2} onChange={() => {}} />
       </div>
     </div>
