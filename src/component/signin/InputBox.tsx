@@ -47,6 +47,7 @@ export const InputBox = ({
           placeholder='비밀번호를 입력해주세요'
           value={password}
           onChange={handlePasswordChange}
+          type='password'
         />
       </div>
     </>

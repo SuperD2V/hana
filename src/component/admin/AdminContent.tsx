@@ -15,7 +15,7 @@ const AdminContent = () => {
   const ContentComponent = useContentSelector();
 
   return (
-    <div>
+    <div style={{ width: "100%", padding: "80px 160px" }}>
       {ContentComponent}
     </div>
   );

@@ -4,7 +4,7 @@ import AdminContent from "@/component/admin/AdminContent";
 
 const page = () => {
   return (
-    <div style={{ display: "flex" }}>
+    <div style={{ display: "flex", width: "100vw", gap: "80px" }}>
       <AdminNavigation />
       <AdminContent />
     </div>

@@ -49,7 +49,7 @@ class ApiClient {
     this.instance.interceptors.request.use(
       config => {
         // 토큰이 있다면 헤더에 추가
-        const token = this.getAuthToken();
+        const token = this.getaccessToken();
         if (token) {
           config.headers.Authorization = `Bearer ${token}`;
         }
@@ -69,7 +69,7 @@ class ApiClient {
           response.headers["authorization"] ||
           response.headers["Authorization"];
         if (newToken) {
-          this.setAuthToken(newToken.replace("Bearer ", ""));
+          this.setaccessToken(newToken.replace("Bearer ", ""));
         }
 
         console.log("✅ API Response:", response.status, response.config.url);
@@ -107,7 +107,7 @@ class ApiClient {
               response.headers["authorization"] ||
               response.headers["Authorization"];
             if (newToken) {
-              this.setAuthToken(newToken.replace("Bearer ", ""));
+              this.setaccessToken(newToken.replace("Bearer ", ""));
             }
 
             // 대기열에 있던 요청들 처리
@@ -137,11 +137,12 @@ class ApiClient {
     );
   }
 
-  private getAuthToken(): string | null {
+  private getaccessToken(): string | null {
     // 로컬 스토리지나 세션 스토리지에서 토큰 가져오기
     if (typeof window !== "undefined") {
       return (
-        localStorage.getItem("authToken") || sessionStorage.getItem("authToken")
+        localStorage.getItem("accessToken") ||
+        sessionStorage.getItem("accessToken")
       );
     }
     return null;
@@ -175,8 +176,8 @@ class ApiClient {
   private handleUnauthorized() {
     // 토큰 제거
     if (typeof window !== "undefined") {
-      localStorage.removeItem("authToken");
-      sessionStorage.removeItem("authToken");
+      localStorage.removeItem("accessToken");
+      sessionStorage.removeItem("accessToken");
 
       // 로그인 페이지로 리다이렉트 (Next.js router 사용)
       // router.push('/login');
@@ -216,21 +217,21 @@ class ApiClient {
   }
 
   // 토큰 설정
-  setAuthToken(token: string, persist: boolean = true) {
+  setaccessToken(token: string, persist: boolean = true) {
     if (typeof window !== "undefined") {
       if (persist) {
-        localStorage.setItem("authToken", token);
+        localStorage.setItem("accessToken", token);
       } else {
-        sessionStorage.setItem("authToken", token);
+        sessionStorage.setItem("accessToken", token);
       }
     }
   }
 
   // 토큰 제거
-  removeAuthToken() {
+  removeaccessToken() {
     if (typeof window !== "undefined") {
-      localStorage.removeItem("authToken");
-      sessionStorage.removeItem("authToken");
+      localStorage.removeItem("accessToken");
+      sessionStorage.removeItem("accessToken");
     }
   }
 

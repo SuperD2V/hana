@@ -9,7 +9,7 @@ import {
 } from "../../types/zustand";
 
 export type AdminStore = {
-  selectedCateogry: 1 | 2 | 3 | 4 | 5;
+  selectedCateogry: 1 | 2 | 3 | 4 | 5 | 6 | 7;
   selectedId: string | null;
 };
 

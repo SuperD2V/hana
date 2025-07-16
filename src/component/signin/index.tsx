@@ -16,14 +16,17 @@ import {
 import { InputBox } from "./InputBox";
 import { useState } from "react";
 import { signIn } from "./api";
+import { useRouter } from "next/navigation";
 
 export const SignIn = () => {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
 
   const handleSignIn = async () => {
     try {
       const response = await signIn(id, password);
+      router.push("/admin");
       console.log(response);
     } catch (error) {
       console.error(error);
