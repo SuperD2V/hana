@@ -49,6 +49,7 @@ const Bulletin = () => {
           isButton={true}
         />
         <AdminDashboard
+          type='bulletin'
           data={convertedData}
           onItemClick={() => {}}
           onEdit={handleEdit}

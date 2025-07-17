@@ -2,35 +2,48 @@
 
 import React, { useState, useEffect } from "react";
 import { Typography } from "@/component/shared";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { table, th, tdLeft, tdCenter, tdRight } from "./index.css";
 import { NoticeItem } from "@/component/notice/type";
 import Image from "next/image";
 import { Dropdown } from "./ui/Dropdown";
+import { useShallow } from "zustand/shallow";
+import { useAdminStore } from "../../../../hooks/store/useAdminStore";
 
 interface AdminDashboardProps {
   data: NoticeItem[];
   onItemClick?: (item: NoticeItem) => void;
   onEdit?: (item: NoticeItem) => void;
   onDelete?: (item: NoticeItem) => void;
+  type: "notice" | "bulletin";
 }
 
 export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   data,
   onItemClick,
   onEdit,
-  onDelete
+  onDelete,
+  type
 }) => {
   const router = useRouter();
   const [openDropdownId, setOpenDropdownId] = useState<number | null>(null);
+  const searchParams = useSearchParams();
+
+  const { selectedCateogry, setState } = useAdminStore(
+    useShallow(state => ({
+      selectedCateogry: state.selectedCateogry,
+      setState: state.setState
+    }))
+  );
+  console.log("selectedCateogry", selectedCateogry);
 
   const handleItemClick = (item: NoticeItem) => {
-    if (onItemClick) {
-      onItemClick(item);
-    } else {
-      // 기본 동작: 라우터로 이동
-      router.push(`/notice/${item.no}`);
-    }
+    setState("selectedCateogry", 7);
+    setState("selectedId", item.no.toString());
+    const params = new URLSearchParams(searchParams);
+    params.set("type", type);
+    params.set("id", item.no.toString());
+    router.replace(`?${params.toString()}`);
   };
 
   const handleMoreClick = (e: React.MouseEvent, itemId: number) => {
@@ -94,14 +107,10 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
       <tbody>
         {data.map(item => (
           <tr key={item.no}>
-            <td className={tdLeft}>
+            <td onClick={() => handleItemClick(item)} className={tdLeft}>
               <Typography variant='headlineMedium'>{item.no}</Typography>
             </td>
-            <td
-              className={tdCenter}
-              style={{ cursor: "pointer" }}
-              onClick={() => handleItemClick(item)}
-            >
+            <td className={tdCenter} style={{ cursor: "pointer" }}>
               <Typography variant='title3Medium'>{item.title}</Typography>
             </td>
             <td className={tdRight}>

@@ -96,6 +96,7 @@ const Notice = () => {
           isButton={true}
         />
         <AdminDashboard
+          type='notice'
           data={convertedData}
           onItemClick={handleItemClick}
           onEdit={handleEdit}
