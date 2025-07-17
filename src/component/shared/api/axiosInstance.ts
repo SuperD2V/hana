@@ -19,6 +19,7 @@ export interface RequestConfig
 const DEFAULT_CONFIG: AxiosRequestConfig = {
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000/api",
   timeout: 10000,
+  withCredentials: true, // 쿠키 주고받기 위해 필요
   headers: {
     "Content-Type": "application/json"
   },

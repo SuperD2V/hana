@@ -24,3 +24,16 @@ export const getNoticeList = async (params: NoticeListParams = {}) => {
     return null;
   }
 };
+
+export const deleteNotice = async (id: number) => {
+  try {
+    const response = await api.request<ApiResponse<void>>({
+      url: `/api/admin/announcement/${id}`,
+      method: "DELETE"
+    });
+    return response.data.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};

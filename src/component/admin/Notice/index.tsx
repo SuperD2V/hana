@@ -1,10 +1,10 @@
 "use client";
 
-import { DesktopTable } from "@/component/notice/UI/dashboard/DesktopTable";
+import { AdminDashboard } from "@/component/admin/dashboard";
 import { Pagination } from "@/component/notice/UI/dashboard/Pagination";
 import { AdminHeader } from "@/component/shared";
 import { noticePageContainer, noticeContainer } from "./index.css";
-import { getNoticeList } from "./api";
+import { deleteNotice, getNoticeList } from "./api";
 import { NoticeItem } from "@/component/notice/type";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
@@ -44,6 +44,14 @@ const Notice = () => {
   const handleRegisterClick = () => {
     // 등록하기 버튼 클릭 처리
     console.log("등록하기 클릭");
+  };
+
+  const handleEdit = (item: NoticeItem) => {
+    console.log("수정:", item);
+  };
+
+  const handleDelete = (item: NoticeItem) => {
+    deleteNotice(item.no);
   };
 
   if (isLoading) {
@@ -87,7 +95,12 @@ const Notice = () => {
           buttonClick={handleRegisterClick}
           isButton={true}
         />
-        <DesktopTable data={convertedData} onItemClick={handleItemClick} />
+        <AdminDashboard
+          data={convertedData}
+          onItemClick={handleItemClick}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+        />
         <Pagination
           current={currentPage}
           total={totalPages}
