@@ -100,6 +100,12 @@ const nextConfig: NextConfig = {
         hostname: "map2.daum.net",
         port: "",
         pathname: "/**"
+      },
+      {
+        protocol: "https",
+        hostname: "dpsm0twgatw84.cloudfront.net",
+        port: "",
+        pathname: "/**"
       }
     ]
   },

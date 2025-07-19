@@ -6,7 +6,8 @@ export const bannerContainer = style({});
 export const imageContainer = style({
   width: "100%",
   height: "739px",
-  backgroundColor: "#000"
+  backgroundColor: "#000",
+  position: "relative"
 });
 
 export const bulletinContainer = style({

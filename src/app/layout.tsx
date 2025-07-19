@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Navigation, Footer } from "@/component/shared";
 import { mainContent } from "./layout.css";
 import { Poppins } from "next/font/google";
 import { QueryProvider } from "./_provider/QueryProvider";
+import { Toaster } from "react-hot-toast";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -29,6 +29,7 @@ export default function RootLayout({
           <div className='flex flex-col h-full min-h-screen'>
             <main className={mainContent}>{children}</main>
           </div>
+          <Toaster />
         </QueryProvider>
       </body>
     </html>
