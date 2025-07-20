@@ -41,21 +41,21 @@ const Banner = () => {
   if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <div className={bannerContainer}>
-      <div>
-        <AdminHeader
-          title='배너사진'
-          buttonClick={() => {}}
-          isButton={false}
-          buttonText=''
-        />
-      </div>
+    <div
+      style={{ width: "100%", maxWidth: "1520px", margin: "80px auto 0 auto" }}
+    >
+      <AdminHeader
+        title='배너사진'
+        buttonClick={() => {}}
+        isButton={false}
+        buttonText=''
+      />
       <div className={imageContainer}>
         <Image
           src={previewUrl || data?.data.content[0].url || ""}
           alt='banner'
           fill
-          style={{ objectFit: "cover", position: "absolute" }}
+          style={{ objectFit: "contain", position: "absolute" }}
         />
       </div>
       <div className={bulletinContainer}>
@@ -86,18 +86,6 @@ const Banner = () => {
           style={{ display: "none" }}
         />
       </div>
-      {/* {selectedFile && (
-        <div
-          style={{
-            marginTop: "10px",
-            padding: "10px",
-            backgroundColor: "#f5f5f5"
-          }}
-        >
-          <p>선택된 파일: {selectedFile.name}</p>
-          <p>파일 크기: {(selectedFile.size / 1024 / 1024).toFixed(2)} MB</p>
-        </div>
-      )} */}
     </div>
   );
 };

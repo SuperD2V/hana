@@ -69,6 +69,20 @@ export const buttonStyle = style({
   boxShadow: "0px 0px 20px 0px #2C25070A"
 });
 
+export const buttonStyleActive = style({
+  width: "100%",
+  height: "54px",
+  borderRadius: "8px",
+  border: "none",
+  backgroundColor: color.brand[700],
+  color: color.common.white,
+  cursor: "pointer",
+  fontSize: "16px",
+  fontWeight: "600",
+  boxShadow: "0px 0px 20px 0px #2C25070A",
+  transition: "background-color 0.2s ease"
+});
+
 export const buttonText = style({
   color: color.gray[700],
   cursor: "pointer"

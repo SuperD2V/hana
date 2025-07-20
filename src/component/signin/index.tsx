@@ -9,6 +9,7 @@ import {
   signinContainer,
   buttonContainer,
   buttonStyle,
+  buttonStyleActive,
   buttonText,
   buttonTextContainer,
   buttonDivider
@@ -23,6 +24,9 @@ export const SignIn = () => {
   const [password, setPassword] = useState("");
   const router = useRouter();
 
+  // 아이디와 비밀번호가 모두 입력되었는지 확인
+  const isFormValid = id.trim() !== "" && password.trim() !== "";
+
   const handleSignIn = async () => {
     try {
       const response = await signIn(id, password);
@@ -32,6 +36,7 @@ export const SignIn = () => {
       console.error(error);
     }
   };
+
   return (
     <>
       <div className={wrapper}>
@@ -47,7 +52,11 @@ export const SignIn = () => {
             setPassword={setPassword}
           />
           <div className={buttonContainer}>
-            <button className={buttonStyle} onClick={handleSignIn}>
+            <button
+              className={isFormValid ? buttonStyleActive : buttonStyle}
+              onClick={handleSignIn}
+              disabled={!isFormValid}
+            >
               로그인
             </button>
             <div className={buttonTextContainer}>

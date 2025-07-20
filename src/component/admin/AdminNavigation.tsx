@@ -110,7 +110,11 @@ const AdminNavigation = () => {
             <Typography
               variant='headlineMedium'
               style={{
-                color: selectedCateogry === item.id ? "#F5F9FF" : "#0E4287"
+                color: selectedCateogry === item.id ? "#F5F9FF" : "#0E4287",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                flex: 1
               }}
             >
               {item.label}
