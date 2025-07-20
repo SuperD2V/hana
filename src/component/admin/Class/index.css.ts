@@ -72,10 +72,10 @@ export const imageItem = style({
   position: "relative",
   width: "100%",
   aspectRatio: "1 / 1",
-  backgroundColor: color.brand[700],
   overflow: "hidden",
   cursor: "pointer",
   transition: "transform 0.2s ease-in-out",
+  borderRadius: "12px",
   "@media": {
     "(max-width: 768px)": {
       width: "335px",
@@ -138,4 +138,28 @@ export const actionButton = style({
     background: "rgba(255, 255, 255, 1)",
     transform: "scale(1.05)"
   }
+});
+
+export const imageItemInfo = style({
+  display: "flex",
+  flexDirection: "column",
+  gap: "10px",
+  padding: "10px",
+  color: "black"
+});
+
+export const imageItemContainer = style({
+  display: "flex",
+  flexDirection: "column",
+  gap: "10px",
+  padding: "10px",
+  cursor: "pointer"
+});
+
+export const imageItemTitle = style({
+  color: color.gray[800]
+});
+
+export const imageItemDate = style({
+  color: color.gray[500]
 });

@@ -59,6 +59,11 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   const handleEdit = (item: NoticeItem) => {
     if (onEdit) {
       onEdit(item);
+      const params = new URLSearchParams(searchParams);
+      params.set("type", type);
+      params.set("id", item.no.toString());
+      router.replace(`?${params.toString()}`);
+      setState("selectedCateogry", 7);
     }
     setOpenDropdownId(null);
   };

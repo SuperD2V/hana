@@ -9,11 +9,20 @@ import { NoticeItem } from "@/component/notice/type";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { formatDateOnly } from "@/lib/utils";
+import { useRouter } from "next/navigation";
+import { useShallow } from "zustand/shallow";
+import { useAdminStore } from "../../../../hooks/store/useAdminStore";
 
 const Notice = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 10;
-
+  const router = useRouter();
+  const { selectedCateogry, setState } = useAdminStore(
+    useShallow(state => ({
+      selectedCateogry: state.selectedCateogry,
+      setState: state.setState
+    }))
+  );
   const { data, isLoading, error } = useQuery({
     queryKey: ["noticeList", currentPage],
     queryFn: () => getNoticeList({ page: currentPage - 1, size: pageSize }),
@@ -39,10 +48,15 @@ const Notice = () => {
   const handleItemClick = (item: NoticeItem) => {
     // 공지사항 클릭 처리
     console.log("공지사항 클릭:", item);
+    setState("selectedCateogry", 7);
+    setState("selectedId", item.no.toString());
+    router.push(`${window.location.pathname}?type=notice`);
   };
 
   const handleRegisterClick = () => {
     // 등록하기 버튼 클릭 처리
+    setState("selectedCateogry", 2);
+    router.push(`${window.location.pathname}?type=notice`);
     console.log("등록하기 클릭");
   };
 

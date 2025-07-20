@@ -9,14 +9,22 @@ import { useState } from "react";
 import { getBulletinList, useDeleteBulletin } from "./api";
 import { NoticeItem } from "@/component/notice/type";
 import { formatDateOnly } from "@/lib/utils";
+import { useRouter } from "next/navigation";
+import { useShallow } from "zustand/shallow";
+import { useAdminStore } from "../../../../hooks/store/useAdminStore";
 
 const Bulletin = () => {
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 10;
-
+  const router = useRouter();
+  const { setState } = useAdminStore(
+    useShallow(state => ({
+      setState: state.setState
+    }))
+  );
   const { data, isLoading, error } = useQuery({
     queryKey: ["bulletinList", currentPage],
-    queryFn: () => getBulletinList({ page: currentPage, size: pageSize }),
+    queryFn: () => getBulletinList({ page: currentPage - 1, size: pageSize }),
     staleTime: 5 * 60 * 1000, // 5분
     gcTime: 10 * 60 * 1000 // 10분
   });
@@ -38,6 +46,9 @@ const Bulletin = () => {
   const handleDelete = (item: NoticeItem) => {
     deleteMutation.mutate(item.no);
   };
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
 
   return (
     <div className={noticePageContainer}>
@@ -45,17 +56,26 @@ const Bulletin = () => {
         <AdminHeader
           title='주보'
           buttonText='등록하기'
-          buttonClick={() => {}}
+          buttonClick={() => {
+            setState("selectedCateogry", 7);
+            router.push(`${window.location.pathname}?type=bulletin`);
+          }}
           isButton={true}
         />
         <AdminDashboard
           type='bulletin'
           data={convertedData}
-          onItemClick={() => {}}
+          onItemClick={() => {
+            setState("selectedCateogry", 6);
+          }}
           onEdit={handleEdit}
           onDelete={handleDelete}
         />
-        <Pagination current={1} total={2} onChange={() => {}} />
+        <Pagination
+          current={data?.number! + 1} // API는 0부터 시작하므로 1을 더함
+          total={data?.totalPages!}
+          onChange={handlePageChange}
+        />
       </div>
     </div>
   );
