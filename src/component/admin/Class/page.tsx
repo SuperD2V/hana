@@ -55,7 +55,7 @@ const Class = () => {
   }
 
   return (
-    <div>
+    <div style={{ maxWidth: "1520px", margin: "80px auto 0 auto" }}>
       <AdminHeader
         title='클래스'
         buttonText='등록하기'

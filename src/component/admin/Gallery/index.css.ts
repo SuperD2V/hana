@@ -52,6 +52,7 @@ export const closeIcon = style({
 });
 
 export const imageGrid = style({
+  width: "100%",
   display: "grid",
   gridTemplateColumns: "repeat(4, 1fr)",
   gridTemplateRows: "repeat(2, 1fr)",

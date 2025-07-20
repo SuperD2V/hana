@@ -5,7 +5,8 @@ export const adminHeader = style({
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
-  marginBottom: "40px"
+  marginBottom: "40px",
+  width: "100%"
 });
 
 export const titleText = style({

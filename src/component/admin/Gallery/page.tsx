@@ -9,6 +9,7 @@ import {
 } from "./api";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import { AdminHeader } from "@/component/shared";
 
 interface ImageData {
   id: number;
@@ -159,46 +160,67 @@ const Gallery = () => {
   if (isGalleryLoading || isDetailsLoading) return <div>Loading...</div>;
 
   return (
-    <div className={styles.imageGrid}>
-      {/* 숨겨진 파일 input */}
-      <input
-        ref={fileInputRef}
-        type='file'
-        accept='image/*'
-        onChange={handleFileChange}
-        style={{ display: "none" }}
+    <div
+      style={{
+        maxWidth: "1520px",
+        margin: "80px auto 0 auto"
+      }}
+    >
+      <AdminHeader
+        title='갤러리'
+        buttonText=''
+        buttonClick={() => {}}
+        isButton={false}
       />
+      <div className={styles.imageGrid}>
+        {/* 숨겨진 파일 input */}
 
-      {galleryImages.length > 0 ? (
-        galleryImages.map((imageData, index) => (
-          <div
-            key={imageData.id}
-            className={styles.imageItem}
-            onClick={() => handleImageClick(imageData.src, index)}
-          >
-            <img
-              src={imageData.src}
-              alt={imageData.alt}
-              className={`${styles.image} ${styles.imageHover}`}
-            />
-            <div className={`${styles.imageOverlay} ${styles.imageItemHover}`}>
-              <div style={{ display: "flex", gap: "8px" }}>
-                <button
-                  className={styles.actionButton}
-                  onClick={e =>
-                    handleEditImage(imageData.id, imageData.galleryId, index, e)
-                  }
-                  disabled={isUploading}
-                >
-                  {isUploading ? "업로드 중..." : "사진 변경"}
-                </button>
+        <input
+          ref={fileInputRef}
+          type='file'
+          accept='image/*'
+          onChange={handleFileChange}
+          style={{ display: "none" }}
+        />
+
+        {galleryImages.length > 0 ? (
+          galleryImages.map((imageData, index) => (
+            <div
+              key={imageData.id}
+              className={styles.imageItem}
+              onClick={() => handleImageClick(imageData.src, index)}
+            >
+              <img
+                src={imageData.src}
+                alt={imageData.alt}
+                className={`${styles.image} ${styles.imageHover}`}
+              />
+              <div
+                className={`${styles.imageOverlay} ${styles.imageItemHover}`}
+              >
+                <div style={{ display: "flex", gap: "8px" }}>
+                  <button
+                    className={styles.actionButton}
+                    onClick={e =>
+                      handleEditImage(
+                        imageData.id,
+                        imageData.galleryId,
+                        index,
+                        e
+                      )
+                    }
+                    disabled={isUploading}
+                  >
+                    {isUploading ? "업로드 중..." : "사진 변경"}
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        ))
-      ) : (
-        <div>No images available</div>
-      )}
+          ))
+        ) : (
+          <div>No images available</div>
+        )}
+      </div>
     </div>
   );
 };

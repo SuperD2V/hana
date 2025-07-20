@@ -51,7 +51,7 @@ const AdminNavigation = () => {
     <div
       style={{
         display: "flex",
-        width: "240px",
+        minWidth: "240px",
         height: "100%",
         minHeight: "100vh",
         flexDirection: "column",

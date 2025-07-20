@@ -1,7 +1,9 @@
 import { color } from "@/component/shared/designed/color";
 import { style } from "@vanilla-extract/css";
 
-export const bannerContainer = style({});
+export const bannerContainer = style({
+  marginTop: "80px"
+});
 
 export const imageContainer = style({
   width: "100%",
