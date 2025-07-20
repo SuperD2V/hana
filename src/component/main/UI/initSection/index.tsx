@@ -14,6 +14,7 @@ import {
 } from "./index.css";
 import { useQuery } from "@tanstack/react-query";
 import { getBanner } from "../../api/api";
+import Image from "next/image";
 
 export const InitSection = () => {
   const { mounted, isMobile } = useResponsiveTypography();
@@ -45,6 +46,16 @@ export const InitSection = () => {
                 className={titleText}
               >
                 함께 하나님 나라를 소망하는 교회
+                <Image
+                  src='/images/HANAVISION.svg'
+                  alt='logo'
+                  width={isMobile ? 301 : 1471}
+                  height={isMobile ? 36 : 173}
+                  style={{
+                    width: "auto",
+                    height: "auto"
+                  }}
+                />
               </Typography>
             </div>
           </div>
