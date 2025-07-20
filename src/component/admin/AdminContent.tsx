@@ -1,16 +1,21 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useAdminStore } from "../../../hooks/store/useAdminStore";
 import { useShallow } from "zustand/shallow";
 import useContentSelector from "./hooks/useContentSelector";
 
 const AdminContent = () => {
-  const { selectedCateogry } = useAdminStore(
+  const { selectedCateogry,setState } = useAdminStore(
     useShallow(state => ({
-      selectedCateogry: state.selectedCateogry
+      selectedCateogry: state.selectedCateogry,
+      setState: state.setState
     }))
   );
+  
+  useEffect(() => {
+    setState('selectedCateogry', 7)
+  },[])
 
   const ContentComponent = useContentSelector();
 
