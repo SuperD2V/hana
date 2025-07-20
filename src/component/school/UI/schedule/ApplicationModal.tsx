@@ -13,27 +13,34 @@ import {
 import * as styles from "./ApplicationModal.css";
 import { X } from "lucide-react";
 import { Typography, useResponsiveTypography } from "@/component/shared";
-
-interface ScheduleItem {
-  id: number;
-  date: string;
-  title: string;
-  teacher: string;
-}
+import { getScheduleDetail, ScheduleItem } from "../../api";
+import { useQuery } from "@tanstack/react-query";
+import Image from "next/image";
 
 interface ApplicationModalProps {
-  scheduleData: ScheduleItem[];
+  selectedCardId: number;
   isOpen: boolean;
   onClose: () => void;
 }
 
 export const ApplicationModal: React.FC<ApplicationModalProps> = ({
-  scheduleData,
+  selectedCardId,
   isOpen,
   onClose
 }) => {
   const { mounted, isMobile } = useResponsiveTypography();
+  const {
+    data: scheduleDetailData,
+    isLoading,
+    error
+  } = useQuery({
+    queryKey: ["scheduleDetail", selectedCardId],
+    queryFn: () => getScheduleDetail({ visionClassId: selectedCardId })
+  });
+
   if (!mounted) return null;
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -49,35 +56,38 @@ export const ApplicationModal: React.FC<ApplicationModalProps> = ({
         )}
         <div className={styles.contentInner}>
           {/* 좌측 이미지 영역 */}
-          <div className={styles.imageBox}>{/* 실제 이미지로 교체 가능 */}</div>
+          <div className={styles.imageBox}>
+            <Image
+              src={scheduleDetailData?.thumbnail.fileUrl ?? ""}
+              alt={scheduleDetailData?.title ?? "thumbnail"}
+              fill
+              style={{ position: "absolute" }}
+            />
+          </div>
           {/* 우측 정보 영역 */}
           <div className={styles.infoBox}>
             <div>
               <DialogTitle className={styles.title}>
-                누구나 할 수 있는 캘리그라피
+                {scheduleDetailData?.title}
               </DialogTitle>
               <div className={styles.description}>
-                - 일시: 11월 30일(토) 오후1:00~3:00
-                <br />
-                - 장소: 비전홀
-                <br />
-                - 강사: 임미진강사(캘리 지도자 자격증)
+                - 일시: {scheduleDetailData?.classDate}
+                <br />- 장소: {scheduleDetailData?.location}
+                <br />- 강사: {scheduleDetailData?.instructor}
                 <br />
               </div>
               <ul className={styles.list}>
-                <li>
-                  - 노쇼 방지와 재료비 일부를 위해 수강의 회비(10,000원)가
-                  있습니다.
-                </li>
-                <li>
-                  - 그 외 소요되는 경비(재료비 추가/간식 등)는 교회에서
-                  부담합니다.
-                </li>
+                <li>- {scheduleDetailData?.content}</li>
               </ul>
             </div>
             <DialogFooter>
               <div className={styles.buttonContainer}>
-                <button className={styles.submitButton}>
+                <button
+                  onClick={() => {
+                    window.open(scheduleDetailData?.applyLink, "_blank");
+                  }}
+                  className={styles.submitButton}
+                >
                   <Typography variant={"headlineMedium"}>+ 신청하기</Typography>
                 </button>
                 {/* 모바일용 닫기 버튼 */}

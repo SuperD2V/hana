@@ -6,19 +6,40 @@ import {
   cardDurationContainer,
   cardTitle
 } from "./index.css";
+import { ICalenderEvent } from "../../api/api";
 
-export const Card = () => {
+interface CardProps {
+  event: ICalenderEvent;
+}
+
+export const Card = ({ event }: CardProps) => {
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear().toString().slice(-2);
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const day = date.getDate().toString().padStart(2, "0");
+    const dayOfWeek = ["일", "월", "화", "수", "목", "금", "토"][date.getDay()];
+
+    return `${year}.${month}.${day}(${dayOfWeek})`;
+  };
+
   return (
     <div className={cardContainer}>
       <div className={cardTitle}>
-        <Typography variant='headlineSemibold'>Card Title</Typography>
+        <Typography variant='headlineSemibold'>{event.title}</Typography>
       </div>
       <Typography variant='title3Medium' className={cardDescription}>
-        Card Description
+        {event.title}
       </Typography>
       <div className={cardDurationContainer}>
-        <Typography className={cardDuration}>25.05.20(화)</Typography>
-        <Typography className={cardDuration}>~25.05.20(화)</Typography>
+        <Typography className={cardDuration}>
+          {formatDate(event.startDate)}
+        </Typography>
+        {event.startDate !== event.endDate && (
+          <Typography className={cardDuration}>
+            ~{formatDate(event.endDate)}
+          </Typography>
+        )}
       </div>
     </div>
   );

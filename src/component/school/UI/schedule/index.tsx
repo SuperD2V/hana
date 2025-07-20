@@ -9,25 +9,26 @@ import {
 import * as styles from "./index.css";
 import { Card } from "./Card";
 import { ApplicationModal } from "./ApplicationModal";
+import { getSchedule } from "../../api";
+import { useQuery } from "@tanstack/react-query";
 
 export const Schedule = () => {
+  const {
+    data: scheduleData,
+    isLoading,
+    error
+  } = useQuery({
+    queryKey: ["schedule"],
+    queryFn: () => getSchedule({ page: 0, size: 10 })
+  });
   const [selectedCardId, setSelectedCardId] = useState<number | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  // 예시 데이터 - 실제로는 props나 API에서 받아올 수 있습니다
-  const scheduleData = [
-    {
-      id: 1,
-      date: "May 26",
-      title: "코바늘 손뜨개 파우치 만들기",
-      teacher: "노원예 집사"
-    },
-    { id: 2, date: "May 27", title: "도자기 만들기", teacher: "김미영 집사" },
-    { id: 3, date: "May 28", title: "꽃꽂이 교실", teacher: "박지영 집사" },
-    { id: 4, date: "May 29", title: "요리 교실", teacher: "이순자 집사" },
-    { id: 5, date: "May 30", title: "요리 교실", teacher: "이순자 집사" }
-  ];
   const { mounted, isMobile } = useResponsiveTypography();
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+  if (!scheduleData?.data?.content) return <div>No data available</div>;
+  if (!mounted) return null;
 
   const handleCardClick = (cardId: number) => {
     setSelectedCardId(cardId);
@@ -39,7 +40,6 @@ export const Schedule = () => {
     setSelectedCardId(null);
   };
 
-  if (!mounted) return null;
   return (
     <div className={styles.container}>
       <TypographyEn
@@ -51,16 +51,17 @@ export const Schedule = () => {
       <div className={styles.scheduleList}>
         <div className={styles.divider} />
 
-        {scheduleData.map((item, index) => (
-          <React.Fragment key={item.id}>
+        {scheduleData.data.content.map((item, index) => (
+          <React.Fragment key={item.visionClassId}>
             <Card
-              date={item.date}
+              visionClassId={item.visionClassId}
+              date={item.classDate}
               title={item.title}
-              teacher={item.teacher}
-              isSelected={selectedCardId === item.id}
-              onClick={() => handleCardClick(item.id)}
+              teacher={item.instructor}
+              isSelected={selectedCardId === item.visionClassId}
+              onClick={() => handleCardClick(item.visionClassId)}
             />
-            {index < scheduleData.length - 1 && (
+            {index < scheduleData.data.content.length - 1 && (
               <div className={styles.divider} />
             )}
           </React.Fragment>
@@ -69,11 +70,13 @@ export const Schedule = () => {
         <div className={styles.divider} />
       </div>
 
-      <ApplicationModal
-        scheduleData={scheduleData}
-        isOpen={isModalOpen}
-        onClose={handleModalClose}
-      />
+      {isModalOpen && (
+        <ApplicationModal
+          selectedCardId={selectedCardId ?? 0}
+          isOpen={isModalOpen}
+          onClose={handleModalClose}
+        />
+      )}
     </div>
   );
 };

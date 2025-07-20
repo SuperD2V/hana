@@ -1,12 +1,13 @@
 export interface NewsItem {
-  id: number;
+  announcementId: number;
   title: string;
-  date: string;
-  isNotice: boolean;
+  topExposureTag: string;
+  files: null;
+  views: number;
+  updatedAt: string;
 }
 
 export interface NewsSectionProps {
-  data: NewsItem[];
   title?: string;
   onItemClick?: (item: NewsItem) => void;
 }

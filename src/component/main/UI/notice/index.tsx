@@ -7,17 +7,13 @@ import TimeSection from "./TimeSection";
 import HelpSection from "./HelpSection";
 import { NewsItem } from "../../type";
 import { useRouter } from "next/navigation";
-import { newsDummyData } from "../../data/dummyData";
 
 interface NoticeProps {
   newsData?: NewsItem[];
   onNewsItemClick?: (item: NewsItem) => void;
 }
 
-export const Notice: React.FC<NoticeProps> = ({
-  newsData = newsDummyData,
-  onNewsItemClick
-}) => {
+export const Notice: React.FC<NoticeProps> = ({ onNewsItemClick }) => {
   const router = useRouter();
 
   const handleNewsItemClick = (item: NewsItem) => {
@@ -25,7 +21,7 @@ export const Notice: React.FC<NoticeProps> = ({
       onNewsItemClick(item);
     } else {
       // 기본 동작: 라우터로 이동
-      router.push(`/notice/${item.id}`);
+      router.push(`/notice/${item.announcementId}?type=notice`);
     }
   };
 
@@ -33,7 +29,7 @@ export const Notice: React.FC<NoticeProps> = ({
     <div className={noticeContainer}>
       <div className={noticeWrapper}>
         <div className={leftBox}>
-          <NewsSection data={newsData} onItemClick={handleNewsItemClick} />
+          <NewsSection onItemClick={handleNewsItemClick} />
         </div>
         <div className={rightBox}>
           <TimeSection />

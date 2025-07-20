@@ -65,9 +65,11 @@ export const calendarDay = style({
   width: "100%",
   height: "68px",
   display: "flex",
+  flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
-  color: color.gray[700]
+  color: color.gray[700],
+  gap: "4px"
 });
 export const calendarContentMobile = style({
   width: "100%",
@@ -184,13 +186,47 @@ export const arrow = style({
 export const calendarSlider = style({
   width: "calc(100% - 140px)",
   flex: 1,
+  minHeight: "176px",
   "@media": {
     "(max-width: 768px)": {
-      height: "68px"
+      height: "68px",
+      minHeight: "140px"
     }
   }
 });
 
 export const calendarMonthTextWhite = style({
   color: "#fff"
+});
+
+export const todayCalendarDay = style({
+  width: "100%",
+  height: "68px",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  color: color.gray[700],
+  position: "relative",
+  gap: "8px"
+});
+
+export const todayCircle = style({
+  width: "40px",
+  height: "40px",
+  borderRadius: "50%",
+  backgroundColor: color.brand[800],
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  color: color.gray[50],
+  border: `2px solid ${color.brand_yellow[2]}`
+});
+
+export const todayDot = style({
+  marginTop: "12px",
+  width: "6px",
+  height: "6px",
+  borderRadius: "50%",
+  backgroundColor: color.brand[800]
 });

@@ -16,21 +16,29 @@ import { TypographyEn, Typography } from "@/component/shared";
 import { useResponsiveTypography } from "@/component/shared/hooks/useResponsiveTypography";
 import { useRouter } from "next/navigation";
 import { NewsSectionProps, NewsItem } from "../../type";
+import { getNews } from "./api";
+import { useQuery } from "@tanstack/react-query";
 
 const NewsSection: React.FC<NewsSectionProps> = ({
-  data,
   title = "NEWS",
   onItemClick
 }) => {
   const { mounted, isMobile } = useResponsiveTypography();
   const router = useRouter();
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["news"],
+    queryFn: () => getNews({ page: 1, size: 10 })
+  });
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
 
   const handleItemClick = (item: NewsItem) => {
     if (onItemClick) {
       onItemClick(item);
     } else {
       // 기본 동작: 라우터로 이동
-      router.push(`/notice/${item.id}`);
+      router.push(`/notice/${item.announcementId}`);
     }
   };
 
@@ -44,19 +52,19 @@ const NewsSection: React.FC<NewsSectionProps> = ({
         </TypographyEn>
       </div>
       <div className={newsList}>
-        {data.map((item, idx) => (
+        {data?.data.content.slice(0, 5).map((item, idx) => (
           <div
             onClick={() => handleItemClick(item)}
-            key={item.id}
+            key={item.announcementId}
             className={idx === 0 ? `${newsItem} ${newsItemFirst}` : newsItem}
           >
             <div style={{ display: "flex", alignItems: "center" }}>
-              {item.isNotice && (
+              {item.topExposureTag && (
                 <Typography
                   variant={mounted && isMobile ? "body2Medium" : "body1Medium"}
                   className={badge}
                 >
-                  공지
+                  {item.topExposureTag}
                 </Typography>
               )}
               <Typography
@@ -70,7 +78,7 @@ const NewsSection: React.FC<NewsSectionProps> = ({
               variant={mounted && isMobile ? "body2Regular" : "body1Regular"}
               className={newsDate}
             >
-              {item.date}
+              {item.updatedAt}
             </Typography>
           </div>
         ))}

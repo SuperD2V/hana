@@ -65,6 +65,8 @@ export const imageBox = style({
   alignItems: "center",
   justifyContent: "center",
   flexShrink: 0,
+  position: "relative",
+  objectFit: "contain",
   "@media": {
     "(max-width: 768px)": {
       width: "100%",

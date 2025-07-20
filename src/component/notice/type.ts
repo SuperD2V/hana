@@ -16,4 +16,6 @@ export interface DashboardProps {
   onItemClick?: (item: NoticeItem) => void;
   onPageChange?: (page: number) => void;
   onCategoryChange?: (category: string) => void;
+  currentPage?: number;
+  totalPages?: number;
 }

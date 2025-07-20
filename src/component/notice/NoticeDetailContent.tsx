@@ -3,120 +3,30 @@ import { Typography } from "@/component/shared";
 import { useResponsiveTypography } from "@/component/shared";
 import Image from "next/image";
 import Button from "../introduce/Button";
+import { useQuery } from "@tanstack/react-query";
+import { getBulletinDetail, getNoticeDetail } from "./api/api";
 
 interface NoticeDetailContentProps {
   id: string;
+  type: string;
 }
 
-interface NoticeData {
-  id: number;
-  title: string;
-  category: string;
-  date: string;
-  viewLabel: string;
-  viewCount: string;
-  content: string[];
-  attachments: {
-    name: string;
-    fileName: string;
-    url: string;
-  }[];
-}
-
-const NoticeDetailContent = ({ id }: NoticeDetailContentProps) => {
+const NoticeDetailContent = ({ id, type }: NoticeDetailContentProps) => {
   const { mounted, isMobile } = useResponsiveTypography();
 
-  const noticeDataList: NoticeData[] = [
-    {
-      id: 1,
-      title: "홈페이지 새단장",
-      category: "등록일",
-      date: "2025.06.30",
-      viewLabel: "조회수",
-      viewCount: "0",
-      content: ["홈페이지가 새로 단장되었습니다. 많은 이용 부탁드립니다."],
-      attachments: [
-        {
-          name: "첨부파일",
-          fileName: "첨부파일첨부파일의 제목이 들어갑니다.확장자명",
-          url: "#"
-        }
-      ]
-    },
-    {
-      id: 2,
-      title: "2025년 하계 전교인 리트릿",
-      category: "등록일",
-      date: "2025.06.30",
-      viewLabel: "조회수",
-      viewCount: "0",
-      content: [
-        "-일시: 8월2일(토) 오후1:30 ~ 8월3일(일) 오후1:00",
-        "-장소: 타보르산 영성센터(http://taborsm.org/) ",
-        '-주제: "예배에 폭삭 빠졌수다"',
-        "-강사: 주종훈교수(장년), 권진하목사(유초등)"
-      ],
-      attachments: [
-        {
-          name: "첨부파일",
-          fileName: "첨부파일첨부파일의 제목이 들어갑니다.확장자명",
-          url: "#"
-        }
-      ]
-    },
-    {
-      id: 3,
-      title: "외부/ 손님 헌금 안내",
-      category: "등록일",
-      date: "2025.06.30",
-      viewLabel: "조회수",
-      viewCount: "0",
-      content: [
-        "하나은행 913-910011-91304 하나비전교회",
-        "영수증 신청은 아래로 접속해주세요.  ",
-        "https://forms.gle/Mdojk2Y41qFP5oVi9"
-      ],
-      attachments: [
-        {
-          name: "첨부파일",
-          fileName: "첨부파일첨부파일의 제목이 들어갑니다.확장자명",
-          url: "#"
-        }
-      ]
-    },
-    {
-      id: 4,
-      title: "교인 헌금 안내",
-      category: "등록일",
-      date: "2025.06.30",
-      viewLabel: "조회수",
-      viewCount: "0",
-      content: [
-        "하나은행 913-910011-91304 하나비전교회",
-        "온라인 헌금의 예)",
-        "- 십일조: 홍길동십일조",
-        "- 감사헌금: 홍길동감사",
-        "- 엄경영선교사후원: 홍길동엄경영",
-        "- 절기: 홍길동부활절",
-        "하신 헌금은 <오직 온라인 교인센터>를 통해 확인하실 수 있습니다. ",
-        "온라인 교인센터 이용 방법",
-        "https://www.band.us/band/89951906/post/320"
-      ],
-      attachments: [
-        {
-          name: "첨부파일",
-          fileName: "첨부파일첨부파일의 제목이 들어갑니다.확장자명",
-          url: "#"
-        }
-      ]
+  const { data: apiResponse } = useQuery({
+    queryKey: ["notice", id, type],
+    queryFn: () => {
+      if (type === "notice") {
+        return getNoticeDetail(id);
+      } else {
+        return getBulletinDetail(id);
+      }
     }
-  ];
+  });
 
-  // id와 매칭되는 공지사항 데이터 찾기
-  const noticeData = noticeDataList.find(notice => notice.id === parseInt(id));
-
-  // 해당 id의 공지사항이 없을 경우
-  if (!noticeData) {
+  // API 응답이 없거나 데이터가 없는 경우
+  if (!apiResponse || !apiResponse.data) {
     return (
       <div className='w-full flex items-center justify-center py-20'>
         <Typography variant='body1Regular' className='!text-[#666666]'>
@@ -125,6 +35,8 @@ const NoticeDetailContent = ({ id }: NoticeDetailContentProps) => {
       </div>
     );
   }
+
+  const noticeData = apiResponse.data;
 
   return (
     <div
@@ -157,13 +69,20 @@ const NoticeDetailContent = ({ id }: NoticeDetailContentProps) => {
               variant={mounted && isMobile ? "body2Regular" : "body1Regular"}
               className='!text-[#999999]'
             >
-              {noticeData.category}
+              등록일
             </Typography>
             <Typography
               variant={mounted && isMobile ? "body2Regular" : "body1Regular"}
               className='!text-[#666666]'
             >
-              {noticeData.date}
+              {new Date(noticeData.updatedAt)
+                .toLocaleDateString("ko-KR", {
+                  year: "numeric",
+                  month: "2-digit",
+                  day: "2-digit"
+                })
+                .replace(/\./g, ".")
+                .replace(/\s/g, "")}
             </Typography>
           </div>
           <div className='flex items-center gap-2'>
@@ -171,13 +90,13 @@ const NoticeDetailContent = ({ id }: NoticeDetailContentProps) => {
               variant={mounted && isMobile ? "body2Regular" : "body1Regular"}
               className='!text-[#999999]'
             >
-              {noticeData.viewLabel}
+              조회수
             </Typography>
             <Typography
               variant={mounted && isMobile ? "body2Regular" : "body1Regular"}
               className='!text-[#666666]'
             >
-              {noticeData.viewCount}
+              {noticeData.views}
             </Typography>
           </div>
         </div>
@@ -189,24 +108,17 @@ const NoticeDetailContent = ({ id }: NoticeDetailContentProps) => {
           mounted && isMobile ? "!px-[12px] !py-[20px]" : "!p-[40px]"
         }`}
       >
-        {noticeData.content.map((paragraph: string, index: number) => (
-          <div key={index}>
-            {paragraph === "" ? (
-              <div className='h-4' />
-            ) : (
-              <Typography
-                variant={mounted && isMobile ? "body2Regular" : "body1Regular"}
-                className='!text-[#292724] !leading-relaxed mb-2'
-              >
-                {paragraph}
-              </Typography>
-            )}
-          </div>
-        ))}
+        {/* API에서 content 필드가 있다면 사용하고, 없다면 기본 텍스트 표시 */}
+        <Typography
+          variant={mounted && isMobile ? "body2Regular" : "body1Regular"}
+          className='!text-[#292724] !leading-relaxed mb-2'
+        >
+          공지사항 내용이 여기에 표시됩니다.
+        </Typography>
       </div>
 
       {/* 첨부파일 */}
-      {noticeData.attachments.length > 0 && (
+      {noticeData.files && noticeData.files.length > 0 && (
         <div
           className={`!mb-[20px] flex items-center gap-4  ${
             mounted && isMobile ? "!flex-col !p-[20px]" : "flex-row !p-[40px]"
@@ -223,30 +135,14 @@ const NoticeDetailContent = ({ id }: NoticeDetailContentProps) => {
             height={64}
             style={isMobile && mounted ? { alignSelf: "center" } : undefined}
           />
-          {noticeData.attachments.map((attachment, index: number) => (
+          {noticeData.files.map((file, index: number) => (
             <div key={index} className='flex items-center gap-3 mb-3'>
-              {/* 파일 아이콘 */}
-              {/* <div
-                className='w-5 h-5 flex-shrink-0'
-                style={{
-                  backgroundImage: `url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11.25 1.25H5C4.58579 1.25 4.25 1.58579 4.25 2V18C4.25 18.4142 4.58579 18.75 5 18.75H15C15.4142 18.75 15.75 18.4142 15.75 18V6.25L11.25 1.25Z' stroke='%231B5FB8' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M11.25 1.25V6.25H15.75' stroke='%231B5FB8' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")`,
-                  backgroundSize: "contain",
-                  backgroundRepeat: "no-repeat"
-                }}
-              /> */}
-              {/* <Typography
-                variant={mounted && isMobile ? "body2Regular" : "body1Regular"}
-                className='!text-[#1B5FB8] cursor-pointer hover:underline'
-              >
-                {attachment.name}
-              </Typography> */}
-
               <Typography
                 variant={mounted && isMobile ? "body2Regular" : "body1Regular"}
                 className='!text-[#666666]'
                 style={{ textDecoration: "underline" }}
               >
-                {attachment.fileName}
+                {file.fileName}
               </Typography>
               {/* 다운로드 아이콘 */}
               <div
@@ -256,6 +152,7 @@ const NoticeDetailContent = ({ id }: NoticeDetailContentProps) => {
                   backgroundSize: "contain",
                   backgroundRepeat: "no-repeat"
                 }}
+                onClick={() => window.open(file.fileUrl, "_blank")}
               />
             </div>
           ))}

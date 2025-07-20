@@ -29,22 +29,17 @@ export const Dashboard: React.FC<DashboardProps> = ({
   title = "공지 및 주보",
   onItemClick,
   onPageChange,
-  onCategoryChange
+  onCategoryChange,
+  currentPage = 1,
+  totalPages = 1
 }) => {
   const { mounted, isMobile } = useResponsiveTypography();
-  const [page, setPage] = React.useState(1);
   const [selected, setSelected] = useState(items[0].key);
 
   const currentData = data[selected as keyof typeof data] || [];
 
-  const handlePageChange = (newPage: number) => {
-    setPage(newPage);
-    onPageChange?.(newPage);
-  };
-
   const handleCategoryChange = (category: string) => {
     setSelected(category);
-    setPage(1); // 카테고리 변경 시 페이지를 1로 리셋
     onCategoryChange?.(category);
   };
 
@@ -74,7 +69,11 @@ export const Dashboard: React.FC<DashboardProps> = ({
           )}
         </div>
         <div className={paginationContainer}>
-          <Pagination current={page} total={2} onChange={handlePageChange} />
+          <Pagination
+            current={currentPage + 1} // UI는 1-based로 표시
+            total={totalPages}
+            onChange={page => onPageChange?.(page - 1)} // 1-based를 0-based로 변환
+          />
         </div>
       </div>
     </div>

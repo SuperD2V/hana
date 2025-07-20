@@ -12,18 +12,27 @@ import {
   titleContainer,
   titleText
 } from "./index.css";
-import Image from "next/image";
+import { useQuery } from "@tanstack/react-query";
+import { getBanner } from "../../api/api";
 
 export const InitSection = () => {
   const { mounted, isMobile } = useResponsiveTypography();
 
-  const imageSize = mounted && isMobile ? 305 : 1471;
-  const imageHeight = mounted && isMobile ? 35 : 173;
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["banner"],
+    queryFn: getBanner
+  });
+
   const marginTop = mounted && isMobile ? "240px" : "600px";
 
   return (
     <div className={homeWrapper}>
-      <div className={homeWrapperInner}>
+      <div
+        className={homeWrapperInner}
+        style={{
+          backgroundImage: data?.url && `url(${data.url})`
+        }}
+      >
         <div
           style={{
             marginTop: marginTop
@@ -38,12 +47,6 @@ export const InitSection = () => {
                 함께 하나님 나라를 소망하는 교회
               </Typography>
             </div>
-            <Image
-              src='/images/HANAVISION.svg'
-              alt='initSection'
-              width={imageSize}
-              height={imageHeight}
-            />
           </div>
         </div>
       </div>

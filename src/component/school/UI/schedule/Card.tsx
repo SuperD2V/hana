@@ -8,6 +8,7 @@ import * as styles from "./index.css";
 import Image from "next/image";
 
 interface CardProps {
+  visionClassId: number;
   date: string;
   title: string;
   teacher: string;
@@ -16,14 +17,27 @@ interface CardProps {
 }
 
 export const Card = ({
+  visionClassId,
   date,
   title,
   teacher,
   isSelected = false,
   onClick
 }: CardProps) => {
-  // 날짜를 월과 일로 분리
-  const [month, day] = date.split(" ");
+  // classDate 형식에 맞게 날짜 파싱 (예: "2024-11-30" -> "11", "30")
+  const formatDate = (dateString: string) => {
+    try {
+      const date = new Date(dateString);
+      const month = date.getMonth() + 1; // getMonth()는 0부터 시작
+      const day = date.getDate();
+      return { month: month.toString(), day: day.toString() };
+    } catch (error) {
+      // 날짜 파싱 실패 시 기본값 반환
+      return { month: "01", day: "01" };
+    }
+  };
+
+  const { month, day } = formatDate(date);
   const { mounted, isMobile } = useResponsiveTypography();
 
   if (!mounted) return null;
@@ -41,13 +55,7 @@ export const Card = ({
               variant={isMobile ? "headlineMedium" : "title3Medium"}
               className={styles.month}
             >
-              {month}
-            </TypographyEn>
-            <TypographyEn
-              variant={isMobile ? "headlineMedium" : "title3Medium"}
-              className={styles.day}
-            >
-              {day}
+              {visionClassId}
             </TypographyEn>
           </div>
         </div>

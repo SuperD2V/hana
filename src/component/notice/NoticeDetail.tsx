@@ -5,9 +5,10 @@ import { useResponsiveTypography } from "../shared";
 
 interface NoticeDetailProps {
   id: string;
+  type: string;
 }
 
-const NoticeDetail = ({ id }: NoticeDetailProps) => {
+const NoticeDetail = ({ id, type }: NoticeDetailProps) => {
   const { mounted, isMobile } = useResponsiveTypography();
 
   return (
@@ -21,7 +22,7 @@ const NoticeDetail = ({ id }: NoticeDetailProps) => {
       <div className='flex justify-start'>
         <Button title='목록' onClick={() => {}} />
       </div>
-      <NoticeDetailContent id={id} />
+      <NoticeDetailContent id={id} type={type} />
     </div>
   );
 };
