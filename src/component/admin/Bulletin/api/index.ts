@@ -78,7 +78,7 @@ export const uploadFile = async (file: File) => {
       hasFormData: !!formData
     });
     
-    const response = await api.request<ApiResponse<string>>({
+    const response = await api.request<ApiResponse<any>>({
       url: "/api/admin/bulletin/file",
       method: "POST",
       data: formData,

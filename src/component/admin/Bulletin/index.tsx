@@ -57,8 +57,9 @@ const Bulletin = () => {
           title='주보'
           buttonText='등록하기'
           buttonClick={() => {
-            setState("selectedCateogry", 7);
-            router.push(`${window.location.pathname}?type=bulletin`);
+            setState("selectedCateogry", 8);
+            setState("selectedType", "bulletin");
+            // router.push(`${window.location.pathname}?type=bulletin`);
           }}
           isButton={true}
         />

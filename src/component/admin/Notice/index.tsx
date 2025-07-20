@@ -55,8 +55,9 @@ const Notice = () => {
 
   const handleRegisterClick = () => {
     // 등록하기 버튼 클릭 처리
-    setState("selectedCateogry", 2);
-    router.push(`${window.location.pathname}?type=notice`);
+    setState("selectedCateogry", 8);
+    setState("selectedType", "notice");
+    // router.push(`${window.location.pathname}?type=notice`);
     console.log("등록하기 클릭");
   };
 

@@ -58,19 +58,21 @@ const ReactQuill = dynamic(
 
 const NoticeBulletineRegister = () => {
   const searchParams = useSearchParams();
-  const urlType = searchParams.get("type");
+//   const urlType = searchParams.get("type");
   const urlId = searchParams.get("id");
 
-  const { selectedId, setState } = useAdminStore(
+
+  const { selectedId, setState, selectedType } = useAdminStore(
     useShallow(state => ({
       selectedId: state.selectedId,
-      setState: state.setState
+      setState: state.setState,
+      selectedType: state.selectedType
     }))
   );
 
   // URL 파라미터가 있으면 우선 사용, 없으면 store에서 가져오기
   const id = urlId || selectedId;
-  const type = urlType || "notice"; // notice, bulletin
+  const type = selectedType; // notice, bulletin
 
   const isEdit = !!id;
   const isNotice = type === "notice";
