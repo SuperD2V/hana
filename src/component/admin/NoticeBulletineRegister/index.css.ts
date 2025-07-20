@@ -126,7 +126,7 @@ export const removeButton = style({
 
 export const buttonContainer = style({
   display: "flex",
-  justifyContent: "flex-end",
+  justifyContent: "center",
   gap: "12px",
   paddingTop: "32px",
   borderTop: `1px solid ${color.gray[200]}`

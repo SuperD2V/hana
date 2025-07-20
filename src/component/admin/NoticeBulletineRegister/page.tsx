@@ -1,18 +1,13 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
-import React, {
-  useState,
-  useRef,
-  useMemo,
-  useEffect,
-  useCallback
-} from "react";
-import dynamic from "next/dynamic";
-import "react-quill-new/dist/quill.snow.css";
+import { useSearchParams } from 'next/navigation';
+import React, { useEffect } from 'react';
+import dynamic from 'next/dynamic';
+import 'react-quill-new/dist/quill.snow.css';
 import { useAdminStore } from "../../../../hooks/store/useAdminStore";
 import { useShallow } from "zustand/shallow";
-import { uploadFile } from "../Bulletin/api";
+import { useQuillEditor, useDragAndDrop, useFormData } from './hooks';
+import { validateForm, formatFileSize, formatFileName } from './utils';
 import {
   container,
   header,
@@ -40,8 +35,10 @@ import {
   checkIcon,
   checkedIcon,
   pinnedLabel
-} from "./index.css";
-import { color } from "@/component/shared/designed/color";
+} from './index.css';
+import { color } from '@/component/shared/designed/color';
+import { getBulletinDetail, getNoticeDetail, registerAnnouncement, registerBulletin, AnnouncementRegisterDTO, BulletinRegisterDTO } from '@/component/notice/api/api';
+import { useQuery } from '@tanstack/react-query';
 
 // react-quill-new를 dynamic import로 불러와서 SSR 문제 방지
 const ReactQuill = dynamic(
@@ -58,12 +55,6 @@ const ReactQuill = dynamic(
     loading: () => <div>에디터 로딩 중...</div>
   }
 );
-
-interface FileItem {
-  id: string;
-  name: string;
-  file: File;
-}
 
 const NoticeBulletineRegister = () => {
   const searchParams = useSearchParams();
@@ -83,266 +74,158 @@ const NoticeBulletineRegister = () => {
 
   const isEdit = !!id;
   const isNotice = type === "notice";
-
-  const [formData, setFormData] = useState({
-    title: "",
-    content: ""
-  });
-
-  const [files, setFiles] = useState<FileItem[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isPinned, setIsPinned] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const quillRef = useRef<any>(null);
+  
+  // 데이터 로딩 완료 플래그
+  const [isDataLoaded, setIsDataLoaded] = React.useState(false);
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
+  
+  // 커스텀 훅들 사용
+  const { quillRef, quillModules, quillFormats } = useQuillEditor();
+  const { handleDrop, handleDragOver } = useDragAndDrop(quillRef);
+  const {
+    formData,
+    files,
+    isPinned,
+    fileInputRef,
+    handleTitleChange,
+    handleContentChange,
+    handleFileUpload,
+    handleFileRemove,
+    handlePinnedChange,
+    setFormDataFromServer,
+    setFilesFromServer,
+    setPinnedFromServer
+  } = useFormData();
 
   // 수정 모드일 때 기존 데이터 불러오기
+  const { data: apiResponse, isLoading: isDataLoading } = useQuery({
+    queryKey: ["detail", id, type],
+    queryFn: () => {
+      if (type === "notice") {
+        return getNoticeDetail(id!);
+      } else {
+        return getBulletinDetail(id!);
+      }
+    },
+    enabled: isEdit && !!id, // 수정 모드이고 id가 있을 때만 실행
+  });
+
+  // API 응답 데이터를 폼에 설정
   useEffect(() => {
-    if (isEdit && id) {
-      setIsLoading(true);
-      // TODO: API 호출해서 기존 데이터 불러오기
-      // 임시로 더미 데이터 설정
-      setTimeout(() => {
-        setFormData({
-          title: `기존 ${isNotice ? "공지" : "게시글"} 제목`,
-          content: `기존 ${isNotice ? "공지" : "게시글"} 내용입니다.`
-        });
-        setIsLoading(false);
-      }, 1000);
+    if (apiResponse?.data && isEdit) {
+      const detailData = apiResponse.data;
+      
+      // 제목과 내용 설정
+      setFormDataFromServer({
+        title: detailData.title,
+        content: detailData.content || '' // content가 없을 경우 빈 문자열
+      });
+
+      // 공지사항이고 첨부파일이 있는 경우 파일 목록 설정
+      if (isNotice && detailData.files && detailData.files.length > 0) {
+        // 기존 파일들을 FileItem 형태로 변환
+        const existingFiles = detailData.files.map((file) => ({
+          id: `existing-${file.fileId}`,
+          name: file.fileName,
+          file: null, // 기존 파일은 File 객체가 아니므로 null로 설정
+          url: file.fileUrl, // 기존 파일 URL 저장
+          isExisting: true // 기존 파일임을 표시
+        }));
+        
+        setFilesFromServer(existingFiles);
+      }
+
+      // 상단 고정 상태 설정 (공지사항인 경우)
+      if (isNotice) {
+        const isPinned = !!detailData.topExposureTag;
+        setPinnedFromServer(isPinned);
+      }
     }
-  }, [isEdit, id, isNotice]);
+  }, [apiResponse, isEdit, isNotice]); // setFormDataFromServer 의존성 제거
 
-  // 이미지 서버 업로드 함수
-  const handleImageUpload = useCallback(
-    async (file: File): Promise<string | null> => {
-      try {
-        // 파일 크기 제한 (10MB)
-        if (file.size > 10 * 1024 * 1024) {
-          alert("이미지 파일 크기는 10MB 이하여야 합니다.");
-          return null;
-        }
+  // 로딩 상태 통합
+  const isLoading = isDataLoading;   
 
-        // 이미지 파일 타입 확인
-        if (!file.type.startsWith("image/")) {
-          alert("이미지 파일만 업로드 가능합니다.");
-          return null;
-        }
-
-        console.log("업로드할 파일:", {
-          name: file.name,
-          size: file.size,
-          type: file.type
-        });
-
-        const url = await uploadFile(file);
-        console.log("업로드 성공, URL:", url);
-        return url || null;
-      } catch (error: any) {
-        console.error("이미지 업로드 실패:", error);
-        console.error("에러 상세:", {
-          message: error?.message,
-          status: error?.response?.status,
-          statusText: error?.response?.statusText,
-          data: error?.response?.data
-        });
-        alert("이미지 업로드에 실패했습니다.");
-        return null;
-      }
-    },
-    []
-  );
-
-  // 이미지 핸들러 함수
-  const imageHandler = useCallback(() => {
-    const input = document.createElement("input");
-    input.setAttribute("type", "file");
-    input.setAttribute("accept", "image/*");
-    input.click();
-
-    input.onchange = async () => {
-      const file = input.files?.[0];
-      if (!file) return;
-
-      // React Quill 인스턴스 가져오기
-      const quill = quillRef.current?.getEditor();
-      if (!quill) return;
-
-      const range = quill.getSelection();
-      const index = range ? range.index : quill.getLength();
-
-      // 로딩 placeholder 삽입
-      quill.insertText(index, "이미지 업로드 중...", "italic", true);
-
-      // 서버에 이미지 업로드
-      const imageUrl = await handleImageUpload(file);
-
-      // placeholder 제거
-      quill.deleteText(index, "이미지 업로드 중...".length);
-
-      if (imageUrl) {
-        // 이미지 삽입
-        quill.insertEmbed(index, "image", imageUrl, "api");
-
-        // 삽입된 이미지에 alt 속성 추가
-        setTimeout(() => {
-          const editorElement = quill.root;
-          const images = editorElement.querySelectorAll(
-            `img[src="${imageUrl}"]`
-          );
-          images.forEach((img: Element) => {
-            img.setAttribute("alt", "photo-in-text-cloudfront-src");
-          });
-        }, 100);
-
-        quill.setSelection(index + 1);
-      }
-    };
-  }, [handleImageUpload]);
-
-  // react-quill 설정
-  const quillModules = useMemo(
-    () => ({
-      toolbar: {
-        container: [
-          [{ header: [1, 2, 3, false] }],
-          ["bold", "italic", "underline", "strike"],
-          [{ list: "ordered" }, { list: "bullet" }],
-          [{ align: [] }],
-          ["link", "image"],
-          ["clean"]
-        ],
-        handlers: {
-          image: imageHandler
-        }
-      }
-    }),
-    [imageHandler]
-  );
-
-  const quillFormats = [
-    "header",
-    "bold",
-    "italic",
-    "underline",
-    "strike",
-    "list",
-    "bullet",
-    "align",
-    "link",
-    "image"
-  ];
-
-  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData(prev => ({ ...prev, title: e.target.value }));
-  };
-
-  const handleContentChange = (value: string) => {
-    setFormData(prev => ({ ...prev, content: value }));
-  };
-
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFiles = e.target.files;
-    if (selectedFiles) {
-      const newFiles: FileItem[] = Array.from(selectedFiles).map(file => ({
-        id: Math.random().toString(36).substr(2, 9),
-        name: file.name,
-        file
-      }));
-      setFiles(prev => [...prev, ...newFiles]);
-    }
-  };
-
-  const handleFileRemove = (fileId: string) => {
-    setFiles(prev => prev.filter(file => file.id !== fileId));
-  };
-
-  const handlePinnedChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setIsPinned(e.target.checked);
-  };
-
-  // 드래그앤드롭 핸들러
-  const handleDrop = useCallback(
-    async (e: React.DragEvent) => {
-      e.preventDefault();
-      e.stopPropagation();
-
-      const files = Array.from(e.dataTransfer.files);
-      const imageFiles = files.filter(file => file.type.startsWith("image/"));
-
-      if (imageFiles.length === 0) {
-        alert("이미지 파일만 업로드 가능합니다.");
-        return;
-      }
-
-      const quill = quillRef.current?.getEditor();
-      if (!quill) return;
-
-      const range = quill.getSelection(true) || { index: quill.getLength() };
-
-      for (const file of imageFiles) {
-        // 로딩 placeholder 삽입
-        quill.insertText(range.index, "이미지 업로드 중...", "italic", true);
-
-        const url = await handleImageUpload(file);
-
-        // placeholder 제거
-        quill.deleteText(range.index, "이미지 업로드 중...".length);
-
-        if (url) {
-          quill.insertEmbed(range.index, "image", url, "api");
-
-          // 삽입된 이미지에 alt 속성 추가
-          setTimeout(() => {
-            const editorElement = quill.root;
-            const images = editorElement.querySelectorAll(`img[src="${url}"]`);
-            images.forEach((img: Element) => {
-              img.setAttribute("alt", "photo-in-text-cloudfront-src");
-            });
-          }, 100);
-
-          range.index += 1;
-        }
-      }
-    },
-    [handleImageUpload]
-  );
-
-  const handleDragOver = useCallback((e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-  }, []);
-
-  const handleSubmit = () => {
-    if (!formData.title.trim()) {
-      alert("제목을 입력해주세요.");
+  const handleSubmit = async () => {
+    const errors = validateForm(formData.title, formData.content);
+    
+    if (errors.length > 0) {
+      alert(errors.join('\n'));
       return;
     }
 
-    if (!formData.content.trim()) {
-      alert("내용을 입력해주세요.");
-      return;
+    setIsSubmitting(true);
+
+    try {
+      if (isNotice) {
+        // 공지사항 등록
+        const announcementDTO: AnnouncementRegisterDTO = {
+          title: formData.title,
+          content: formData.content,
+          topExposure: isPinned,
+          topExposureTag: isPinned ? 'TOP' : '',
+          isVisible: true
+        };
+
+        // 실제 파일만 필터링 (기존 파일 제외)
+        const actualFiles = files
+          .filter(file => file.file !== null)
+          .map(file => file.file!);
+
+        console.log('공지사항 등록 데이터:', {
+          announcementDTO,
+          files: actualFiles
+        });
+
+        const response = await registerAnnouncement(announcementDTO, actualFiles);
+        
+        if (response) {
+          alert('공지사항이 등록되었습니다.');
+          
+          // 성공 후 목록 페이지로 이동
+          setState('selectedCateogry', 2); // Notice 페이지
+          setState('selectedId', null);
+        } else {
+          alert('공지사항 등록에 실패했습니다.');
+        }
+      } else {
+        // 주보 등록
+        const bulletinDTO: BulletinRegisterDTO = {
+          title: formData.title,
+          content: formData.content,
+          topExposure: false, // 주보는 상단 고정 기능이 없을 것으로 추정
+          topExposureTag: '',
+          isVisible: true
+        };
+
+        // 실제 파일만 필터링 (기존 파일 제외)
+        const actualFiles = files
+          .filter(file => file.file !== null)
+          .map(file => file.file!);
+
+        console.log('주보 등록 데이터:', {
+          bulletinDTO,
+          files: actualFiles
+        });
+
+        const response = await registerBulletin(bulletinDTO, actualFiles);
+        
+        if (response) {
+          alert('주보가 등록되었습니다.');
+          
+          // 성공 후 목록 페이지로 이동
+          setState('selectedCateogry', 3); // Bulletin 페이지
+          setState('selectedId', null);
+        } else {
+          alert('주보 등록에 실패했습니다.');
+        }
+      }
+    } catch (error) {
+      console.error('등록 실패:', error);
+      alert('등록 중 오류가 발생했습니다.');
+    } finally {
+      setIsSubmitting(false);
     }
-
-    // TODO: API 호출로 데이터 저장
-    console.log("제출 데이터:", {
-      type,
-      id,
-      title: formData.title,
-      content: formData.content,
-      files: files.map(f => f.file),
-      isPinned: isPinned
-    });
-
-    const actionText = isEdit ? "수정" : "등록";
-    const typeText = isNotice ? "공지사항" : "주보";
-    alert(`${typeText}이 ${actionText}되었습니다.`);
-
-    // 성공 후 목록 페이지로 이동
-    if (isNotice) {
-      setState("selectedCateogry", 2); // Notice 페이지
-    } else {
-      setState("selectedCateogry", 3); // Bulletin 페이지
-    }
-    setState("selectedId", null);
   };
 
   const handleCancel = () => {
@@ -386,53 +269,47 @@ const NoticeBulletineRegister = () => {
         <h1 className={title}>{pageTitle}</h1>
       </div>
       <div className={form}>
-        <div
-          style={{
-            display: "flex",
-            gap: "10px",
-            alignItems: "center",
-            width: "100%"
-          }}
-        >
-          {/* 제목 입력 */}
-          <div className={fieldContainer}>
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <label className={label}>
-                제목 <span className={required}>*</span>
-              </label>
-              <span className={required}>최대 200자</span>
-            </div>
-            <div style={{ display: "flex", gap: "10px" }}>
-              <input
-                type='text'
-                className={input}
-                placeholder={`${isNotice ? "공지" : "주보"} 제목을 입력하세요`}
-                value={formData.title}
-                onChange={handleTitleChange}
-                style={{
-                  backgroundColor: color.common.white
-                }}
-              />
-            </div>
+        <div style={{display: 'flex', gap: '10px', alignItems: 'center', width: '100%'}}>
+        {/* 제목 입력 */}
+        <div className={fieldContainer}>
+            <div style={{display: 'flex', justifyContent: 'space-between'}}>
+          <label className={label}>
+            제목 <span className={required}>*</span>
+          </label>
+          <span className={required}>최대 200자</span>
+                     </div>
+           <div style={{display: 'flex', gap: '10px'}}>
+            <input
+              type="text"
+              className={input}
+              placeholder={`${isNotice ? '공지' : '주보'} 제목을 입력하세요`}
+              value={formData.title}
+              onChange={handleTitleChange}
+              style={{
+                backgroundColor: color.common.white
+              }}
+            />
+          
           </div>
-          {/* 상단 고정 컴포넌트 */}
-          <div className={pinnedContainer}>
-            <div className={checkboxWrapper}>
-              <input
-                type='checkbox'
-                id='pinned'
-                className={checkbox}
-                checked={isPinned}
-                onChange={handlePinnedChange}
-              />
-              <div
-                className={`${checkIcon} ${isPinned ? checkedIcon : ""}`}
-              ></div>
-            </div>
-            <label htmlFor='pinned' className={pinnedLabel}>
-              상단 고정
-            </label>
-          </div>
+         
+        </div>
+        {isNotice && (
+              <div className={pinnedContainer}>
+             <div className={checkboxWrapper}>
+               <input
+                 type="checkbox"
+                 id="pinned"
+                 className={checkbox}
+                 checked={isPinned}
+                 onChange={handlePinnedChange}
+               />
+               <div className={`${checkIcon} ${isPinned ? checkedIcon : ''}`}></div>
+             </div>
+             <label htmlFor="pinned" className={pinnedLabel}>
+               상단 고정
+             </label>
+           </div>
+           )}
         </div>
 
         {/* 내용 입력 */}
@@ -452,7 +329,7 @@ const NoticeBulletineRegister = () => {
               onChange={handleContentChange}
               modules={quillModules}
               formats={quillFormats}
-              placeholder='내용을 입력하세요... (이미지를 드래그해서 넣을 수 있습니다)'
+              placeholder=""
               style={{
                 height: "300px",
                 paddingBottom: "43px",
@@ -461,8 +338,8 @@ const NoticeBulletineRegister = () => {
             />
           </div>
         </div>
+        {isNotice && (
 
-        {/* 첨부파일 */}
         <div className={fieldContainer}>
           <label className={label}>첨부파일</label>
           <div
@@ -490,7 +367,11 @@ const NoticeBulletineRegister = () => {
             <div className={fileList}>
               {files.map(file => (
                 <div key={file.id} className={fileItem}>
-                  <span className={fileName}>{file.name}</span>
+                  <span className={fileName}>
+                    {formatFileName(file.name)} 
+                    {file.file && `(${formatFileSize(file.file.size)})`}
+                    {file.isExisting && ' (기존 파일)'}
+                  </span>
                   <button
                     className={removeButton}
                     onClick={() => handleFileRemove(file.id)}
@@ -503,14 +384,17 @@ const NoticeBulletineRegister = () => {
             </div>
           )}
         </div>
+        )}
 
         {/* 버튼 영역 */}
         <div className={buttonContainer}>
-          <button type='button' className={cancelButton} onClick={handleCancel}>
-            취소
-          </button>
-          <button type='button' className={submitButton} onClick={handleSubmit}>
-            {isEdit ? "수정" : "등록"}하기
+          <button 
+            type="button" 
+            className={submitButton}
+            onClick={handleSubmit}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? '등록 중...' : '등록하기'}
           </button>
         </div>
       </div>
