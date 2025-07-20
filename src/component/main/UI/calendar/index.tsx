@@ -63,7 +63,55 @@ export const Calendar = () => {
   };
 
   const handleDaySelect = (dayNumber: number) => {
+    // 해당 날짜에 이벤트가 있는지 확인
+    const hasEventOnDay =
+      summaryDays[dayNumber - 1] &&
+      summaryDays[dayNumber - 1][dayNumber.toString()] === true;
+
+    // 선택된 날짜는 항상 업데이트
     setSelectedDay(dayNumber);
+
+    // 이벤트가 있는 경우에만 슬라이더를 해당 위치로 이동
+    if (hasEventOnDay) {
+      setTimeout(() => {
+        const selectedDate = new Date(
+          new Date().getFullYear(),
+          selectedMonth,
+          dayNumber
+        );
+
+        const eventIndex = allEvents.findIndex(event => {
+          const eventStartDate = new Date(event.startDate);
+          const eventEndDate = new Date(event.endDate);
+
+          const selectedDateOnly = new Date(
+            selectedDate.getFullYear(),
+            selectedDate.getMonth(),
+            selectedDate.getDate()
+          );
+          const eventStartDateOnly = new Date(
+            eventStartDate.getFullYear(),
+            eventStartDate.getMonth(),
+            eventStartDate.getDate()
+          );
+          const eventEndDateOnly = new Date(
+            eventEndDate.getFullYear(),
+            eventEndDate.getMonth(),
+            eventEndDate.getDate()
+          );
+
+          return (
+            selectedDateOnly >= eventStartDateOnly &&
+            selectedDateOnly <= eventEndDateOnly
+          );
+        });
+
+        if (eventIndex !== -1) {
+          sliderRef.current?.slickGoTo(eventIndex);
+        }
+      }, 100);
+    }
+    // 이벤트가 없는 날짜는 선택만 되고 슬라이더는 그대로 유지
   };
 
   if (!dateInfo) return null; // 또는 로딩 UI
@@ -73,13 +121,6 @@ export const Calendar = () => {
   // API 데이터에서 일정 추출
   const allEvents = data?.data.calendarEvents || [];
   const summaryDays = data?.data.summaryDays || [];
-
-  // 선택된 날짜의 일정만 필터링
-  const selectedDate = new Date(
-    new Date().getFullYear(),
-    selectedMonth,
-    selectedDay
-  );
 
   // 선택된 날짜가 현재 월의 유효한 날짜인지 확인
   const lastDayOfMonth = new Date(
@@ -94,38 +135,8 @@ export const Calendar = () => {
     setSelectedDay(validSelectedDay);
   }
 
-  const events = allEvents.filter(event => {
-    const eventStartDate = new Date(event.startDate);
-    const eventEndDate = new Date(event.endDate);
-
-    // 날짜 비교를 위해 시간을 제거하고 날짜만 비교
-    const selectedDateOnly = new Date(
-      selectedDate.getFullYear(),
-      selectedDate.getMonth(),
-      selectedDate.getDate()
-    );
-    const eventStartDateOnly = new Date(
-      eventStartDate.getFullYear(),
-      eventStartDate.getMonth(),
-      eventStartDate.getDate()
-    );
-    const eventEndDateOnly = new Date(
-      eventEndDate.getFullYear(),
-      eventEndDate.getMonth(),
-      eventEndDate.getDate()
-    );
-
-    // 선택된 날짜가 이벤트 기간 내에 있는지 확인
-    return (
-      selectedDateOnly >= eventStartDateOnly &&
-      selectedDateOnly <= eventEndDateOnly
-    );
-  });
-
   // 디버깅을 위한 로그
-  console.log("Selected Date:", selectedDate);
   console.log("All Events:", allEvents);
-  console.log("Filtered Events:", events);
   console.log("Selected Day:", selectedDay);
 
   return (
@@ -152,13 +163,14 @@ export const Calendar = () => {
               {summaryDays.map((data, index) => {
                 const dayNumber = index + 1;
                 const isSelected = dayNumber === selectedDay;
+                const hasEvent = data && data[dayNumber.toString()] === true;
 
                 return (
                   <CalendarDay
                     key={index}
                     dayNumber={dayNumber}
                     isToday={isSelected}
-                    hasEvent={data && data[dayNumber.toString()] === true}
+                    hasEvent={hasEvent}
                     onClick={() => handleDaySelect(dayNumber)}
                   />
                 );
@@ -167,7 +179,7 @@ export const Calendar = () => {
           )}
         </div>
         <div className={cardWrapper}>
-          {events.length > 0 && (
+          {allEvents.length > 0 && (
             <ArrowButton
               direction='left'
               onClick={handlePrevClick}
@@ -180,8 +192,8 @@ export const Calendar = () => {
             className={calendarSlider}
           >
             {!isLoading &&
-              events.length > 0 &&
-              events.map((event, idx) => (
+              allEvents.length > 0 &&
+              allEvents.map((event, idx) => (
                 <div
                   key={`calendar-card-${idx}`}
                   style={{
@@ -192,7 +204,7 @@ export const Calendar = () => {
                 </div>
               ))}
           </Slider>
-          {events.length > 0 && (
+          {allEvents.length > 0 && (
             <ArrowButton
               direction='right'
               onClick={handleNextClick}

@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { navItems } from "../../const/routeKey";
 import {
   navigationContainer,
+  navigationHidden,
   navWrapper,
   desktopMenu,
   navLink,
@@ -26,6 +27,8 @@ import { usePathname } from "next/navigation";
 export function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isClient, setIsClient] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const pathName = usePathname();
 
   const width = useWindowWidth();
@@ -38,6 +41,31 @@ export function Navigation() {
   useEffect(() => {
     if (!isMobile) setIsMobileMenuOpen(false);
   }, [isMobile]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      // 모바일에서는 스크롤 이벤트 무시
+      if (isMobile) {
+        setIsVisible(true);
+        return;
+      }
+
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        // 스크롤 다운 시 네비게이션 숨김 (데스크탑만)
+        setIsVisible(false);
+      } else if (currentScrollY < lastScrollY) {
+        // 스크롤 업 시 네비게이션 표시 (데스크탑만)
+        setIsVisible(true);
+      }
+
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY, isMobile]);
 
   // useEffect(() => {
   //   AOS.init();
@@ -54,21 +82,17 @@ export function Navigation() {
   if (pathName === "/introduce") return null; // 스타일용으로 introduce 전용 네비게이션은 따로 있음
 
   return (
-    <nav className={navigationContainer}>
+    <nav
+      className={`${navigationContainer} ${!isVisible ? navigationHidden : ""}`}
+    >
       <div className={navWrapper}>
         <div className='logo'>
           <Link href='/'>
             <Image
               src='/images/logo-typo.png'
               alt='logo'
-              width={120}
-              height={120}
-              style={{
-                width: "auto",
-                height: "auto",
-                maxWidth: "80px",
-                maxHeight: "32px"
-              }}
+              width={isMobile ? 61 : 130}
+              height={isMobile ? 28 : 60}
             />
           </Link>
         </div>

@@ -15,6 +15,8 @@ export const navigationContainer = style({
   backgroundColor: color.brand_yellow[2],
   boxShadow: "0 0 12px 0 rgba(rgba(99, 83, 19, 0.08))",
   borderRadius: "999px",
+  transition:
+    "transform 0.3s cubic-bezier(0.4,0,0.2,1), opacity 0.3s cubic-bezier(0.4,0,0.2,1)",
   "@media": {
     "(max-width: 1280px)": {
       height: "51px",
@@ -26,6 +28,12 @@ export const navigationContainer = style({
       padding: "0 16px"
     }
   }
+});
+
+export const navigationHidden = style({
+  transform: "translateX(-50%) translateY(-100%)",
+  opacity: 0,
+  pointerEvents: "none"
 });
 
 export const navWrapper = style({

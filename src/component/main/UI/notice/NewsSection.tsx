@@ -21,7 +21,7 @@ import { useQuery } from "@tanstack/react-query";
 import { formatDateOnly } from "@/lib/utils";
 
 const NewsSection: React.FC<NewsSectionProps> = ({
-  title = "NEWS",
+  titles = "NEWS",
   onItemClick
 }) => {
   const { mounted, isMobile } = useResponsiveTypography();
@@ -49,7 +49,7 @@ const NewsSection: React.FC<NewsSectionProps> = ({
         <TypographyEn
           variant={mounted && isMobile ? "largetitle3Bold" : "largetitle1"}
         >
-          {title}
+          {titles}
         </TypographyEn>
       </div>
       <div className={newsList}>

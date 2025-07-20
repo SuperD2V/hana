@@ -8,6 +8,6 @@ export interface NewsItem {
 }
 
 export interface NewsSectionProps {
-  title?: string;
+  titles?: string;
   onItemClick?: (item: NewsItem) => void;
 }
