@@ -36,7 +36,9 @@ const NoticeDetail = ({ id }: NoticeDetailProps) => {
       <div className='flex justify-between'>
         <Button title='목록' onClick={() => {}} />
         <Button title='수정하기' onClick={() => {
-          router.push(`/admin/noticeBulletineRegister?id=${id}&type=${type}`);
+          setState("selectedCateogry", 8);
+          setState("selectedId", id);
+          setState("selectedType", type as "notice" | "bulletin");
         }} icon={<Image src='/images/updateIcon.png' alt='edit' width={20} height={20} />} />
       </div>
       <NoticeDetailContent id={id} type={type} />
