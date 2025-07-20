@@ -5,12 +5,16 @@ interface DetailHeaderProps {
   title: string;
   onDelete: () => void;
   isDeleting: boolean;
+  onEdit: (id: number) => void;
+  id: number;
 }
 
 export const DetailHeader = ({
   title,
   onDelete,
-  isDeleting
+  isDeleting,
+  onEdit,
+  id
 }: DetailHeaderProps) => {
   return (
     <div className={styles.header}>
@@ -48,6 +52,7 @@ export const DetailHeader = ({
             color: "#ffffff"
           }}
           className={styles.button}
+          onClick={() => onEdit(id)}
         >
           <svg
             width='20'

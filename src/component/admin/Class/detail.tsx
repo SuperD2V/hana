@@ -5,6 +5,10 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import { Typography, showConfirmModal } from "@/component/shared";
 import { toast } from "react-hot-toast";
+import { useShallow } from "zustand/shallow";
+import { useAdminStore } from "../../../../hooks/store/useAdminStore";
+import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 interface DetailProps {
   onBack: () => void;
@@ -13,7 +17,8 @@ interface DetailProps {
 
 const Detail = ({ onBack, selectedItemId }: DetailProps) => {
   const queryClient = useQueryClient();
-
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const { data, isLoading } = useQuery({
     queryKey: ["classDetail", selectedItemId],
     queryFn: () => getClassDetail({ classId: selectedItemId || 1 }),
@@ -53,6 +58,18 @@ const Detail = ({ onBack, selectedItemId }: DetailProps) => {
       confirmButtonColor: "#E13A3A"
     });
   };
+  const { setState } = useAdminStore(
+    useShallow(state => ({
+      setState: state.setState
+    }))
+  );
+  const handleEdit = (id: number) => {
+    setState("selectedCateogry", 9);
+    const params = new URLSearchParams(searchParams);
+    params.set("type", "class");
+    params.set("id", id.toString());
+    router.replace(`?${params.toString()}`);
+  };
 
   return (
     <div>
@@ -60,6 +77,8 @@ const Detail = ({ onBack, selectedItemId }: DetailProps) => {
         title={data?.data.title || "클래스 상세"}
         onDelete={showDeleteConfirm}
         isDeleting={deleteMutation.isPending}
+        onEdit={handleEdit}
+        id={selectedItemId || 0}
       />
       <div style={{ display: "flex", gap: "40px" }}>
         <div style={{ width: "740px", height: "740px", position: "relative" }}>

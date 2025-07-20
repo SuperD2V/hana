@@ -63,7 +63,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
       params.set("type", type);
       params.set("id", item.no.toString());
       router.replace(`?${params.toString()}`);
-      setState("selectedCateogry", 7);
+      setState("selectedCateogry", 8);
     }
     setOpenDropdownId(null);
   };
@@ -111,8 +111,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
       </thead>
       <tbody>
         {data.map(item => (
-          <tr key={item.no}>
-            <td onClick={() => handleItemClick(item)} className={tdLeft}>
+          <tr onClick={() => handleItemClick(item)} key={item.no}>
+            <td className={tdLeft}>
               <Typography variant='headlineMedium'>{item.no}</Typography>
             </td>
             <td className={tdCenter} style={{ cursor: "pointer" }}>

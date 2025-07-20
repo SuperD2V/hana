@@ -36,7 +36,7 @@ const Class = () => {
   );
 
   const handleItemClick = () => {
-    setState("selectedCateogry", 7);
+    setState("selectedCateogry", 9);
     router.push(`${window.location.pathname}?type=class`);
   };
 
