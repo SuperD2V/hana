@@ -163,3 +163,21 @@ export const imageItemTitle = style({
 export const imageItemDate = style({
   color: color.gray[500]
 });
+
+export const header = style({
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center"
+});
+export const button = style({
+  height: "52px",
+  borderRadius: "12px",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  gap: "8px",
+  background: "none",
+  border: "none",
+  cursor: "pointer",
+  color: "inherit"
+});

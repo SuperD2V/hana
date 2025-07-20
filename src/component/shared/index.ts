@@ -46,3 +46,5 @@ export { useResponsiveTypography } from "./hooks/useResponsiveTypography";
 export { AdminHeader } from "./ui/adminHeader";
 
 export { api } from "./api/axiosInstance";
+
+export { showConfirmModal } from "./ui/ConfirmModal";

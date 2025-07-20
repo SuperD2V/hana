@@ -26,3 +26,48 @@ export const getClass = async ({
     return null;
   }
 };
+
+export interface ClassDetail {
+  visionClassId: number;
+  title: string;
+  content: string;
+  thumbnail: {
+    fileId: number;
+    fileName: string;
+    fileUrl: string;
+  };
+  classDate: string;
+  isVisible: boolean;
+  location: string;
+  instructor: string;
+  applyLink: string;
+  views: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export const getClassDetail = async ({ classId }: { classId: number }) => {
+  try {
+    const response = await api.request<ApiResponse<ClassDetail>>({
+      url: `/api/admin/vision-class/${classId}`,
+      method: "GET"
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export const deleteClass = async ({ classId }: { classId: number }) => {
+  try {
+    const response = await api.request<ApiResponse<void>>({
+      url: `/api/admin/vision-class/${classId}`,
+      method: "DELETE"
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};

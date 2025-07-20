@@ -9,6 +9,7 @@ import Image from "next/image";
 import { AdminHeader, Typography } from "@/component/shared";
 import { useShallow } from "zustand/shallow";
 import { useAdminStore } from "../../../../hooks/store/useAdminStore";
+import Detail from "./detail";
 
 const Class = () => {
   const router = useRouter();
@@ -17,6 +18,8 @@ const Class = () => {
     alt: string;
   } | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDetailMode, setIsDetailMode] = useState(false);
+  const [selectedItemId, setSelectedItemId] = useState<number | null>(null);
 
   const { data: classData } = useQuery({
     queryKey: ["class"],
@@ -37,6 +40,20 @@ const Class = () => {
     router.push(`${window.location.pathname}?type=class`);
   };
 
+  const handleEditClick = (itemId: number) => {
+    setSelectedItemId(itemId);
+    setIsDetailMode(true);
+  };
+
+  const handleBackClick = () => {
+    setIsDetailMode(false);
+    setSelectedItemId(null);
+  };
+
+  if (isDetailMode) {
+    return <Detail onBack={handleBackClick} selectedItemId={selectedItemId} />;
+  }
+
   return (
     <div>
       <AdminHeader
@@ -47,7 +64,11 @@ const Class = () => {
       />
       <div className={styles.imageGrid}>
         {classList?.map(item => (
-          <div className={styles.imageItemContainer}>
+          <div
+            onClick={() => handleEditClick(item.visionClassId)}
+            key={item.visionClassId}
+            className={styles.imageItemContainer}
+          >
             <div className={styles.imageItem}>
               <Image
                 src={item.thumbnailUrl}
