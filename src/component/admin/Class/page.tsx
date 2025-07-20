@@ -71,7 +71,7 @@ const Class = () => {
           >
             <div className={styles.imageItem}>
               <Image
-                src={item.thumbnailUrl}
+                src={item.thumbnailUrl!}
                 fill
                 style={{ position: "absolute", objectFit: "contain" }}
                 alt={item.title}

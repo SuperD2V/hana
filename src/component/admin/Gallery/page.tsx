@@ -56,10 +56,8 @@ const Gallery = () => {
         return [];
       }
 
-      // 8개만 추출
       const limitedItems = galleryList.data.content.slice(0, 8);
 
-      // 각 아이템의 상세 정보를 병렬로 가져오기
       const detailPromises = limitedItems.map(item =>
         getGalleryDetail(item.galleryId)
       );
@@ -70,7 +68,6 @@ const Gallery = () => {
     enabled: !!galleryList?.data?.content
   });
 
-  // 이미지 링크들 추출
   useEffect(() => {
     if (galleryDetails && galleryDetails.length > 0) {
       const imageData: ImageData[] = [];
@@ -91,7 +88,6 @@ const Gallery = () => {
         }
       });
 
-      // 최대 8개까지만 설정
       setGalleryImages(imageData.slice(0, 8));
     }
   }, [galleryDetails]);

@@ -63,12 +63,14 @@ const Detail = ({ onBack, selectedItemId }: DetailProps) => {
       />
       <div style={{ display: "flex", gap: "40px" }}>
         <div style={{ width: "740px", height: "740px", position: "relative" }}>
-          <Image
-            src={data?.data.thumbnail.fileUrl || ""}
-            alt='thumbnail'
-            fill
-            style={{ objectFit: "contain" }}
-          />
+          {data?.data.thumbnail?.fileUrl && (
+            <Image
+              src={data.data.thumbnail.fileUrl}
+              alt='thumbnail'
+              fill
+              style={{ objectFit: "contain" }}
+            />
+          )}
         </div>
         <div
           style={{
@@ -76,7 +78,8 @@ const Detail = ({ onBack, selectedItemId }: DetailProps) => {
             height: "740px",
             display: "flex",
             flexDirection: "column",
-            gap: "16px"
+            gap: "16px",
+            paddingTop: "40px"
           }}
         >
           <Typography variant='headlineRegular'>
