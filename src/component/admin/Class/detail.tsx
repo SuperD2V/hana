@@ -72,7 +72,7 @@ const Detail = ({ onBack, selectedItemId }: DetailProps) => {
   };
 
   return (
-    <div>
+    <div style={{ maxWidth: "1520px", margin: "80px auto 0 auto" }}>
       <DetailHeader
         title={data?.data.title || "클래스 상세"}
         onDelete={showDeleteConfirm}

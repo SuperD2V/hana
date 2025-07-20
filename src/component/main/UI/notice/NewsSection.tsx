@@ -18,6 +18,7 @@ import { useRouter } from "next/navigation";
 import { NewsSectionProps, NewsItem } from "../../type";
 import { getNews } from "./api";
 import { useQuery } from "@tanstack/react-query";
+import { formatDateOnly } from "@/lib/utils";
 
 const NewsSection: React.FC<NewsSectionProps> = ({
   title = "NEWS",
@@ -78,7 +79,7 @@ const NewsSection: React.FC<NewsSectionProps> = ({
               variant={mounted && isMobile ? "body2Regular" : "body1Regular"}
               className={newsDate}
             >
-              {item.updatedAt}
+              {formatDateOnly(item.updatedAt)}
             </Typography>
           </div>
         ))}
