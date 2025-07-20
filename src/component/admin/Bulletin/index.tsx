@@ -40,7 +40,10 @@ const Bulletin = () => {
     })) || [];
 
   const handleEdit = (item: NoticeItem) => {
-    console.log("수정:", item);
+    console.log("주보 수정:", item);
+    setState("selectedCateogry", 8); // NoticeBulletineRegister 페이지
+    setState("selectedId", item.no.toString());
+    setState("selectedType", "bulletin"); // 주보 타입 설정
   };
 
   const handleDelete = (item: NoticeItem) => {
@@ -66,8 +69,11 @@ const Bulletin = () => {
         <AdminDashboard
           type='bulletin'
           data={convertedData}
-          onItemClick={() => {
-            setState("selectedCateogry", 6);
+          onItemClick={(item) => {
+            console.log("주보 클릭:", item);
+            setState("selectedCateogry", 6); // Bulletin Detail 페이지
+            setState("selectedId", item.no.toString());
+            setState("selectedType", "bulletin"); // 주보 타입 설정
           }}
           onEdit={handleEdit}
           onDelete={handleDelete}

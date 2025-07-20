@@ -34,7 +34,9 @@ const NoticeDetail = ({ id }: NoticeDetailProps) => {
       } `}
     >
       <div className='flex justify-between'>
-        <Button title='목록' onClick={() => {}} />
+        <Button title='목록' onClick={() => {
+          setState("selectedCateogry", type === "notice" ? 2 : 3);
+        }} />
         <Button title='수정하기' onClick={() => {
           setState("selectedCateogry", 8);
           setState("selectedId", id);

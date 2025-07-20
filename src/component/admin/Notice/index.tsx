@@ -48,9 +48,9 @@ const Notice = () => {
   const handleItemClick = (item: NoticeItem) => {
     // 공지사항 클릭 처리
     console.log("공지사항 클릭:", item);
-    setState("selectedCateogry", 7);
+    setState("selectedCateogry", 7); // Notice Detail 페이지
     setState("selectedId", item.no.toString());
-    router.push(`${window.location.pathname}?type=notice`);
+    setState("selectedType", "notice"); // 공지사항 타입 설정
   };
 
   const handleRegisterClick = () => {
@@ -63,8 +63,10 @@ const Notice = () => {
 
   const handleEdit = (item: NoticeItem) => {
     // 수정하기 버튼 클릭 처리 - NoticeBulletineRegister 페이지로 이동 (수정 모드)
-    setState("selectedCateogry", 8);
+    console.log("공지사항 수정:", item);
+    setState("selectedCateogry", 8); // NoticeBulletineRegister 페이지
     setState("selectedId", item.no.toString());
+    setState("selectedType", "notice"); // 공지사항 타입 설정
   };
 
   const handleDelete = (item: NoticeItem) => {

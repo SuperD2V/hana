@@ -5,6 +5,7 @@ import Image from "next/image";
 import Button from "../introduce/Button";
 import { useQuery } from "@tanstack/react-query";
 import { getBulletinDetail, getNoticeDetail } from "./api/api";
+import { useNavigation } from "./hooks/useNavigation";
 
 interface NoticeDetailContentProps {
   id: string;
@@ -13,7 +14,9 @@ interface NoticeDetailContentProps {
 
 const NoticeDetailContent = ({ id, type }: NoticeDetailContentProps) => {
   const { mounted, isMobile } = useResponsiveTypography();
-
+  // 타입 검증 및 변환
+  const validatedType = type === 'notice' || type === 'bulletin' ? type : 'notice';
+  const { handlePrevious, handleNext, handleList } = useNavigation(id, validatedType);
   const { data: apiResponse } = useQuery({
     queryKey: ["notice", id, type],
     queryFn: () => {
@@ -164,9 +167,9 @@ const NoticeDetailContent = ({ id, type }: NoticeDetailContentProps) => {
           isMobile && mounted ? "justify-center" : "justify-end"
         }  flex-row gap-[4px] !mb-[160px]`}
       >
-        <Button title='이전글' onClick={() => {}} />
-        <Button title='다음글' onClick={() => {}} />
-        <Button title='목록' onClick={() => {}} />
+        <Button title='이전글' onClick={handlePrevious} />
+        <Button title='다음글' onClick={handleNext} />
+        <Button title='목록' onClick={handleList} />
       </div>
     </div>
   );
