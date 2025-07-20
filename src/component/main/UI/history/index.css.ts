@@ -2,8 +2,9 @@ import { color } from "@/component/shared/designed/color";
 import { style } from "@vanilla-extract/css";
 
 export const topContainer = style({
-  width: "100vw",
-  backgroundColor: color.brand[100]
+  width: "100%",
+  backgroundColor: color.brand[100],
+  overflow: "hidden"
 });
 export const historyContainer = style({
   width: "100%",

@@ -140,7 +140,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                   style={{
                     position: "absolute",
                     top: "60%",
-                    right: "20px",
+                    left: "-60px",
                     zIndex: 1000,
                     marginTop: "4px"
                   }}
