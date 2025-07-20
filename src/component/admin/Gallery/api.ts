@@ -45,3 +45,57 @@ export const getGalleryDetail = async (galleryId: number) => {
     return null;
   }
 };
+
+export const deleteGallery = async (galleryId: number) => {
+  try {
+    const response = await api.request<ApiResponse<void>>({
+      url: `/api/admin/gallery/${galleryId}`,
+      method: "DELETE"
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export interface GalleryUpdateData {
+  title: string;
+  deletedFilesIdList?: number[];
+}
+
+export const registerGallery = async (
+  galleryData: GalleryUpdateData,
+  files?: File[]
+) => {
+  try {
+    const formData = new FormData();
+
+    // galleryDTO를 JSON 문자열로 변환하여 추가
+    const galleryDTO = {
+      title: galleryData.title,
+      deletedFilesIdList: galleryData.deletedFilesIdList || []
+    };
+    formData.append("galleryDTO", JSON.stringify(galleryDTO));
+
+    // 파일들 추가
+    if (files) {
+      files.forEach(file => {
+        formData.append("files", file);
+      });
+    }
+
+    const response = await api.request<ApiResponse<void>>({
+      url: `/api/admin/gallery/register`,
+      method: "POST",
+      data: formData,
+      headers: {
+        "Content-Type": "multipart/form-data"
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};

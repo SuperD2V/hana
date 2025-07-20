@@ -74,7 +74,7 @@ export const showConfirmModal = ({
         background: "transparent",
         boxShadow: "none",
         padding: 0,
-        marginTop: "20vh" // 화면 중앙에 가깝게 배치
+        marginTop: "25%" // 화면 중앙에 가깝게 배치
       }
     }
   );
