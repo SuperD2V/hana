@@ -61,7 +61,9 @@ const Notice = () => {
   };
 
   const handleEdit = (item: NoticeItem) => {
-    console.log("수정:", item);
+    // 수정하기 버튼 클릭 처리 - NoticeBulletineRegister 페이지로 이동 (수정 모드)
+    setState('selectedCateogry', 8);
+    setState('selectedId', item.no.toString());
   };
 
   const handleDelete = (item: NoticeItem) => {

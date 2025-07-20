@@ -9,6 +9,7 @@ import Bulletin from "../Bulletin";
 import Class from "../Class/page";
 import Gallery from "../Gallery/page";
 import NoticeDetail from "../Notice/[id]/page";
+import NoticeBulletineRegister from "../NoticeBulletineRegister/page";
 
 const useContentSelector = (): React.ReactElement | null => {
   const { selectedCateogry, selectedId } = useAdminStore(
@@ -33,6 +34,8 @@ const useContentSelector = (): React.ReactElement | null => {
       return React.createElement(Notice);
     case 7:
       return React.createElement(NoticeDetail, { id: selectedId || "1" });
+    case 8:
+      return React.createElement(NoticeBulletineRegister);
     default:
       return null;
   }

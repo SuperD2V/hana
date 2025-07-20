@@ -14,13 +14,13 @@ const AdminContent = () => {
   );
   
   useEffect(() => {
-    setState('selectedCateogry', 7)
+    setState('selectedCateogry', 8)
   },[])
 
   const ContentComponent = useContentSelector();
 
   return (
-    <div style={{ width: "100%", padding: "80px 160px" }}>
+    <div style={{ width: "100%" }}>
       {ContentComponent}
     </div>
   );
