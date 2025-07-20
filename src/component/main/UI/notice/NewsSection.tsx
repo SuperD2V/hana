@@ -27,7 +27,7 @@ const NewsSection: React.FC<NewsSectionProps> = ({
   const router = useRouter();
   const { data, isLoading, error } = useQuery({
     queryKey: ["news"],
-    queryFn: () => getNews({ page: 1, size: 10 })
+    queryFn: () => getNews({ page: 0, size: 10 })
   });
 
   if (isLoading) return <div>Loading...</div>;
