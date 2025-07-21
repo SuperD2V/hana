@@ -41,8 +41,6 @@ export const getBulletinDetail = async (id: string) => {
     console.error(error);
     return null;
   }
-
- 
 };
 
 // 공지사항 등록을 위한 DTO 타입
@@ -54,6 +52,12 @@ export interface AnnouncementRegisterDTO {
   isVisible: boolean;
 }
 
+// 공지사항 수정을 위한 DTO 타입
+export interface AnnouncementEditDTO {
+  announcementRegisterDTO: AnnouncementRegisterDTO;
+  deletedFilesIdList: number[];
+}
+
 // 공지사항 등록 API
 export const registerAnnouncement = async (
   announcementDTO: AnnouncementRegisterDTO,
@@ -61,13 +65,13 @@ export const registerAnnouncement = async (
 ) => {
   try {
     const formData = new FormData();
-    
+
     // announcementDTO를 JSON 문자열로 변환하여 추가
-    formData.append('announcementDTO', JSON.stringify(announcementDTO));
-    
+    formData.append("announcementDTO", JSON.stringify(announcementDTO));
+
     // 파일들 추가
     files.forEach((file, index) => {
-      formData.append('files', file);
+      formData.append("files", file);
     });
 
     const response = await api.request<ApiResponse<any>>({
@@ -75,13 +79,13 @@ export const registerAnnouncement = async (
       method: "POST",
       data: formData,
       headers: {
-        'Content-Type': 'multipart/form-data',
-      },
+        "Content-Type": "multipart/form-data"
+      }
     });
-    
+
     return response.data;
   } catch (error) {
-    console.error('공지사항 등록 실패:', error);
+    console.error("공지사항 등록 실패:", error);
     throw error;
   }
 };
@@ -95,6 +99,12 @@ export interface BulletinRegisterDTO {
   isVisible: boolean;
 }
 
+// 주보 수정을 위한 DTO 타입
+export interface BulletinEditDTO {
+  announcementRegisterDTO: BulletinRegisterDTO;
+  deletedFilesIdList: number[];
+}
+
 // 주보 등록 API
 export const registerBulletin = async (
   bulletinDTO: BulletinRegisterDTO,
@@ -102,13 +112,13 @@ export const registerBulletin = async (
 ) => {
   try {
     const formData = new FormData();
-    
+
     // bulletinDTO를 JSON 문자열로 변환하여 추가
-    formData.append('announcementDTO', JSON.stringify(bulletinDTO));
-    
+    formData.append("announcementDTO", JSON.stringify(bulletinDTO));
+
     // 파일들 추가
     files.forEach((file, index) => {
-      formData.append('files', file);
+      formData.append("files", file);
     });
 
     const response = await api.request<ApiResponse<any>>({
@@ -116,13 +126,82 @@ export const registerBulletin = async (
       method: "POST",
       data: formData,
       headers: {
-        'Content-Type': 'multipart/form-data',
-      },
+        "Content-Type": "multipart/form-data"
+      }
     });
-    
+
     return response.data;
   } catch (error) {
-    console.error('주보 등록 실패:', error);
+    console.error("주보 등록 실패:", error);
+    throw error;
+  }
+};
+
+export const updateAnnouncement = async (
+  id: string,
+  announcementRegisterDTO: AnnouncementRegisterDTO,
+  deletedFilesIdList: number[] = [],
+  files: File[] = []
+) => {
+  try {
+    const formData = new FormData();
+
+    const announcementEditDTO: AnnouncementEditDTO = {
+      announcementRegisterDTO,
+      deletedFilesIdList
+    };
+
+    formData.append("announcementEditDTO", JSON.stringify(announcementEditDTO));
+    files.forEach((file, index) => {
+      formData.append("files", file);
+    });
+
+    const response = await api.request<ApiResponse<any>>({
+      url: `/api/admin/announcement/${id}`,
+      method: "PUT",
+      data: formData,
+      headers: {
+        "Content-Type": "multipart/form-data"
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error("공지사항 수정 실패:", error);
+    throw error;
+  }
+};
+
+// 주보 수정
+export const updateBulletin = async (
+  id: string,
+  bulletinRegisterDTO: BulletinRegisterDTO,
+  deletedFilesIdList: number[] = [],
+  files: File[] = []
+) => {
+  try {
+    const formData = new FormData();
+
+    const bulletinEditDTO: BulletinEditDTO = {
+      announcementRegisterDTO: bulletinRegisterDTO,
+      deletedFilesIdList
+    };
+
+    formData.append("announcementEditDTO", JSON.stringify(bulletinEditDTO));
+    files.forEach((file, index) => {
+      formData.append("files", file);
+    });
+
+    const response = await api.request<ApiResponse<any>>({
+      url: `/api/admin/bulletin/${id}`,
+      method: "PUT",
+      data: formData,
+      headers: {
+        "Content-Type": "multipart/form-data"
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error("주보 수정 실패:", error);
     throw error;
   }
 };

@@ -6,4 +6,5 @@ export interface Notice {
   topExposureTag: string;
   updatedAt: string;
   views: number;
+  files: any;
 }

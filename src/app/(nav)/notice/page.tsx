@@ -54,7 +54,9 @@ export default function NoticePage() {
       no: item.announcementId,
       title: item.title,
       date: formatDateOnly(item.updatedAt),
-      views: item.views
+      views: item.views,
+      files: item.files,
+      tag: item.topExposureTag?.includes("TOP") ? "공지" : ""
     }));
 
     // BulletinItem을 NoticeItem으로 변환 (주보)
@@ -63,7 +65,9 @@ export default function NoticePage() {
         no: item.announcementId,
         title: item.title,
         date: formatDateOnly(item.updatedAt),
-        views: item.views
+        views: item.views,
+        files: item.files,
+        tag: item.topExposureTag?.includes("TOP") ? "공지" : ""
       })
     );
 

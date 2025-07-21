@@ -4,7 +4,7 @@ import { AdminDashboard } from "@/component/admin/dashboard";
 import { Pagination } from "@/component/notice/UI/dashboard/Pagination";
 import { AdminHeader } from "@/component/shared";
 import { noticePageContainer, noticeContainer } from "./index.css";
-import { deleteNotice, getNoticeList } from "./api";
+import { getNoticeList, useDeleteNotice } from "./api";
 import { NoticeItem } from "@/component/notice/type";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
@@ -30,13 +30,17 @@ const Notice = () => {
     gcTime: 10 * 60 * 1000 // 10분
   });
 
+  const deleteMutation = useDeleteNotice();
+
   // API 응답 데이터를 NoticeItem 타입으로 변환
   const convertedData: NoticeItem[] =
     data?.content?.map((notice, index) => ({
       no: notice.announcementId,
       title: notice.title,
       date: formatDateOnly(notice.updatedAt),
-      views: notice.views
+      views: notice.views,
+      files: notice.files,
+      tag: notice.topExposureTag?.includes("TOP") ? "공지" : ""
     })) || [];
 
   const totalPages = data?.totalPages || 1;
@@ -70,7 +74,7 @@ const Notice = () => {
   };
 
   const handleDelete = (item: NoticeItem) => {
-    deleteNotice(item.no);
+    deleteMutation.mutate(item.no);
   };
 
   if (isLoading) {

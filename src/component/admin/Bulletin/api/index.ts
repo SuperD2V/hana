@@ -43,7 +43,7 @@ export const deleteBulletin = async (id: number) => {
 
 export const uploadFile = async (file: File) => {
   try {
-    console.log('uploadFile 호출:', {
+    console.log("uploadFile 호출:", {
       fileName: file.name,
       fileSize: file.size,
       fileType: file.type,
@@ -52,7 +52,7 @@ export const uploadFile = async (file: File) => {
 
     // 파일이 유효한지 확인
     if (!file || file.size === 0) {
-      throw new Error('Invalid file');
+      throw new Error("Invalid file");
     }
 
     // // 먼저 fetch API로 시도 (더 간단한 방식)
@@ -64,125 +64,128 @@ export const uploadFile = async (file: File) => {
 
     // Swagger 스펙에 맞게 file 필드만 전송
     const formData = new FormData();
-    formData.append('file', file);
-    
+    formData.append("file", file);
+
     // FormData 내용 확인 (더 안전한 방식)
-    console.log('FormData 생성 완료');
-    console.log('FormData has file:', formData.has('file'));
-    console.log('FormData get file:', formData.get('file'));
-    
+    console.log("FormData 생성 완료");
+    console.log("FormData has file:", formData.has("file"));
+    console.log("FormData get file:", formData.get("file"));
+
     // API 요청 전 로그
-    console.log('API 요청 시작:', {
+    console.log("API 요청 시작:", {
       url: "/api/admin/bulletin/file",
       method: "POST",
       hasFormData: !!formData
     });
-    
+
     const response = await api.request<ApiResponse<any>>({
       url: "/api/admin/bulletin/file",
       method: "POST",
       data: formData,
       timeout: 30000, // 30초 타임아웃
       headers: {
-        'Content-Type': undefined // FormData 사용 시 Content-Type을 undefined로 설정
+        "Content-Type": undefined // FormData 사용 시 Content-Type을 undefined로 설정
       }
-    }); 
-    
-    console.log('업로드 성공:', response);
-    console.log('응답 데이터:', response.data);
-    
+    });
+
+    console.log("업로드 성공:", response);
+    console.log("응답 데이터:", response.data);
+
     // URL 추출 및 검증 (axios 방식)
-    const imageUrl = response.data.data.BULLETIN
-    console.log('axios로 추출된 이미지 URL:', imageUrl);
-    
+    const imageUrl = response.data.data.BULLETIN;
+    console.log("axios로 추출된 이미지 URL:", imageUrl);
+
     // if (typeof imageUrl === 'string' && imageUrl.length > 0) {
-      // URL이 http나 https로 시작하지 않으면 기본 도메인 추가
-      // if (!imageUrl.startsWith('http')) {
-      //   const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL
-      //   const fullUrl = `${baseURL}${imageUrl.startsWith('/') ? imageUrl : '/' + imageUrl}`;
-      //   console.log('axios 상대 경로를 절대 경로로 변환:', fullUrl);
-      //   return fullUrl;
-      // }
-      return imageUrl;
-    // } else {
-      // console.error('axios 유효하지 않은 URL 형식:', imageUrl);
-      // throw new Error('서버에서 유효한 이미지 URL을 반환하지 않았습니다.');
+    // URL이 http나 https로 시작하지 않으면 기본 도메인 추가
+    // if (!imageUrl.startsWith('http')) {
+    //   const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL
+    //   const fullUrl = `${baseURL}${imageUrl.startsWith('/') ? imageUrl : '/' + imageUrl}`;
+    //   console.log('axios 상대 경로를 절대 경로로 변환:', fullUrl);
+    //   return fullUrl;
     // }
-    
+    return imageUrl;
+    // } else {
+    // console.error('axios 유효하지 않은 URL 형식:', imageUrl);
+    // throw new Error('서버에서 유효한 이미지 URL을 반환하지 않았습니다.');
+    // }
   } catch (error: any) {
-    console.error('uploadFile API 에러:', error);
-    
+    console.error("uploadFile API 에러:", error);
+
     // 더 자세한 에러 정보
     if (error.response) {
-      console.error('서버 응답 에러:', {
+      console.error("서버 응답 에러:", {
         status: error.response.status,
         statusText: error.response.statusText,
         data: error.response.data,
         headers: error.response.headers
       });
     } else if (error.request) {
-      console.error('요청 실패:', error.request);
+      console.error("요청 실패:", error.request);
     } else {
-      console.error('설정 에러:', error.message);
+      console.error("설정 에러:", error.message);
     }
-    
-    console.error('에러 설정:', {
+
+    console.error("에러 설정:", {
       url: error?.config?.url,
       method: error?.config?.method,
       timeout: error?.config?.timeout
     });
-    
+
     throw error;
   }
 };
 
 // Fetch API를 사용한 대안 업로드 함수
 const uploadFileWithFetch = async (file: File): Promise<string> => {
-  console.log('fetch API로 업로드 시도...');
-  
+  console.log("fetch API로 업로드 시도...");
+
   const formData = new FormData();
-  formData.append('file', file);
-  
-  const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000/api";
+  formData.append("file", file);
+
+  const baseURL =
+    process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000/api";
   const url = `${baseURL}/api/admin/bulletin`;
-  
-  console.log('fetch 요청 URL:', url);
-  
+
+  console.log("fetch 요청 URL:", url);
+
   const response = await fetch(url, {
-    method: 'POST',
+    method: "POST",
     body: formData,
-    credentials: 'include', // 쿠키 포함
+    credentials: "include" // 쿠키 포함
     // Content-Type을 명시하지 않음 (브라우저가 자동 설정)
   });
-  
-  console.log('fetch 응답:', {
+
+  console.log("fetch 응답:", {
     status: response.status,
     statusText: response.statusText,
     headers: Object.fromEntries(response.headers.entries())
   });
-  
+
   if (!response.ok) {
     const errorText = await response.text();
-    console.error('fetch 에러 응답:', errorText);
+    console.error("fetch 에러 응답:", errorText);
     throw new Error(`HTTP ${response.status}: ${errorText}`);
   }
-  
+
   const result = await response.json();
-  console.log('fetch 성공 결과:', result);
-  
+  console.log("fetch 성공 결과:", result);
+
   // URL 추출 및 검증
   const imageUrl = result.data?.data.BULLETINE || result.data || result.message;
-  console.log('추출된 이미지 URL:', imageUrl);
-  
+  console.log("추출된 이미지 URL:", imageUrl);
+
   // if (imageUrl.length > 0) {
-    // URL이 http나 https로 시작하지 않으면 기본 도메인 추가
-    if (!imageUrl.startsWith('http')) {
-      const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000";
-      const fullUrl = `${baseURL}${imageUrl.startsWith('/') ? imageUrl : '/' + imageUrl}`;
-      console.log('상대 경로를 절대 경로로 변환:', fullUrl);
-      return fullUrl;
-    }
-    return imageUrl;
+  // URL이 http나 https로 시작하지 않으면 기본 도메인 추가
+  if (!imageUrl.startsWith("http")) {
+    const baseURL =
+      process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000";
+    const fullUrl = `${baseURL}${
+      imageUrl.startsWith("/") ? imageUrl : "/" + imageUrl
+    }`;
+    console.log("상대 경로를 절대 경로로 변환:", fullUrl);
+    return fullUrl;
+  }
+  return imageUrl;
   // } else {
   //   console.error('유효하지 않은 URL 형식:', imageUrl);
   //   throw new Error('서버에서 유효한 이미지 URL을 반환하지 않았습니다.');

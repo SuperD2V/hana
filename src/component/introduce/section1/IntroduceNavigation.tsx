@@ -53,16 +53,10 @@ export function IntroduceNavigation() {
         <div className='logo'>
           <Link href='/'>
             <Image
-              src='/images/logo-typo.png'
+              src='/images/logo.svg'
               alt='logo'
-              width={120}
-              height={120}
-              style={{
-                width: "auto",
-                height: "auto",
-                maxWidth: "80px",
-                maxHeight: "32px"
-              }}
+              width={isMobile ? 61 : 130}
+              height={isMobile ? 28 : 60}
             />
           </Link>
         </div>

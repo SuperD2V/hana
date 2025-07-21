@@ -6,41 +6,43 @@ import React from "react";
 import { Typography } from "../shared";
 import { useAdminStore } from "../../../hooks/store/useAdminStore";
 import { useShallow } from "zustand/shallow";
+import { useRouter } from "next/navigation";
 
 const NAVIGATION_ITEMS = [
   {
     id: 1,
     label: "배너 사진",
     href: "/admin/banner",
-    iconLink: "/images/adminNavItem_2.png"
+    iconLink: "/images/main.svg"
   },
   {
     id: 2,
     label: "공지",
     href: "/admin/notice",
-    iconLink: "/images/adminNavItem_2.png"
+    iconLink: "/images/note.svg"
   },
   {
     id: 3,
     label: "주보",
     href: "/admin/bulletin",
-    iconLink: "/images/adminNavItem_2.png"
+    iconLink: "/images/newss.svg"
   },
   {
     id: 4,
     label: "하나비전스쿨 클래스",
     href: "/admin/class",
-    iconLink: "/images/adminNavItem_2.png"
+    iconLink: "/images/per.svg"
   },
   {
     id: 5,
     label: "하나비전스쿨 갤러리",
     href: "/admin/gallery",
-    iconLink: "/images/adminNavItem_2.png"
+    iconLink: "/images/photo.svg"
   }
 ];
 
 const AdminNavigation = () => {
+  const router = useRouter();
   const { selectedCateogry, setState } = useAdminStore(
     useShallow(state => ({
       selectedCateogry: state.selectedCateogry,
@@ -65,10 +67,6 @@ const AdminNavigation = () => {
         alt='logo'
         width={130}
         height={60}
-        style={{
-          width: "auto",
-          height: "auto"
-        }}
       />
       <div
         style={{
@@ -96,6 +94,7 @@ const AdminNavigation = () => {
             }}
             onClick={() => {
               setState("selectedCateogry", item.id as 1 | 2 | 3 | 4 | 5);
+              router.replace("/admin"); // 쿼리 파라미터 제거 및 이동
             }}
           >
             <Image

@@ -56,7 +56,7 @@ export const td = style({
 
 export const tdLeft = style([
   td,
-  { textAlign: "left", color: color.gray[600] }
+  { textAlign: "center", color: color.gray[600] }
 ]);
 export const tdCenter = style([
   td,

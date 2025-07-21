@@ -89,7 +89,7 @@ export function Navigation() {
         <div className='logo'>
           <Link href='/'>
             <Image
-              src='/images/logo-typo.png'
+              src='/images/logo.svg'
               alt='logo'
               width={isMobile ? 61 : 130}
               height={isMobile ? 28 : 60}

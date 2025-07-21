@@ -1,13 +1,13 @@
 "use client";
 
-import { useSearchParams } from 'next/navigation';
-import React, { useEffect } from 'react';
-import dynamic from 'next/dynamic';
-import 'react-quill-new/dist/quill.snow.css';
+import { useRouter, useSearchParams } from "next/navigation";
+import React, { useEffect } from "react";
+import dynamic from "next/dynamic";
+import "react-quill-new/dist/quill.snow.css";
 import { useAdminStore } from "../../../../hooks/store/useAdminStore";
 import { useShallow } from "zustand/shallow";
-import { useQuillEditor, useDragAndDrop, useFormData } from './hooks';
-import { validateForm, formatFileSize, formatFileName } from './utils';
+import { useQuillEditor, useDragAndDrop, useFormData } from "./hooks";
+import { validateForm, formatFileSize, formatFileName } from "./utils";
 import {
   container,
   header,
@@ -35,10 +35,21 @@ import {
   checkIcon,
   checkedIcon,
   pinnedLabel
-} from './index.css';
-import { color } from '@/component/shared/designed/color';
-import { getBulletinDetail, getNoticeDetail, registerAnnouncement, registerBulletin, AnnouncementRegisterDTO, BulletinRegisterDTO } from '@/component/notice/api/api';
-import { useQuery } from '@tanstack/react-query';
+} from "./index.css";
+import { color } from "@/component/shared/designed/color";
+import {
+  getBulletinDetail,
+  getNoticeDetail,
+  registerAnnouncement,
+  registerBulletin,
+  updateAnnouncement,
+  updateBulletin,
+  AnnouncementRegisterDTO,
+  BulletinRegisterDTO,
+  AnnouncementEditDTO,
+  BulletinEditDTO
+} from "@/component/notice/api/api";
+import { useQuery } from "@tanstack/react-query";
 
 // react-quill-new를 dynamic import로 불러와서 SSR 문제 방지
 const ReactQuill = dynamic(
@@ -57,10 +68,10 @@ const ReactQuill = dynamic(
 );
 
 const NoticeBulletineRegister = () => {
+  const router = useRouter();
   const searchParams = useSearchParams();
-//   const urlType = searchParams.get("type");
+  //   const urlType = searchParams.get("type");
   const urlId = searchParams.get("id");
-
 
   const { selectedId, setState, selectedType } = useAdminStore(
     useShallow(state => ({
@@ -74,13 +85,13 @@ const NoticeBulletineRegister = () => {
   const id = urlId || selectedId;
   const type = selectedType; // notice, bulletin
 
-  const isEdit = !!id;
+  const isEdit = !!urlId;
   const isNotice = type === "notice";
-  
+
   // 데이터 로딩 완료 플래그
   const [isDataLoaded, setIsDataLoaded] = React.useState(false);
   const [isSubmitting, setIsSubmitting] = React.useState(false);
-  
+
   // 커스텀 훅들 사용
   const { quillRef, quillModules, quillFormats } = useQuillEditor();
   const { handleDrop, handleDragOver } = useDragAndDrop(quillRef);
@@ -88,6 +99,7 @@ const NoticeBulletineRegister = () => {
     formData,
     files,
     isPinned,
+    deletedFileIds,
     fileInputRef,
     handleTitleChange,
     handleContentChange,
@@ -96,7 +108,8 @@ const NoticeBulletineRegister = () => {
     handlePinnedChange,
     setFormDataFromServer,
     setFilesFromServer,
-    setPinnedFromServer
+    setPinnedFromServer,
+    resetForm
   } = useFormData();
 
   // 수정 모드일 때 기존 데이터 불러오기
@@ -109,31 +122,33 @@ const NoticeBulletineRegister = () => {
         return getBulletinDetail(id!);
       }
     },
-    enabled: isEdit && !!id, // 수정 모드이고 id가 있을 때만 실행
+    enabled: isEdit && !!id // 수정 모드이고 id가 있을 때만 실행
   });
 
   // API 응답 데이터를 폼에 설정
   useEffect(() => {
     if (apiResponse?.data && isEdit) {
       const detailData = apiResponse.data;
-      
+      console.log("서버에서 받아온 content:", detailData.content);
       // 제목과 내용 설정
       setFormDataFromServer({
         title: detailData.title,
-        content: detailData.content || '' // content가 없을 경우 빈 문자열
+        content: detailData.content || "" // content가 없을 경우 빈 문자열
       });
+      console.log("setFormDataFromServer 호출 완료");
 
       // 공지사항이고 첨부파일이 있는 경우 파일 목록 설정
       if (isNotice && detailData.files && detailData.files.length > 0) {
         // 기존 파일들을 FileItem 형태로 변환
-        const existingFiles = detailData.files.map((file) => ({
+        const existingFiles = detailData.files.map(file => ({
           id: `existing-${file.fileId}`,
           name: file.fileName,
           file: null, // 기존 파일은 File 객체가 아니므로 null로 설정
           url: file.fileUrl, // 기존 파일 URL 저장
-          isExisting: true // 기존 파일임을 표시
+          isExisting: true, // 기존 파일임을 표시
+          fileId: file.fileId // 서버에서 받은 실제 파일 ID
         }));
-        
+
         setFilesFromServer(existingFiles);
       }
 
@@ -145,14 +160,26 @@ const NoticeBulletineRegister = () => {
     }
   }, [apiResponse, isEdit, isNotice]); // setFormDataFromServer 의존성 제거
 
+  // formData.content가 언제 업데이트되는지 확인
+  useEffect(() => {
+    console.log("formData.content 변경됨:", formData.content);
+  }, [formData.content]);
+
+  // useEffect cleanup에서 resetForm 호출
+  useEffect(() => {
+    return () => {
+      resetForm();
+    };
+  }, []);
+
   // 로딩 상태 통합
-  const isLoading = isDataLoading;   
+  const isLoading = isDataLoading;
 
   const handleSubmit = async () => {
     const errors = validateForm(formData.title, formData.content);
-    
+
     if (errors.length > 0) {
-      alert(errors.join('\n'));
+      alert(errors.join("\n"));
       return;
     }
 
@@ -160,12 +187,12 @@ const NoticeBulletineRegister = () => {
 
     try {
       if (isNotice) {
-        // 공지사항 등록
+        // 공지사항 등록/수정
         const announcementDTO: AnnouncementRegisterDTO = {
           title: formData.title,
           content: formData.content,
           topExposure: isPinned,
-          topExposureTag: isPinned ? 'TOP' : '',
+          topExposureTag: isPinned ? "공지" : "",
           isVisible: true
         };
 
@@ -174,29 +201,53 @@ const NoticeBulletineRegister = () => {
           .filter(file => file.file !== null)
           .map(file => file.file!);
 
-        console.log('공지사항 등록 데이터:', {
-          announcementDTO,
-          files: actualFiles
-        });
+        console.log(
+          isEdit ? "공지사항 수정 데이터:" : "공지사항 등록 데이터:",
+          {
+            announcementDTO,
+            files: actualFiles,
+            deletedFileIds
+          }
+        );
 
-        const response = await registerAnnouncement(announcementDTO, actualFiles);
-        
-        if (response) {
-          alert('공지사항이 등록되었습니다.');
-          
-          // 성공 후 목록 페이지로 이동
-          setState('selectedCateogry', 2); // Notice 페이지
-          setState('selectedId', null);
+        if (isEdit) {
+          // 수정 모드
+          const response = await updateAnnouncement(
+            id!,
+            announcementDTO,
+            deletedFileIds,
+            actualFiles
+          );
+          if (response) {
+            alert("공지사항이 수정되었습니다.");
+            router.replace("/admin");
+            setState("selectedCateogry", 2);
+            setState("selectedId", null);
+          } else {
+            alert("공지사항 수정에 실패했습니다.");
+          }
         } else {
-          alert('공지사항 등록에 실패했습니다.');
+          // 등록 모드
+          const response = await registerAnnouncement(
+            announcementDTO,
+            actualFiles
+          );
+          if (response) {
+            alert("공지사항이 등록되었습니다.");
+            router.replace("/admin");
+            setState("selectedCateogry", 2);
+            setState("selectedId", null);
+          } else {
+            alert("공지사항 등록에 실패했습니다.");
+          }
         }
       } else {
-        // 주보 등록
+        // 주보 등록/수정
         const bulletinDTO: BulletinRegisterDTO = {
           title: formData.title,
           content: formData.content,
           topExposure: false, // 주보는 상단 고정 기능이 없을 것으로 추정
-          topExposureTag: '',
+          topExposureTag: "",
           isVisible: true
         };
 
@@ -205,26 +256,43 @@ const NoticeBulletineRegister = () => {
           .filter(file => file.file !== null)
           .map(file => file.file!);
 
-        console.log('주보 등록 데이터:', {
+        console.log(isEdit ? "주보 수정 데이터:" : "주보 등록 데이터:", {
           bulletinDTO,
-          files: actualFiles
+          files: actualFiles,
+          deletedFileIds
         });
 
-        const response = await registerBulletin(bulletinDTO, actualFiles);
-        
-        if (response) {
-          alert('주보가 등록되었습니다.');
-          
-          // 성공 후 목록 페이지로 이동
-          setState('selectedCateogry', 3); // Bulletin 페이지
-          setState('selectedId', null);
+        if (isEdit) {
+          // 수정 모드
+          const response = await updateBulletin(
+            id!,
+            bulletinDTO,
+            deletedFileIds,
+            actualFiles
+          );
+          if (response) {
+            alert("주보가 수정되었습니다.");
+            router.replace("/admin");
+            setState("selectedCateogry", 3);
+            setState("selectedId", null);
+          } else {
+            alert("주보 수정에 실패했습니다.");
+          }
         } else {
-          alert('주보 등록에 실패했습니다.');
+          // 등록 모드
+          const response = await registerBulletin(bulletinDTO, actualFiles);
+          if (response) {
+            alert("주보가 등록되었습니다.");
+            setState("selectedCateogry", 3);
+            setState("selectedId", null);
+          } else {
+            alert("주보 등록에 실패했습니다.");
+          }
         }
       }
     } catch (error) {
-      console.error('등록 실패:', error);
-      alert('등록 중 오류가 발생했습니다.');
+      console.error("등록 실패:", error);
+      alert("등록 중 오류가 발생했습니다.");
     } finally {
       setIsSubmitting(false);
     }
@@ -271,47 +339,54 @@ const NoticeBulletineRegister = () => {
         <h1 className={title}>{pageTitle}</h1>
       </div>
       <div className={form}>
-        <div style={{display: 'flex', gap: '10px', alignItems: 'center', width: '100%'}}>
-        {/* 제목 입력 */}
-        <div className={fieldContainer}>
-            <div style={{display: 'flex', justifyContent: 'space-between'}}>
-          <label className={label}>
-            제목 <span className={required}>*</span>
-          </label>
-          <span className={required}>최대 200자</span>
-                     </div>
-           <div style={{display: 'flex', gap: '10px'}}>
-            <input
-              type="text"
-              className={input}
-              placeholder={`${isNotice ? '공지' : '주보'} 제목을 입력하세요`}
-              value={formData.title}
-              onChange={handleTitleChange}
-              style={{
-                backgroundColor: color.common.white
-              }}
-            />
-          
+        <div
+          style={{
+            display: "flex",
+            gap: "10px",
+            alignItems: "center",
+            width: "100%"
+          }}
+        >
+          {/* 제목 입력 */}
+          <div className={fieldContainer}>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <label className={label}>
+                제목 <span className={required}>*</span>
+              </label>
+              <span className={required}>최대 200자</span>
+            </div>
+            <div style={{ display: "flex", gap: "10px" }}>
+              <input
+                type='text'
+                className={input}
+                placeholder={`${isNotice ? "공지" : "주보"} 제목을 입력하세요`}
+                value={formData.title}
+                onChange={handleTitleChange}
+                style={{
+                  backgroundColor: color.common.white
+                }}
+              />
+            </div>
           </div>
-         
-        </div>
-        {isNotice && (
-              <div className={pinnedContainer}>
-             <div className={checkboxWrapper}>
-               <input
-                 type="checkbox"
-                 id="pinned"
-                 className={checkbox}
-                 checked={isPinned}
-                 onChange={handlePinnedChange}
-               />
-               <div className={`${checkIcon} ${isPinned ? checkedIcon : ''}`}></div>
-             </div>
-             <label htmlFor="pinned" className={pinnedLabel}>
-               상단 고정
-             </label>
-           </div>
-           )}
+          {isNotice && (
+            <div className={pinnedContainer}>
+              <div className={checkboxWrapper}>
+                <input
+                  type='checkbox'
+                  id='pinned'
+                  className={checkbox}
+                  checked={isPinned}
+                  onChange={handlePinnedChange}
+                />
+                <div
+                  className={`${checkIcon} ${isPinned ? checkedIcon : ""}`}
+                ></div>
+              </div>
+              <label htmlFor='pinned' className={pinnedLabel}>
+                상단 고정
+              </label>
+            </div>
+          )}
         </div>
 
         {/* 내용 입력 */}
@@ -324,79 +399,107 @@ const NoticeBulletineRegister = () => {
             onDrop={handleDrop}
             onDragOver={handleDragOver}
           >
-            <ReactQuill
-              ref={quillRef}
-              theme='snow'
-              value={formData.content}
-              onChange={handleContentChange}
-              modules={quillModules}
-              formats={quillFormats}
-              placeholder=""
-              style={{
-                height: "300px",
-                paddingBottom: "43px",
-                backgroundColor: color.common.white
-              }}
-            />
+            {/* 수정 모드일 때는 데이터가 로드된 후에만 렌더링 */}
+            {(!isEdit ||
+              (isEdit &&
+                apiResponse?.data &&
+                formData.content !== undefined)) && (
+              <ReactQuill
+                key={isEdit ? `${id}-${formData.content?.slice(0, 10)}` : "new"}
+                ref={quillRef}
+                theme='snow'
+                value={formData.content}
+                onChange={handleContentChange}
+                modules={quillModules}
+                formats={quillFormats}
+                placeholder=''
+                style={{
+                  height: "300px",
+                  paddingBottom: "43px",
+                  backgroundColor: color.common.white
+                }}
+              />
+            )}
+            {/* 수정 모드에서 데이터 로딩 중일 때 표시 */}
+            {isEdit &&
+              (!apiResponse?.data || formData.content === undefined) && (
+                <div
+                  style={{
+                    height: "300px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    backgroundColor: color.common.white,
+                    border: "1px solid #ccc"
+                  }}
+                >
+                  에디터 로딩 중...
+                </div>
+              )}
           </div>
         </div>
         {isNotice && (
+          <div className={fieldContainer}>
+            <label className={label}>첨부파일</label>
+            <div
+              className={fileUploadContainer}
+              onClick={() => fileInputRef.current?.click()}
+            >
+              <div className={fileUploadText}>
+                파일을 드래그하거나 클릭하여 업로드하세요
+              </div>
+              <div className={fileUploadSubtext}>
+                최대 10MB까지 업로드 가능합니다
+              </div>
+            </div>
 
-        <div className={fieldContainer}>
-          <label className={label}>첨부파일</label>
-          <div
-            className={fileUploadContainer}
-            onClick={() => fileInputRef.current?.click()}
-          >
-            <div className={fileUploadText}>
-              파일을 드래그하거나 클릭하여 업로드하세요
-            </div>
-            <div className={fileUploadSubtext}>
-              최대 10MB까지 업로드 가능합니다
-            </div>
+            <input
+              ref={fileInputRef}
+              type='file'
+              multiple
+              onChange={handleFileUpload}
+              style={{ display: "none" }}
+              accept='image/*,.pdf,.doc,.docx,.hwp'
+            />
+
+            {files.length > 0 && (
+              <div className={fileList}>
+                {files.map(file => (
+                  <div key={file.id} className={fileItem}>
+                    <span className={fileName}>
+                      {formatFileName(file.name)}
+                      {file.file && `(${formatFileSize(file.file.size)})`}
+                      {file.isExisting && " (기존 파일)"}
+                    </span>
+                    <button
+                      className={removeButton}
+                      onClick={() => handleFileRemove(file.id)}
+                      type='button'
+                    >
+                      ✕
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
-
-          <input
-            ref={fileInputRef}
-            type='file'
-            multiple
-            onChange={handleFileUpload}
-            style={{ display: "none" }}
-            accept='image/*,.pdf,.doc,.docx,.hwp'
-          />
-
-          {files.length > 0 && (
-            <div className={fileList}>
-              {files.map(file => (
-                <div key={file.id} className={fileItem}>
-                  <span className={fileName}>
-                    {formatFileName(file.name)} 
-                    {file.file && `(${formatFileSize(file.file.size)})`}
-                    {file.isExisting && ' (기존 파일)'}
-                  </span>
-                  <button
-                    className={removeButton}
-                    onClick={() => handleFileRemove(file.id)}
-                    type='button'
-                  >
-                    ✕
-                  </button>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
         )}
 
         {/* 버튼 영역 */}
         <div className={buttonContainer}>
-          <button 
-            type="button" 
+          <button
+            type='button'
             className={submitButton}
             onClick={handleSubmit}
             disabled={isSubmitting}
           >
-            {isSubmitting ? '등록 중...' : '등록하기'}
+            {isSubmitting
+              ? isEdit
+                ? "수정 중..."
+                : "등록 중..."
+              : isEdit
+              ? "수정하기"
+              : "등록하기"}
           </button>
         </div>
       </div>

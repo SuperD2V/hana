@@ -15,12 +15,7 @@ export function Footer() {
     <footer className={footerContainer}>
       <div>
         <div>
-          <Image
-            src='/images/logo-typo.png'
-            alt='logo'
-            width={120}
-            height={120}
-          />
+          <Image src='/images/footer.svg' alt='logo' width={208} height={95} />
         </div>
 
         <div className={footerWrapper}>

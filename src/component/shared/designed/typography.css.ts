@@ -260,6 +260,12 @@ export const typographyEn = {
       lineHeight: "30px",
       fontWeight: fontWeight.semibold
     }),
+    medium: style({
+      fontFamily: fontFamily.poppins,
+      fontSize: "24px",
+      lineHeight: "30px",
+      fontWeight: fontWeight.medium
+    }),
     bold: style({
       fontFamily: fontFamily.poppins,
       fontSize: "24px",
@@ -338,6 +344,7 @@ export const textEn = {
   title1Semibold: typographyEn.title_01.semibold,
   title1Medium: typographyEn.title_01.medium,
   title2Semibold: typographyEn.title_02.semibold,
+  title2Medium: typographyEn.title_02.medium,
   title2Bold: typographyEn.title_02.bold,
   title3Semibold: typographyEn.title_03.semibold,
   title3Medium: typographyEn.title_03.medium,

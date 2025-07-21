@@ -43,7 +43,7 @@ export const Schedule = () => {
   return (
     <div className={styles.container}>
       <TypographyEn
-        variant={isMobile ? "largetitle3Bold" : "largetitle1"}
+        variant={isMobile ? "title2Medium" : "largetitle1"}
         className={styles.title}
       >
         SCHEDULE
@@ -60,6 +60,7 @@ export const Schedule = () => {
               teacher={item.instructor}
               isSelected={selectedCardId === item.visionClassId}
               onClick={() => handleCardClick(item.visionClassId)}
+              thumbnailUrl={item.thumbnail.fileUrl}
             />
             {index < scheduleData.data.content.length - 1 && (
               <div className={styles.divider} />

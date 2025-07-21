@@ -3,6 +3,8 @@ export interface NoticeItem {
   title: string;
   date: string;
   views: number;
+  files: any;
+  tag: string;
 }
 
 export interface DashboardData {
@@ -12,7 +14,7 @@ export interface DashboardData {
 
 export interface DashboardProps {
   data: DashboardData;
-  title?: string;
+  titles?: string;
   onItemClick?: (item: NoticeItem) => void;
   onPageChange?: (page: number) => void;
   onCategoryChange?: (category: string) => void;

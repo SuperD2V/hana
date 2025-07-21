@@ -48,30 +48,16 @@ export const Calendar = () => {
     setDateInfo(getDate());
   }, []);
 
-  const handlePrevClick = () => {
-    sliderRef.current?.slickPrev();
-  };
-
-  const handleNextClick = () => {
-    sliderRef.current?.slickNext();
-  };
-
-  const handleMonthSelect = (monthIndex: number) => {
-    setSelectedMonth(monthIndex);
-    // 월이 변경되면 선택된 날짜를 1일로 초기화
-    setSelectedDay(1);
-  };
-
-  const handleDaySelect = (dayNumber: number) => {
-    // 해당 날짜에 이벤트가 있는지 확인
+  // 슬라이더를 특정 날짜의 이벤트로 이동시키는 함수
+  const moveSliderToDateEvent = (
+    dayNumber: number,
+    allEvents: any[],
+    summaryDays: any[]
+  ) => {
     const hasEventOnDay =
       summaryDays[dayNumber - 1] &&
       summaryDays[dayNumber - 1][dayNumber.toString()] === true;
 
-    // 선택된 날짜는 항상 업데이트
-    setSelectedDay(dayNumber);
-
-    // 이벤트가 있는 경우에만 슬라이더를 해당 위치로 이동
     if (hasEventOnDay) {
       setTimeout(() => {
         const selectedDate = new Date(
@@ -111,6 +97,60 @@ export const Calendar = () => {
         }
       }, 100);
     }
+  };
+
+  // 데이터 로드 완료 시 오늘 날짜에 이벤트가 있으면 자동으로 해당 슬라이더 위치로 이동
+  useEffect(() => {
+    if (!isLoading && data?.data) {
+      const allEvents = data.data.calendarEvents || [];
+      const summaryDays = data.data.summaryDays || [];
+
+      if (allEvents.length > 0 && summaryDays.length > 0) {
+        const today = new Date();
+        const currentMonth = today.getMonth();
+        const currentDay = today.getDate();
+
+        // 현재 선택된 월이 오늘의 월과 같을 때만 실행
+        if (selectedMonth === currentMonth) {
+          // 오늘 날짜에 이벤트가 있는지 확인
+          const hasTodayEvent =
+            summaryDays[currentDay - 1] &&
+            summaryDays[currentDay - 1][currentDay.toString()] === true;
+
+          // 오늘에 이벤트가 있으면 해당 위치로 이동, 없으면 처음부터 보여줌
+          if (hasTodayEvent) {
+            moveSliderToDateEvent(currentDay, allEvents, summaryDays);
+          } else {
+            // 오늘에 일정이 없으면 슬라이더를 첫 번째 슬라이드로 이동
+            setTimeout(() => {
+              sliderRef.current?.slickGoTo(0);
+            }, 100);
+          }
+        }
+      }
+    }
+  }, [isLoading, data, selectedMonth]);
+
+  const handlePrevClick = () => {
+    sliderRef.current?.slickPrev();
+  };
+
+  const handleNextClick = () => {
+    sliderRef.current?.slickNext();
+  };
+
+  const handleMonthSelect = (monthIndex: number) => {
+    setSelectedMonth(monthIndex);
+    // 월이 변경되면 선택된 날짜를 1일로 초기화
+    setSelectedDay(1);
+  };
+
+  const handleDaySelect = (dayNumber: number) => {
+    // 선택된 날짜는 항상 업데이트
+    setSelectedDay(dayNumber);
+
+    // 이벤트가 있는 경우에만 슬라이더를 해당 위치로 이동
+    moveSliderToDateEvent(dayNumber, allEvents, summaryDays);
     // 이벤트가 없는 날짜는 선택만 되고 슬라이더는 그대로 유지
   };
 

@@ -116,7 +116,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
               <Typography variant='headlineMedium'>{item.no}</Typography>
             </td>
             <td className={tdCenter} style={{ cursor: "pointer" }}>
-              <Typography variant='title3Medium'>{item.title}</Typography>
+              <Typography variant='title3Medium'>{item.title} </Typography>
             </td>
             <td className={tdRight}>
               <Typography variant='body1Medium'>{item.date}</Typography>
@@ -140,7 +140,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                   style={{
                     position: "absolute",
                     top: "60%",
-                    left: "-60px",
+                    left: "-110px", // 오른쪽이 아니라 왼쪽에 붙이기
                     zIndex: 1000,
                     marginTop: "4px"
                   }}

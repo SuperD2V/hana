@@ -26,7 +26,7 @@ const items: SubMenuItem[] = [
 
 export const Dashboard: React.FC<DashboardProps> = ({
   data,
-  title = "공지 및 주보",
+  titles = "공지 및 주보",
   onItemClick,
   onPageChange,
   onCategoryChange,
@@ -54,7 +54,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
           variant={mounted && isMobile ? "largetitle2" : "largetitle3ExtraBold"}
           className={title}
         >
-          {title}
+          {titles}
         </TypographyEn>
         <SubMenu
           items={items}

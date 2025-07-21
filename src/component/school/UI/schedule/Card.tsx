@@ -14,6 +14,7 @@ interface CardProps {
   teacher: string;
   isSelected?: boolean;
   onClick?: () => void;
+  thumbnailUrl: string;
 }
 
 export const Card = ({
@@ -22,7 +23,8 @@ export const Card = ({
   title,
   teacher,
   isSelected = false,
-  onClick
+  onClick,
+  thumbnailUrl
 }: CardProps) => {
   // classDate 형식에 맞게 날짜 파싱 (예: "2024-11-30" -> "11", "30")
   const formatDate = (dateString: string) => {
@@ -62,7 +64,7 @@ export const Card = ({
         <div className={styles.cardContent}>
           <div className={styles.imageContainer}>
             <Image
-              src='/images/school.jpg'
+              src={thumbnailUrl}
               alt='school-bread'
               fill
               className={styles.image}

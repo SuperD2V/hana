@@ -8,14 +8,24 @@ interface DropdownProps {
 }
 
 export const Dropdown: React.FC<DropdownProps> = ({ onEdit, onDelete }) => {
+  const handleEdit = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onEdit?.();
+  };
+
+  const handleDelete = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onDelete?.();
+  };
+
   return (
     <div className={dropdown}>
       <div className={dropdownContent}>
-        <div className={dropdownItem} onClick={onEdit}>
+        <div className={dropdownItem} onClick={handleEdit}>
           <Image src='/images/edit.svg' alt='edit' width={24} height={24} />
           <Typography variant='body1Medium'>수정</Typography>
         </div>
-        <div className={dropdownItem} onClick={onDelete}>
+        <div className={dropdownItem} onClick={handleDelete}>
           <Image src='/images/delete.svg' alt='delete' width={24} height={24} />
           <Typography
             style={{

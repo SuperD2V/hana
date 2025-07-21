@@ -15,8 +15,12 @@ interface NoticeDetailContentProps {
 const NoticeDetailContent = ({ id, type }: NoticeDetailContentProps) => {
   const { mounted, isMobile } = useResponsiveTypography();
   // 타입 검증 및 변환
-  const validatedType = type === 'notice' || type === 'bulletin' ? type : 'notice';
-  const { handlePrevious, handleNext, handleList } = useNavigation(id, validatedType);
+  const validatedType =
+    type === "notice" || type === "bulletin" ? type : "notice";
+  const { handlePrevious, handleNext, handleList } = useNavigation(
+    id,
+    validatedType
+  );
   const { data: apiResponse } = useQuery({
     queryKey: ["notice", id, type],
     queryFn: () => {
@@ -111,13 +115,10 @@ const NoticeDetailContent = ({ id, type }: NoticeDetailContentProps) => {
           mounted && isMobile ? "!px-[12px] !py-[20px]" : "!p-[40px]"
         }`}
       >
-        {/* API에서 content 필드가 있다면 사용하고, 없다면 기본 텍스트 표시 */}
-        <Typography
-          variant={mounted && isMobile ? "body2Regular" : "body1Regular"}
-          className='!text-[#292724] !leading-relaxed mb-2'
-        >
-          공지사항 내용이 여기에 표시됩니다.
-        </Typography>
+        <div
+          dangerouslySetInnerHTML={{ __html: noticeData.content || "" }}
+          className='prose'
+        />
       </div>
 
       {/* 첨부파일 */}

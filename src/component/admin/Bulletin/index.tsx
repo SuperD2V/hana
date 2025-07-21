@@ -36,7 +36,9 @@ const Bulletin = () => {
       no: notice.announcementId,
       title: notice.title,
       date: formatDateOnly(notice.updatedAt),
-      views: notice.views
+      views: notice.views,
+      files: notice.files,
+      tag: notice.topExposureTag?.includes("TOP") ? "공지" : ""
     })) || [];
 
   const handleEdit = (item: NoticeItem) => {
@@ -69,7 +71,7 @@ const Bulletin = () => {
         <AdminDashboard
           type='bulletin'
           data={convertedData}
-          onItemClick={(item) => {
+          onItemClick={item => {
             console.log("주보 클릭:", item);
             setState("selectedCateogry", 6); // Bulletin Detail 페이지
             setState("selectedId", item.no.toString());

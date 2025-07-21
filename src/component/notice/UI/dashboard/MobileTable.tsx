@@ -37,7 +37,36 @@ export const MobileTable: React.FC<MobileTableProps> = ({
         <div key={item.no} className={mobileTableRow}>
           <div className={mobileTitleSection}>
             <div className={mobileNumber}>
-              <Typography variant='headlineMedium'>{item.no}</Typography>
+              {item.tag === "공지" ? (
+                <div
+                  style={{
+                    width: "52px",
+                    height: "34px",
+                    fontSize: "16px",
+                    fontWeight: "500",
+                    lineHeight: "26px",
+                    letterSpacing: "0.28px",
+                    color: "#1B5FB8",
+                    backgroundColor: "#FEF4CD",
+                    borderRadius: "8px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center"
+                  }}
+                >
+                  <Typography
+                    style={{
+                      color: "#1B5FB8",
+                      backgroundColor: "#FEF4CD"
+                    }}
+                    variant='headlineMedium'
+                  >
+                    공지
+                  </Typography>
+                </div>
+              ) : (
+                <Typography variant='headlineMedium'>{item.no}</Typography>
+              )}
             </div>
             <div className={mobileTitle} onClick={() => handleItemClick(item)}>
               <Typography variant='title3Medium'>{item.title}</Typography>

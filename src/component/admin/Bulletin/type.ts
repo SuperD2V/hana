@@ -6,4 +6,6 @@ export interface Bulletin {
   isVisible: boolean;
   views: number;
   updatedAt: string;
+  files: any;
+  tag: string;
 }

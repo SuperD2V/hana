@@ -80,7 +80,7 @@ const page = () => {
                 variant='title1Bold'
                 className='text-white !font-semibold'
               >
-                소개
+                스토리
               </Typography>
             </>
           )}

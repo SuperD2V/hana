@@ -61,9 +61,7 @@ const Section3 = () => {
           <button
             className='w-[200px] h-[52px] !bg-[#1B5FB8] rounded-[12px] !text-[#F5F9FF] mt-[59px] cursor-pointer !mt-[35px]'
             onClick={() => {
-              window.open(
-                "https://search.shopping.naver.com/book/catalog/32467527647?cat_id=50005640&frm=PBOKPRO&query=%EC%8B%A0%EC%95%99%EC%9C%A0%EC%A0%84%EC%9E%90&NaPm=ct%3Dmcixtis0%7Cci%3Deb953bb63b09e135eb59e1b81bab08eef757d66a%7Ctr%3Dboknx%7Csn%3D95694%7Chk%3Daafef3403534cfcc3be6296618540f92c9799a04"
-              );
+              window.open("https://m.blog.naver.com/arca_pub/222482522524");
             }}
           >
             책 소개 바로가기
