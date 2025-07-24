@@ -27,7 +27,7 @@ export const FloatingBar = () => {
       <div className={floatingBarList}>
         <div
           className={floatingBarItem}
-          onClick={() => router.push("/notice/3")}
+          onClick={() => router.push("/notice/23")}
         >
           <Image
             src={"/images/money.svg"}
@@ -39,14 +39,18 @@ export const FloatingBar = () => {
         </div>
         <div
           className={floatingBarItem}
-          onClick={() => router.push("/notice/4")}
+          onClick={() =>
+            window.open("https://www.band.us/band/89951906/post/320", "_blank")
+          }
         >
           <Image src={"/images/speak.svg"} alt='설교' width={28} height={28} />
           <Typography variant='body2Medium'>설교듣기</Typography>
         </div>
         <div
           className={floatingBarItem}
-          onClick={() => window.open("h", "_blank")}
+          onClick={() =>
+            window.open("https://forms.gle/Mdojk2Y41qFP5oVi9", "_blank")
+          }
         >
           <Image
             src={"/images/receipt.svg"}

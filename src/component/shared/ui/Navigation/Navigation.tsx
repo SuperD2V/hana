@@ -15,7 +15,8 @@ import {
   mobileMenu,
   mobileMenuOpen,
   mobileNavLinks,
-  mobileNavLink
+  mobileNavLink,
+  logo
 } from "./index.css";
 import { Hamberger } from "../hamberger";
 import { Title1 } from "../Typography";
@@ -86,7 +87,7 @@ export function Navigation() {
       className={`${navigationContainer} ${!isVisible ? navigationHidden : ""}`}
     >
       <div className={navWrapper}>
-        <div className='logo'>
+        <div className={logo}>
           <Link href='/'>
             <Image
               src='/images/logo.svg'

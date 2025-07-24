@@ -58,7 +58,7 @@ export const noticeWrapper = style({
     "screen and (max-width: 768px)": {
       paddingTop: "60px",
       flexDirection: "column",
-      maxWidth: "100%",
+      maxWidth: "360px",
       width: "100%"
     }
   }
