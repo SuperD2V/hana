@@ -7,11 +7,12 @@ import { noticePageContainer, noticeContainer } from "./index.css";
 import { getNoticeList, useDeleteNotice } from "./api";
 import { NoticeItem } from "@/component/notice/type";
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { formatDateOnly } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { useShallow } from "zustand/shallow";
 import { useAdminStore } from "../../../../hooks/store/useAdminStore";
+import { useNoticeStore } from "@/component/notice/hooks/useNoticeStore";
 
 const Notice = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -23,6 +24,14 @@ const Notice = () => {
       setState: state.setState
     }))
   );
+
+  const { setState: setNoticeState } = useNoticeStore(
+    useShallow(state => ({
+      dashboardData: state.dashboardData,
+      setState: state.setState
+    }))
+  );
+
   const { data, isLoading, error } = useQuery({
     queryKey: ["noticeList", currentPage],
     queryFn: () => getNoticeList({ page: currentPage - 1, size: pageSize }),
@@ -42,6 +51,18 @@ const Notice = () => {
       files: notice.files,
       tag: notice.topExposureTag?.includes("TOP") ? "공지" : ""
     })) || [];
+
+  // Dashboard와 동일한 데이터 구조로 변환
+  useEffect(() => {
+    if (convertedData) {
+      const dashboardData = {
+        notice: convertedData,
+        worship: [] // Notice 페이지에서는 worship 데이터가 없으므로 빈 배열
+      };
+      console.log('dashboardData', dashboardData);
+      setNoticeState("dashboardData", dashboardData);
+    }
+  }, [data]);
 
   const totalPages = data?.totalPages || 1;
 

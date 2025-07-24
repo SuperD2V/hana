@@ -23,7 +23,7 @@ const NoticeDetail = ({ id }: NoticeDetailProps) => {
       setState: state.setState
     }))
   );
-  const type = searchParams.get("type") || "notice";
+  const type = searchParams.get("type") === 'bulletin' ? 'worship' : 'notice';
   const router = useRouter();
   return (
     <div

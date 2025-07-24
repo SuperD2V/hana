@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   noticeContainer,
   noticeWrapper,
@@ -18,6 +18,8 @@ import { SubMenuItem } from "@/component/shared/ui/subMenu";
 import { DesktopTable } from "./DesktopTable";
 import { MobileTable } from "./MobileTable";
 import { DashboardProps, NoticeItem } from "../../type";
+import { useNoticeStore } from "../../hooks/useNoticeStore";
+import { useShallow } from "zustand/shallow";
 
 const items: SubMenuItem[] = [
   { key: "notice", label: "공지" },
@@ -35,11 +37,23 @@ export const Dashboard: React.FC<DashboardProps> = ({
 }) => {
   const { mounted, isMobile } = useResponsiveTypography();
   const [selected, setSelected] = useState(items[0].key);
+  const { setState, selectedCateogry } = useNoticeStore(
+    useShallow(state => ({
+      setState: state.setState,
+      selectedCateogry: state.selectedCateogry
+    }))
+  );
 
-  const currentData = data[selected as keyof typeof data] || [];
+  // 데이터를 전역 상태에 저장
+  useEffect(() => {
+    if (!data) return;
+    setState("dashboardData", data);
+  }, [data]);
+
+  const currentData = data[selectedCateogry as keyof typeof data] || [];
 
   const handleCategoryChange = (category: string) => {
-    setSelected(category);
+    setState("selectedCateogry", category as 'notice' | 'worship');
     onCategoryChange?.(category);
   };
 
@@ -58,7 +72,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
         </TypographyEn>
         <SubMenu
           items={items}
-          selectedKey={selected}
+          selectedKey={selectedCateogry}
           onSelect={handleCategoryChange}
         />
         <div className={tableContainer}>

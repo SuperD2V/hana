@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Typography } from "@/component/shared";
 import { useResponsiveTypography } from "@/component/shared";
 import Image from "next/image";
@@ -6,44 +6,88 @@ import Button from "../introduce/Button";
 import { useQuery } from "@tanstack/react-query";
 import { getBulletinDetail, getNoticeDetail } from "./api/api";
 import { useNavigation } from "./hooks/useNavigation";
+import { useNoticeStore } from "./hooks/useNoticeStore";
+import { useShallow } from "zustand/shallow";
+import { useRouter } from "next/navigation";
 
 interface NoticeDetailContentProps {
   id: string;
   type: string;
 }
 
-const NoticeDetailContent = ({ id, type }: NoticeDetailContentProps) => {
+const NoticeDetailContent = ({ id }: NoticeDetailContentProps) => {
   const { mounted, isMobile } = useResponsiveTypography();
+  const router = useRouter();
+  // 현재 선택된 ID를 상태로 관리
+  const [currentId, setCurrentId] = useState(id);
+  
+  // 전역 상태에서 dashboardData 가져오기
+  const { dashboardData, setState, selectedCateogry } = useNoticeStore(
+    useShallow(state => ({
+      dashboardData: state.dashboardData,
+      setState: state.setState,
+      selectedCateogry: state.selectedCateogry
+    }))
+  );
+  console.log('dashboardData', dashboardData)
+  
+  // props의 id가 변경되면 currentId 업데이트
+  useEffect(() => {
+    console.log('id', id)
+    setCurrentId(id);
+  }, [id]);
+
+  const type = selectedCateogry === 'notice' ? 'notice' : 'worship';
+  
   // 타입 검증 및 변환
   const validatedType =
-    type === "notice" || type === "bulletin" ? type : "notice";
+    type === "notice" ? type : "worship";
+  
+  // useNavigation 훅에서 ID 변경 시 currentId 업데이트
   const { handlePrevious, handleNext, handleList } = useNavigation(
-    id,
-    validatedType
+    currentId,
+    validatedType,
+    dashboardData,
+    setCurrentId // ID 변경 함수 전달
   );
-  const { data: apiResponse } = useQuery({
-    queryKey: ["notice", id, type],
+  
+  const { data: apiResponse, isLoading } = useQuery({
+    queryKey: ["notice", currentId, type], // currentId 사용
     queryFn: () => {
       if (type === "notice") {
-        return getNoticeDetail(id);
+        return getNoticeDetail(currentId); // currentId 사용
       } else {
-        return getBulletinDetail(id);
+        console.log('currentId', currentId)
+        return getBulletinDetail(currentId); // currentId 사용
       }
     }
   });
 
-  // API 응답이 없거나 데이터가 없는 경우
-  if (!apiResponse || !apiResponse.data) {
+  if (isLoading) {
     return (
       <div className='w-full flex items-center justify-center py-20'>
         <Typography variant='body1Regular' className='!text-[#666666]'>
-          해당 공지사항을 찾을 수 없습니다.
+          데이터를 불러오는 중입니다...
         </Typography>
       </div>
     );
   }
 
-  const noticeData = apiResponse.data;
+  // // API 응답이 없거나 데이터가 없는 경우
+  // if (!apiResponse || !apiResponse.data) {
+  //   return (
+  //     <div className='w-full flex items-center justify-center py-20'>
+  //       <Typography variant='body1Regular' className='!text-[#666666]'>
+  //         해당 공지사항을 찾을 수 없습니다.
+  //       </Typography>
+  //     </div>
+  //   );
+  // }
+
+  const noticeData = apiResponse?.data;
+  // const noticeData = dashboardData?.[validatedType as keyof typeof dashboardData]?.find(item => item.no === Number(currentId))
+  
+  if (!noticeData) return <></>
 
   return (
     <div
@@ -152,7 +196,7 @@ const NoticeDetailContent = ({ id, type }: NoticeDetailContentProps) => {
               <div
                 className='w-5 h-5 flex-shrink-0 cursor-pointer'
                 style={{
-                  backgroundImage: `url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 13.75L6.25 10L7.1875 9.0625L9.375 11.25V3.75H10.625V11.25L12.8125 9.0625L13.75 10L10 13.75Z' fill='%23666666'/%3E%3Cpath d='M3.75 16.25V14.375H16.25V16.25H3.75Z' fill='%23666666'/%3E%3C/svg%3E")`,
+                  backgroundImage: `url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 13.75L6.25 10L7.1875 9.0625L9.375 11.25V3.75H10.625V11.25L12.8125 9.0625L13.75 10L10 13.75Z fill='%23666666'/%3E%3Cpath d='M3.75 16.25V14.375H16.25V16.25H3.75Z' fill='%23666666'/%3E%3C/svg%3E")`,
                   backgroundSize: "contain",
                   backgroundRepeat: "no-repeat"
                 }}
@@ -170,7 +214,15 @@ const NoticeDetailContent = ({ id, type }: NoticeDetailContentProps) => {
       >
         <Button title='이전글' onClick={handlePrevious} />
         <Button title='다음글' onClick={handleNext} />
-        <Button title='목록' onClick={handleList} />
+        <Button title='목록' onClick={() => {
+          if (type === 'notice') {
+            setState('selectedCateogry', 'notice')
+            router.replace('/notice')
+          } else {
+            setState('selectedCateogry', 'worship')
+            router.replace('/notice')
+          }
+        }} />
       </div>
     </div>
   );
