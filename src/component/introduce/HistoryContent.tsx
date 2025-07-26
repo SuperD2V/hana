@@ -280,7 +280,7 @@ const HistoryContent = ({
               />
             </svg> */}
               <Image
-                src={"/images/nextArrow.png"}
+                src={"/images/prevArrow.png"}
                 alt='arrow-right'
                 width={isMobile ? 20 : 30}
                 height={isMobile ? 40 : 60}
