@@ -62,41 +62,43 @@ export const Place = () => {
       <div className={styles.mapWrapper}>
         <div style={{ display: "flex", gap: 10 }}>
           <KakaoMap />
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <button
-              onClick={() => {
-                window.open("https://naver.me/FnV2VGcg", "_blank");
-              }}
-              style={{
-                width: 240,
-                height: 52,
-                backgroundColor: " #1B5FB8",
-                color: "#F5F9FF",
-                borderRadius: 12
-              }}
-            >
-              <Typography variant='headlineMedium'>
-                네이버 지도 바로가기
-              </Typography>
-            </button>
-            <button
-              onClick={() => {
-                window.open("https://kko.kakao.com/JBVOR1aKyS", "_blank");
-              }}
-              style={{
-                marginTop: 12,
-                width: 240,
-                height: 52,
-                backgroundColor: " #1B5FB8",
-                color: "#F5F9FF",
-                borderRadius: 12
-              }}
-            >
-              <Typography variant='headlineMedium'>
-                카카오 지도 바로가기
-              </Typography>
-            </button>
-          </div>
+          {!isMobile && (
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <button
+                onClick={() => {
+                  window.open("https://naver.me/FnV2VGcg", "_blank");
+                }}
+                style={{
+                  width: 240,
+                  height: 52,
+                  backgroundColor: " #1B5FB8",
+                  color: "#F5F9FF",
+                  borderRadius: 12
+                }}
+              >
+                <Typography variant='headlineMedium'>
+                  네이버 지도 바로가기
+                </Typography>
+              </button>
+              <button
+                onClick={() => {
+                  window.open("https://kko.kakao.com/JBVOR1aKyS", "_blank");
+                }}
+                style={{
+                  marginTop: 12,
+                  width: 240,
+                  height: 52,
+                  backgroundColor: " #1B5FB8",
+                  color: "#F5F9FF",
+                  borderRadius: 12
+                }}
+              >
+                <Typography variant='headlineMedium'>
+                  카카오 지도 바로가기
+                </Typography>
+              </button>
+            </div>
+          )}
         </div>
         <div className={styles.parkingInfo}>
           <Image
