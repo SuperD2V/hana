@@ -12,8 +12,7 @@ import {
   worshipContent,
   worshipWrapper
 } from "./index.css";
-import { useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useState, useEffect } from "react";
 import { SubMenuItem } from "@/component/shared/ui/subMenu";
 
 const items: SubMenuItem[] = [
@@ -21,14 +20,17 @@ const items: SubMenuItem[] = [
   { key: "privacy", label: "개인정보처리방침" }
 ];
 export default function Worship() {
-  const searchParams = useSearchParams();
+  const [selected, setSelected] = useState(items[0].key);
 
-  // 쿼리 파라미터의 type 값을 가져오고, 유효하지 않으면 기본값 사용
-  const typeFromQuery = searchParams.get("type");
-  const initialSelected =
-    items.find(item => item.key === typeFromQuery)?.key || items[0].key;
+  useEffect(() => {
+    // 클라이언트 사이드에서 URL 파라미터 읽기
+    const urlParams = new URLSearchParams(window.location.search);
+    const typeFromQuery = urlParams.get("type");
+    const initialSelected =
+      items.find(item => item.key === typeFromQuery)?.key || items[0].key;
 
-  const [selected, setSelected] = useState(initialSelected);
+    setSelected(initialSelected);
+  }, []);
   const { mounted, isMobile } = useResponsiveTypography();
   return (
     <div className={worshipContainer}>
@@ -40,16 +42,22 @@ export default function Worship() {
           약관 및 방침
         </TypographyEn>
         <SubMenu items={items} selectedKey={selected} onSelect={setSelected} />
-        <div >
+        <div>
           {selected === "terms" && (
-            <div className="flex flex-col gap-[8px] bg-[#fff] max-w-[1680px] !py-[40px] !px-[209px] items-start" style={{textAlign: 'left', marginBottom: '80px'}}>
+            <div
+              className='flex flex-col gap-[8px] bg-[#fff] max-w-[1680px] !py-[40px] !px-[209px] items-start'
+              style={{ textAlign: "left", marginBottom: "80px" }}
+            >
               {TERMS_CONTENTS.map((item, index) => (
-                <div key={index} style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                  <Typography
-                    variant='body1Semibold'
-                  >
-                    {item.title}
-                  </Typography>
+                <div
+                  key={index}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "4px"
+                  }}
+                >
+                  <Typography variant='body1Semibold'>{item.title}</Typography>
                   <Typography
                     variant='body1Regular'
                     style={{ lineHeight: "1.8", whiteSpace: "pre-line" }}
@@ -61,14 +69,20 @@ export default function Worship() {
             </div>
           )}
           {selected === "privacy" && (
-            <div className="flex flex-col gap-[8px] bg-[#fff] max-w-[1680px] !py-[40px] !px-[209px] items-start" style={{textAlign: 'left', marginBottom: '80px'}}>
+            <div
+              className='flex flex-col gap-[8px] bg-[#fff] max-w-[1680px] !py-[40px] !px-[209px] items-start'
+              style={{ textAlign: "left", marginBottom: "80px" }}
+            >
               {PRIVACY_CONTENTS.map((item, index) => (
-                <div key={index} style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                  <Typography
-                    variant='body1Semibold'
-                  >
-                    {item.title}
-                  </Typography>
+                <div
+                  key={index}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "4px"
+                  }}
+                >
+                  <Typography variant='body1Semibold'>{item.title}</Typography>
                   <Typography
                     variant='body1Regular'
                     style={{ lineHeight: "1.8", whiteSpace: "pre-line" }}
