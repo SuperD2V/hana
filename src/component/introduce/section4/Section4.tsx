@@ -11,7 +11,7 @@ const departmentData = [
   {
     name: "믿음샘",
     age: "4세 이하",
-    time: "오전 10:00 하나홀"
+    time: "오전 11:00 하나홀"
   },
   {
     name: "소망샘",

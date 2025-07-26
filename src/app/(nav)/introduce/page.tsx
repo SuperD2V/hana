@@ -105,6 +105,9 @@ const page = () => {
       <div ref={sectionRefs[2]}>
         <Section2 />
       </div>
+      <div ref={sectionRefs[6]}>
+        <Section6 />
+      </div>
       <div ref={sectionRefs[3]}>
         <Section3 />
       </div>
@@ -113,9 +116,6 @@ const page = () => {
       </div>
       <div ref={sectionRefs[5]}>
         <Section5 />
-      </div>
-      <div ref={sectionRefs[6]}>
-        <Section6 />
       </div>
     </div>
   );

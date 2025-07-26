@@ -4,7 +4,7 @@ export const worshipClassData: WorshipClassInfo[] = [
   {
     title: "믿음샘",
     description: "4세 이하",
-    time: "오전 10:00",
+    time: "오전 11:00",
     place: "하나홀"
   },
   {

@@ -48,9 +48,7 @@ export const FloatingBar = () => {
         </div>
         <div
           className={floatingBarItem}
-          onClick={() =>
-            window.open("https://forms.gle/Mdojk2Y41qFP5oVi9", "_blank")
-          }
+          onClick={() => router.push("/notice/24?type=notice")}
         >
           <Image
             src={"/images/receipt.svg"}

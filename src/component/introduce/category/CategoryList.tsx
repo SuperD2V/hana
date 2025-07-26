@@ -17,8 +17,12 @@ const CategoryList = () => {
       category: "교회 연혁"
     },
     {
+      id: 6,
+      category: "이름 및 소속"
+    },
+    {
       id: 3,
-      category: "목사님 소개"
+      category: "담임목사 소개"
     },
     {
       id: 4,
@@ -27,10 +31,6 @@ const CategoryList = () => {
     {
       id: 5,
       category: "양육시스템"
-    },
-    {
-      id: 6,
-      category: "이름 및 소속"
     }
   ];
 

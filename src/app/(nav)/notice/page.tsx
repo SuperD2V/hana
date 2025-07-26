@@ -56,7 +56,7 @@ export default function NoticePage() {
       date: formatDateOnly(item.updatedAt),
       views: item.views,
       files: item.files,
-      tag: item.topExposureTag?.includes("TOP") ? "공지" : ""
+      tag: item.topExposureTag
     }));
 
     // BulletinItem을 NoticeItem으로 변환 (주보)
@@ -67,7 +67,7 @@ export default function NoticePage() {
         date: formatDateOnly(item.updatedAt),
         views: item.views,
         files: item.files,
-        tag: item.topExposureTag?.includes("TOP") ? "공지" : ""
+        tag: item.topExposureTag
       })
     );
 
