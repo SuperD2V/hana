@@ -92,9 +92,10 @@ const Bulletin = () => {
           data={convertedData}
           onItemClick={item => {
             console.log("주보 클릭:", item);
-            setState("selectedCateogry", 6); // Bulletin Detail 페이지
+            setState("selectedCateogry", 7); // Bulletin Detail 페이지
             setState("selectedId", item.no.toString());
             setState("selectedType", "bulletin"); // 주보 타입 설정
+
           }}
           onEdit={handleEdit}
           onDelete={handleDelete}

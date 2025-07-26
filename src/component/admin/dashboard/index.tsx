@@ -36,13 +36,21 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
     }))
   );
   console.log("selectedCateogry", selectedCateogry);
+  const { setState: setAdminState } = useAdminStore(
+    useShallow(state => ({
+      setState: state.setState
+    }))
+  );
 
   const handleItemClick = (item: NoticeItem) => {
+    console.log("type", type);
     const params = new URLSearchParams(searchParams);
-    params.set("type", type);
+    params.set("type", type === "notice" ? "notice" : "worship");
     params.set("id", item.no.toString());
     router.replace(`?${params.toString()}`);
     setState("selectedCateogry", 7);
+    setState("selectedType", type === "notice" ? "notice" : "bulletin");
+    setState("selectedId", item.no.toString());
   };
 
   const handleMoreClick = (e: React.MouseEvent, itemId: number) => {
@@ -111,6 +119,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
       <tbody>
         {data.map(item => (
           <tr onClick={() => handleItemClick(item)} key={item.no}>
+          {/* <tr onClick={() => handleItemClick(item)} key={item.no}> */}
             <td className={tdLeft}>
               {item.tag === "공지" ? (
                 <Typography

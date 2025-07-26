@@ -15,7 +15,7 @@ interface NoticeDetailContentProps {
   type: string;
 }
 
-const NoticeDetailContent = ({ id }: NoticeDetailContentProps) => {
+const NoticeDetailContent = ({ id, type }: NoticeDetailContentProps) => {
   const { mounted, isMobile } = useResponsiveTypography();
   const router = useRouter();
   // 현재 선택된 ID를 상태로 관리
@@ -37,7 +37,9 @@ const NoticeDetailContent = ({ id }: NoticeDetailContentProps) => {
     setCurrentId(id);
   }, [id]);
 
-  const type = selectedCateogry === 'notice' ? 'notice' : 'worship';
+  // const type = useNoticeStore.getState().selectedCateogry === 'notice' ? 'notice' : 'worship';
+
+  console.log('type', type)
   
   // 타입 검증 및 변환
   const validatedType =

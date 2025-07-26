@@ -40,14 +40,13 @@ export default function Worship() {
           약관 및 방침
         </TypographyEn>
         <SubMenu items={items} selectedKey={selected} onSelect={setSelected} />
-        <div>
+        <div >
           {selected === "terms" && (
-            <div>
+            <div className="flex flex-col gap-[8px] bg-[#fff] max-w-[1680px] !py-[40px] !px-[209px] items-start" style={{textAlign: 'left', marginBottom: '80px'}}>
               {TERMS_CONTENTS.map((item, index) => (
-                <div key={index} style={{ marginBottom: "2rem" }}>
+                <div key={index} style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
                   <Typography
                     variant='body1Semibold'
-                    style={{ marginBottom: "1rem" }}
                   >
                     {item.title}
                   </Typography>
@@ -61,7 +60,25 @@ export default function Worship() {
               ))}
             </div>
           )}
-          {selected === "privacy" && <div>개인정보처리방침</div>}
+          {selected === "privacy" && (
+            <div className="flex flex-col gap-[8px] bg-[#fff] max-w-[1680px] !py-[40px] !px-[209px] items-start" style={{textAlign: 'left', marginBottom: '80px'}}>
+              {PRIVACY_CONTENTS.map((item, index) => (
+                <div key={index} style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                  <Typography
+                    variant='body1Semibold'
+                  >
+                    {item.title}
+                  </Typography>
+                  <Typography
+                    variant='body1Regular'
+                    style={{ lineHeight: "1.8", whiteSpace: "pre-line" }}
+                  >
+                    {item.content}
+                  </Typography>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -110,5 +127,53 @@ const TERMS_CONTENTS = [
     title: "제7조 (약관의 변경)",
     content:
       "교회는 관련 법령을 위반하지 않은 범위에서 본 약관을 개정할 수 있으며, 변경 시 본 사이트를 통해 공지합니다."
+  }
+];
+
+const PRIVACY_CONTENTS = [
+  {
+    title: "",
+    content:
+      "하나비전교회(이하 ‘교회’라 함)는 개인정보보호법에 따라 이용자의 개인정보를 보호하고, 관련한 고충을 원활하게 처리할 수 있도록 다음과 같은 개인정보처리방침을 수립·공개합니다."
+  },
+  {
+    title: "1. 수집하는 개인정보 항목",
+    content:
+      "교회는 다음과 같은 개인정보를 수집합니다.\n• 수집 항목: 이름, 연락처, 이메일 주소\n• 수집 방법: 웹사이트 내 문의 / 신청 양식 작성 시"
+  },
+  {
+    title: "2. 개인정보의 수집 및 이용목적",
+    content:
+      "수집된 개인정보는 다음의 목적으로 이용됩니다.\n• 문의사항 응대 및 교회 프로그램 등록\n• 교회 소식 전달 및 사역 관련 연락\n• 통계 및 서비스 개선 목적의 내부 분석"
+  },
+  {
+    title: "3. 개인정보의 보유 및 이용기간",
+    content:
+      "수집된 개인정보는 수집 목적 달성 시까지 보유하며, 이후에는 즉시 파기합니다.\n다만, 관계 법령에 따라 보존할 필요가 있는 경우 해당 기간 동안 보관할 수 있습니다."
+  },
+  {
+    title: "4. 개인정보의 제3자 제공",
+    content:
+      " 교회는 이용자의 동의 없이 개인정보를 외부에 제공하지 않습니다. 단, 법령에 정해진 경우에는 예외로 합니다."
+  },
+  {
+    title: "5. 개인정보의 안전성 확보 조치",
+    content:
+      "교회는 개인정보보호를 위해 다음과 같은 조치를 취하고 있습니다.\n• 접근 권한 제한\n• 데이터 암호화 및 보안 서버 사용\n• 관리자 교육 및 내부 점검"
+  },
+  {
+    title: "6. 개인정보에 대한 권리 및 행사방법",
+    content:
+      "이용자는 언제든지 자신의 개인정보에 대해 열람, 정정, 삭제, 처리정지를 요청할 수 있습니다. \n 문의: [ info@hanavision.org / 031-309-0022 ]"
+  },
+  {
+    title: "7. 개인정보보호책임자",
+    content:
+      "개인정보보호책임자: [ 이현수 목사] \n연락처: [ info@hanavision.org / 031-309-0022 ]"
+  },
+  {
+    title: "8. 개인정보처리방침의 변경",
+    content:
+      " 본 방침은 관련 법령 및 내부 방침에 따라 변경될 수 있으며, 변경 시 본 사이트를 통해 공지합니다."
   }
 ];
