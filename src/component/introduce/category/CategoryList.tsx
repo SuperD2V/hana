@@ -10,7 +10,7 @@ const CategoryList = () => {
   const list: IntroduceCategory[] = [
     {
       id: 1,
-      category: "교회소개 및 비전"
+      category: "소개 및 비전"
     },
     {
       id: 2,
@@ -22,11 +22,11 @@ const CategoryList = () => {
     },
     {
       id: 3,
-      category: "담임목사 소개"
+      category: "목회자"
     },
     {
       id: 4,
-      category: "다음  세대"
+      category: "다음 세대"
     },
     {
       id: 5,
@@ -42,7 +42,7 @@ const CategoryList = () => {
       setState: state.setState
     }))
   );
-
+ 
   const handleClick = (id: number) => {
     setState("selectedCateogry", id);
   };

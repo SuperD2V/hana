@@ -20,7 +20,7 @@ const Section3 = () => {
           mounted && isMobile ? "gap-[40px] w-full" : "gap-[60px] !pb-[96px]"
         }`}
       >
-        <SectionTitle EnglishTitle='Pastor' KoreanTitle='담임목사 소개' />
+        <SectionTitle EnglishTitle='Pastor' KoreanTitle='담임목사' />
         <div
           className={`flex flex-col gap-[24px] ${
             mounted && isMobile ? "!p-[20px]" : "!pl-[120px] !mt-[40px]"
@@ -57,15 +57,24 @@ const Section3 = () => {
               연구하고 쓴 책으로 도서출판 &lt;이르카&gt;에서 출판되었습니다.
             </Typography>
           </div>
-
+                <div className="flex flex-row gap-[12px]">
+          <button
+            className='w-[200px] h-[52px] !bg-[#1B5FB8] rounded-[12px] !text-[#F5F9FF] mt-[59px] cursor-pointer !mt-[35px]'
+            onClick={() => {
+              window.open("https://www.kctusa.org/news/articleView.html?idxno=17166");
+            }}
+          >
+           저자 인터뷰
+          </button>
           <button
             className='w-[200px] h-[52px] !bg-[#1B5FB8] rounded-[12px] !text-[#F5F9FF] mt-[59px] cursor-pointer !mt-[35px]'
             onClick={() => {
               window.open("https://m.blog.naver.com/arca_pub/222482522524");
             }}
           >
-            책 소개 바로가기
+            출판사 리뷰
           </button>
+          </div>
         </div>
       </div>
       {mounted && isMobile ? (
