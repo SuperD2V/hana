@@ -10,6 +10,7 @@ import { AdminHeader, Typography } from "@/component/shared";
 import { useShallow } from "zustand/shallow";
 import { useAdminStore } from "../../../../hooks/store/useAdminStore";
 import Detail from "./detail";
+import { formatDateWithTime } from "@/lib/utils";
 
 const Class = () => {
   const router = useRouter();
@@ -83,7 +84,9 @@ const Class = () => {
                 <Typography variant='headlineMedium'>{item.title}</Typography>
               </div>
               <div className={styles.imageItemDate}>
-                <Typography variant='body1Regular'>{item.classDate}</Typography>
+                <Typography variant='body1Regular'>
+                  {formatDateWithTime(item.classDate)}
+                </Typography>
               </div>
             </div>
           </div>

@@ -99,34 +99,35 @@ export const Calendar = () => {
     }
   };
 
-  // 데이터 로드 완료 시 오늘 날짜에 이벤트가 있으면 자동으로 해당 슬라이더 위치로 이동
+  // 데이터 로드 완료 시 슬라이더 위치 설정
   useEffect(() => {
     if (!isLoading && data?.data) {
       const allEvents = data.data.calendarEvents || [];
       const summaryDays = data.data.summaryDays || [];
 
-      if (allEvents.length > 0 && summaryDays.length > 0) {
+      if (allEvents.length > 0) {
         const today = new Date();
         const currentMonth = today.getMonth();
         const currentDay = today.getDate();
 
-        // 현재 선택된 월이 오늘의 월과 같을 때만 실행
-        if (selectedMonth === currentMonth) {
+        // 현재 선택된 월이 오늘의 월과 같을 때만 오늘 날짜 확인
+        if (selectedMonth === currentMonth && summaryDays.length > 0) {
           // 오늘 날짜에 이벤트가 있는지 확인
           const hasTodayEvent =
             summaryDays[currentDay - 1] &&
             summaryDays[currentDay - 1][currentDay.toString()] === true;
 
-          // 오늘에 이벤트가 있으면 해당 위치로 이동, 없으면 처음부터 보여줌
+          // 오늘에 이벤트가 있으면 해당 위치로 이동
           if (hasTodayEvent) {
             moveSliderToDateEvent(currentDay, allEvents, summaryDays);
-          } else {
-            // 오늘에 일정이 없으면 슬라이더를 첫 번째 슬라이드로 이동
-            setTimeout(() => {
-              sliderRef.current?.slickGoTo(0);
-            }, 100);
+            return;
           }
         }
+
+        // 오늘이 아닌 다른 월이거나 오늘에 일정이 없으면 첫 번째 슬라이드로 이동
+        setTimeout(() => {
+          sliderRef.current?.slickGoTo(0);
+        }, 100);
       }
     }
   }, [isLoading, data, selectedMonth]);

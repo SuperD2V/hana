@@ -49,7 +49,7 @@ const Notice = () => {
       date: formatDateOnly(notice.updatedAt),
       views: notice.views,
       files: notice.files,
-      tag: notice.topExposureTag?.includes("TOP") ? "공지" : ""
+      tag: notice.topExposureTag
     })) || [];
 
   // Dashboard와 동일한 데이터 구조로 변환
@@ -59,7 +59,7 @@ const Notice = () => {
         notice: convertedData,
         worship: [] // Notice 페이지에서는 worship 데이터가 없으므로 빈 배열
       };
-      console.log('dashboardData', dashboardData);
+      console.log("dashboardData", dashboardData);
       setNoticeState("dashboardData", dashboardData);
     }
   }, [data]);
