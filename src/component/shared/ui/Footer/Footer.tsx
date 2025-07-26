@@ -7,6 +7,7 @@ import {
 } from "./index.css";
 import { Body2 } from "../Typography";
 import { CHURCH_INFO } from "../../const/info";
+import Link from "next/link";
 
 // 교회 정보 상수
 
@@ -30,12 +31,16 @@ export function Footer() {
           </Body2>
 
           <div className={footerBottom}>
-            <Body2 weight='medium' className={footerText}>
-              이용약관
-            </Body2>
-            <Body2 weight='medium' className={footerText}>
-              개인정보처리방침
-            </Body2>
+            <Link href='/terms?type=terms'>
+              <Body2 weight='medium' className={footerText}>
+                이용약관
+              </Body2>
+            </Link>
+            <Link href='/terms?type=privacy'>
+              <Body2 weight='medium' className={footerText}>
+                개인정보처리방침
+              </Body2>
+            </Link>
           </div>
         </div>
       </div>

@@ -51,6 +51,7 @@ const NewsSection: React.FC<NewsSectionProps> = ({
         >
           {titles}
         </TypographyEn>
+        <Typography variant='title1Semibold'>소식</Typography>
       </div>
       <div className={newsList}>
         {data?.data.content.slice(0, 5).map((item, idx) => (

@@ -97,7 +97,7 @@ const AdminNavigation = () => {
               router.replace("/admin"); // 쿼리 파라미터 제거 및 이동
             }}
           >
-            <Image
+            {/* <Image
               src={item.iconLink}
               alt='icon'
               width={18}
@@ -105,7 +105,7 @@ const AdminNavigation = () => {
               style={{
                 color: "red"
               }}
-            />
+            /> */}
             <Typography
               variant='headlineMedium'
               style={{

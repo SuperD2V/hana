@@ -147,6 +147,7 @@ export const titleText = style({
   width: "325px",
   wordWrap: "break-word",
   overflowWrap: "break-word",
+  alignSelf: "flex-start",
   "@media": {
     "(max-width: 768px)": {
       width: "170px"

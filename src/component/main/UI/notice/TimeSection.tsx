@@ -30,6 +30,7 @@ const TimeSection = () => {
         >
           TIME
         </TypographyEn>
+        <Typography variant='title1Semibold'>시간</Typography>
       </div>
       {/* 샘플 시간표 내용 */}
       <div className={timeContainer}>
@@ -43,7 +44,7 @@ const TimeSection = () => {
         <div className={timeScheduleList}>
           <div className={timeRow}>
             <Typography variant={"body1Medium"} className={timeDept}>
-              영아부
+              믿음샘
             </Typography>
             <div className={timeInfoRow}>
               <Typography
@@ -73,7 +74,7 @@ const TimeSection = () => {
             </div>
           </div>
           <div className={timeRow}>
-            <span className={timeDept}>유치부</span>
+            <span className={timeDept}>소망샘</span>
             <div className={timeInfoRow}>
               <Typography
                 variant={
@@ -102,7 +103,7 @@ const TimeSection = () => {
             </div>
           </div>
           <div className={timeRow}>
-            <span className={timeDept}>초등부</span>
+            <span className={timeDept}>사랑샘</span>
             <div className={timeInfoRow}>
               <Typography
                 variant={
@@ -131,7 +132,7 @@ const TimeSection = () => {
             </div>
           </div>
           <div className={timeRow}>
-            <span className={timeDept}>중고등부</span>
+            <span className={timeDept}>지혜샘</span>
             <div className={timeInfoRow}>
               <Typography
                 variant={
@@ -160,7 +161,7 @@ const TimeSection = () => {
             </div>
           </div>
           <div className={timeRow}>
-            <span className={timeDept}>대학청년부</span>
+            <span className={timeDept}>비전샘</span>
             <div className={timeInfoRow}>
               <Typography
                 variant={

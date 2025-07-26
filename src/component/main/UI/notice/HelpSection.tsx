@@ -25,6 +25,7 @@ const HelpSection = () => {
         >
           CONTACT
         </TypographyEn>
+        <Typography variant='title1Semibold'>연락</Typography>
       </div>
       {/* 샘플 연락처 내용 */}
       <div className={helpContent}>

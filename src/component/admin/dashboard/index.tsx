@@ -38,8 +38,6 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   console.log("selectedCateogry", selectedCateogry);
 
   const handleItemClick = (item: NoticeItem) => {
-    setState("selectedCateogry", 7);
-    setState("selectedId", item.no.toString());
     const params = new URLSearchParams(searchParams);
     params.set("type", type);
     params.set("id", item.no.toString());
@@ -113,7 +111,21 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         {data.map(item => (
           <tr onClick={() => handleItemClick(item)} key={item.no}>
             <td className={tdLeft}>
-              <Typography variant='headlineMedium'>{item.no}</Typography>
+              {item.tag === "공지" ? (
+                <Typography
+                  style={{
+                    backgroundColor: "#FEF4CD",
+                    color: "#1B5FB8",
+                    padding: "4px 12px",
+                    borderRadius: "8px"
+                  }}
+                  variant='headlineMedium'
+                >
+                  공지
+                </Typography>
+              ) : (
+                <Typography variant='headlineMedium'>{item.no}</Typography>
+              )}
             </td>
             <td className={tdCenter} style={{ cursor: "pointer" }}>
               <Typography variant='title3Medium'>{item.title} </Typography>

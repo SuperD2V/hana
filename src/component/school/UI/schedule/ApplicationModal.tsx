@@ -29,6 +29,30 @@ export const ApplicationModal: React.FC<ApplicationModalProps> = ({
   onClose
 }) => {
   const { mounted, isMobile } = useResponsiveTypography();
+
+  // 날짜를 한국어 형식으로 포맷팅하는 함수
+  const formatKoreanDate = (dateString: string) => {
+    try {
+      const date = new Date(dateString);
+      const weekdays = ["일", "월", "화", "수", "목", "금", "토"];
+
+      const month = date.getMonth() + 1;
+      const day = date.getDate();
+      const weekday = weekdays[date.getDay()];
+      const hours = date.getHours();
+      const minutes = date.getMinutes();
+
+      const period = hours >= 12 ? "오후" : "오전";
+      const displayHour = hours > 12 ? hours - 12 : hours === 0 ? 12 : hours;
+      const displayMinutes =
+        minutes === 0 ? "00" : minutes.toString().padStart(2, "0");
+
+      return `${month}월 ${day}일(${weekday}) ${period}${displayHour}:${displayMinutes}`;
+    } catch (error) {
+      return dateString; // 파싱 실패 시 원본 반환
+    }
+  };
+
   const {
     data: scheduleDetailData,
     isLoading,
@@ -71,7 +95,7 @@ export const ApplicationModal: React.FC<ApplicationModalProps> = ({
                 {scheduleDetailData?.title}
               </DialogTitle>
               <div className={styles.description}>
-                - 일시: {scheduleDetailData?.classDate}
+                - 일시: {formatKoreanDate(scheduleDetailData?.classDate ?? "")}
                 <br />- 장소: {scheduleDetailData?.location}
                 <br />- 강사: {scheduleDetailData?.instructor}
                 <br />

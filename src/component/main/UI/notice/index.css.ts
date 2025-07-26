@@ -72,7 +72,7 @@ export const sectionBox = style({
   display: "flex",
   flexDirection: "column",
   minHeight: "320px",
-  height: "675px",
+  height: "822px",
   "@media": {
     "screen and (max-width: 768px)": {
       minHeight: "180px",
@@ -87,24 +87,24 @@ export const sectionBox = style({
 
 export const leftBox = style({
   flex: 1,
-  flexBasis: "62.3%",
-  maxWidth: "62.3%",
+  flexBasis: "71%",
+  maxWidth: "71%",
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
   "@media": {
     "screen and (max-width: 1440px)": {
-      flexBasis: "62.3%",
-      maxWidth: "62.3%"
+      flexBasis: "71%",
+      maxWidth: "71%"
     },
     "screen and (max-width: 1280px)": {
-      flexBasis: "62.3%",
-      maxWidth: "62.3%"
+      flexBasis: "71%",
+      maxWidth: "71%"
     },
     "screen and (max-width: 1024px)": {
-      flexBasis: "62.3%",
-      maxWidth: "62.3%"
+      flexBasis: "71%",
+      maxWidth: "71%"
     },
     "screen and (max-width: 768px)": {
       height: "611px",
@@ -120,7 +120,7 @@ export const rightBox = style({
   gap: "24px",
   minWidth: 0,
   justifyContent: "space-between",
-  height: "675px",
+  height: "822px",
   width: "100%",
   display: "flex",
   flexDirection: "column",
@@ -128,18 +128,18 @@ export const rightBox = style({
   margin: "0 auto",
   "@media": {
     "screen and (max-width: 1440px)": {
-      flexBasis: "40%",
-      maxWidth: "40%",
+      flexBasis: "31%",
+      maxWidth: "31%",
       minWidth: "400px"
     },
     "screen and (max-width: 1280px)": {
-      flexBasis: "40%",
-      maxWidth: "40%",
+      flexBasis: "31%",
+      maxWidth: "31%",
       minWidth: "350px"
     },
     "screen and (max-width: 1024px)": {
-      flexBasis: "40%",
-      maxWidth: "40%",
+      flexBasis: "31%",
+      maxWidth: "31%",
       minWidth: "300px"
     },
     "screen and (max-width: 768px)": {
@@ -153,7 +153,7 @@ export const rightBox = style({
 
 export const timeBox = style({
   width: "100%",
-  minHeight: "403px",
+  minHeight: "490px",
   "@media": {
     "screen and (max-width: 768px)": {
       height: "550px"
@@ -163,7 +163,7 @@ export const timeBox = style({
 
 export const helpBox = style({
   width: "100%",
-  minHeight: "252px",
+  minHeight: "312px",
   flex: 1,
   "@media": {
     "screen and (max-width: 768px)": {
@@ -191,6 +191,7 @@ export const newsMobileBox = style({
 
 export const title = style({
   display: "flex",
+  flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
   color: color.brand[800]
@@ -353,14 +354,15 @@ export const timePlace = style({
 });
 
 export const timeContainer = style({
-  textAlign: "center"
+  textAlign: "center",
+  marginTop: "40px"
 });
 
 export const timeMainSchedule = style({
   backgroundColor: color.brand_yellow[2],
   padding: "12px 0",
   borderRadius: "8px",
-  marginBottom: "16px",
+  marginBottom: "20px",
   "@media": {
     "screen and (max-width: 768px)": {
       marginBottom: "4px",
@@ -373,14 +375,14 @@ export const timeScheduleList = style({
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
-  gap: "4px",
+  gap: "8px",
   width: "362px",
   margin: "0 auto",
   textAlign: "left",
   "@media": {
     "screen and (max-width: 768px)": {
       width: "100%",
-      gap: "12ㅔㅌ"
+      gap: "12px"
     }
   }
 });

@@ -26,16 +26,30 @@ export const Card = ({
   onClick,
   thumbnailUrl
 }: CardProps) => {
-  // classDate 형식에 맞게 날짜 파싱 (예: "2024-11-30" -> "11", "30")
+  // classDate 형식에 맞게 날짜 파싱 (예: "2024-11-30" -> "Nov", "30")
   const formatDate = (dateString: string) => {
     try {
       const date = new Date(dateString);
-      const month = date.getMonth() + 1; // getMonth()는 0부터 시작
+      const monthNames = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec"
+      ];
+      const month = monthNames[date.getMonth()];
       const day = date.getDate();
-      return { month: month.toString(), day: day.toString() };
+      return { month, day: day.toString() };
     } catch (error) {
       // 날짜 파싱 실패 시 기본값 반환
-      return { month: "01", day: "01" };
+      return { month: "Jan", day: "01" };
     }
   };
 
@@ -57,7 +71,13 @@ export const Card = ({
               variant={isMobile ? "headlineMedium" : "title3Medium"}
               className={styles.month}
             >
-              {visionClassId}
+              {month}
+            </TypographyEn>
+            <TypographyEn
+              variant={isMobile ? "headlineMedium" : "title3Medium"}
+              className={styles.month}
+            >
+              {day}
             </TypographyEn>
           </div>
         </div>
