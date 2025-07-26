@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { mainContent } from "./layout.css";
 import { Poppins } from "next/font/google";
@@ -13,6 +13,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://hanavision.org"),
   title: "하나비전교회 | 광교 원천 하나비전교회",
   description: "경기도 용인시 광교 원천 하나비전교회입니다.",
   keywords: [
@@ -31,17 +32,10 @@ export const metadata: Metadata = {
   authors: [{ name: "하나비전교회" }],
   creator: "하나비전교회",
   publisher: "하나비전교회",
-  themeColor: "#FEF4CD", // 안드로이드 Chrome 상단바 색상
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent", // iOS 홈 화면 추가 시 상태바 스타일
     title: "하나비전교회"
-  },
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false
   },
   robots: {
     index: true,
@@ -91,6 +85,14 @@ export const metadata: Metadata = {
   }
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  themeColor: "#FEF4CD"
+};
+
 export default function RootLayout({
   children
 }: Readonly<{
@@ -98,12 +100,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='ko' className={poppins.variable}>
-       <head>
-        {/* 혹시 metadata 처리가 누락되는 경우 대비해서 직접 넣어줌 */}
-        <meta name="theme-color" content="#FEF4CD" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-      </head>
       <body suppressHydrationWarning={true}>
         <QueryProvider>
           <div className='flex flex-col h-full min-h-screen'>

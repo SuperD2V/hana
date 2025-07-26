@@ -234,12 +234,7 @@ export const Calendar = () => {
             {!isLoading &&
               allEvents.length > 0 &&
               allEvents.map((event, idx) => (
-                <div
-                  key={`calendar-card-${idx}`}
-                  style={{
-                    padding: isMobile ? "0 12px" : "0 12px"
-                  }}
-                >
+                <div key={`calendar-card-${idx}`} style={{}}>
                   <Card event={event} />
                 </div>
               ))}

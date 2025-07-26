@@ -3,7 +3,7 @@ export const sliderSettings = {
   infinite: false,
   speed: 500,
   slidesToShow: 5,
-  slidesToScroll: 1,
+  slidesToScroll: 1.2,
   arrows: false,
   centerMode: false,
   responsive: [
@@ -34,7 +34,7 @@ export const sliderSettings = {
     {
       breakpoint: 425,
       settings: {
-        slidesToShow: 1,
+        slidesToShow: 1.2,
         slidesToScroll: 1,
         centerMode: false
       }
@@ -42,7 +42,7 @@ export const sliderSettings = {
     {
       breakpoint: 375,
       settings: {
-        slidesToShow: 1,
+        slidesToShow: 1.2,
         slidesToScroll: 1,
         centerMode: false
       }
