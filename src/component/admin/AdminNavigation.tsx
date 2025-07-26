@@ -82,6 +82,7 @@ const AdminNavigation = () => {
           <div
             key={item.id}
             style={{
+              cursor: "pointer",
               display: "flex",
               gap: 8,
               alignItems: "center",

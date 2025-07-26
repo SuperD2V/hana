@@ -43,7 +43,7 @@ export const Schedule = () => {
   return (
     <div className={styles.container}>
       <TypographyEn
-        variant={isMobile ? "title2Medium" : "largetitle1"}
+        variant={isMobile ? "largetitle3Bold" : "largetitle1"}
         className={styles.title}
       >
         SCHEDULE

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { dropdown, dropdownContent, dropdownItem } from "./index.css";
 import { Typography } from "@/component/shared";
+import { showConfirmModal } from "@/component/shared/ui/ConfirmModal";
 
 interface DropdownProps {
   onEdit?: () => void;
@@ -15,7 +16,14 @@ export const Dropdown: React.FC<DropdownProps> = ({ onEdit, onDelete }) => {
 
   const handleDelete = (e: React.MouseEvent) => {
     e.stopPropagation();
-    onDelete?.();
+    showConfirmModal({
+      title: "정말 삭제하시겠습니까?",
+      onConfirm: () => {
+        onDelete?.();
+      },
+      confirmText: "삭제",
+      cancelText: "취소"
+    });
   };
 
   return (

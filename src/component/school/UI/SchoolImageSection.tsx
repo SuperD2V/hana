@@ -3,6 +3,7 @@
 import React from "react";
 import * as styles from "./SchoolImageSection.css";
 import { useResponsiveTypography } from "@/component/shared/hooks/useResponsiveTypography";
+import Image from "next/image";
 
 export const SchoolImageSection = () => {
   const { isMobile, mounted } = useResponsiveTypography();
@@ -36,10 +37,22 @@ export const SchoolImageSection = () => {
           <div className={styles.infoBox}>
             <div className={styles.infoTitle}>문의 및 상담</div>
             <div className={styles.infoText}>
-              노원예 집사 <span>010-9607-2231</span>
+              <Image
+                src='/images/phone.svg'
+                alt='phone'
+                width={16}
+                height={16}
+              />{" "}
+              <span>031-309-0022</span>
             </div>
             <div className={styles.infoText}>
-              변종일 집사 <span>010-3282-1833</span>
+              <Image
+                src='/images/material-symbols_mail.svg'
+                alt='email'
+                width={16}
+                height={16}
+              />{" "}
+              <span>info@hanavision.org </span>
             </div>
           </div>
         )}

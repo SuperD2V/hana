@@ -36,6 +36,7 @@ export const infoBox = style({
     "(max-width: 900px)": {
       display: "flex",
       flexDirection: "column",
+      alignItems: "flex-start",
       gap: "8px",
       background: color.brand[700],
       color: color.brand[0],
@@ -45,8 +46,7 @@ export const infoBox = style({
       width: "100%",
       minWidth: "0",
       boxShadow: "0 2px 8px rgba(0,0,0,0.10)",
-      fontSize: "16px",
-      alignItems: "center"
+      fontSize: "16px"
     }
   }
 });

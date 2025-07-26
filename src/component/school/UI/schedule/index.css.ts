@@ -7,7 +7,6 @@ export const container = style({
   margin: "0 auto",
   display: "flex",
   flexDirection: "column",
-  padding: "0 120px",
   "@media": {
     "(max-width: 768px)": {
       padding: "0 20px"

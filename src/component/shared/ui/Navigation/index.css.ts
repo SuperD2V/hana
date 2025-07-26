@@ -48,7 +48,8 @@ export const navWrapper = style({
     "(max-width: 1280px)": {
       gap: "0px",
       padding: "0",
-      justifyContent: "space-between"
+      justifyContent: "space-between",
+      height: "100%"
     }
   }
 });

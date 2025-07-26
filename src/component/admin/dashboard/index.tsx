@@ -42,6 +42,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
     params.set("type", type);
     params.set("id", item.no.toString());
     router.replace(`?${params.toString()}`);
+    setState("selectedCateogry", 7);
   };
 
   const handleMoreClick = (e: React.MouseEvent, itemId: number) => {
