@@ -23,7 +23,7 @@ const HelpSection = () => {
         <TypographyEn
           variant={mounted && isMobile ? "largetitle3Bold" : "largetitle1"}
         >
-          HELP
+          CONTACT
         </TypographyEn>
       </div>
       {/* 샘플 연락처 내용 */}
