@@ -84,7 +84,7 @@ export const InitSection = () => {
                 variant={isMobile ? "body1Semibold" : "largetitle1"}
                 className={titleText}
               >
-                함께 하나님 나라를 소망하는 교회
+                함께 하나님 나라를 대망하는 교회
                 <Image
                   src='/images/HANAVISION.svg'
                   alt='logo'

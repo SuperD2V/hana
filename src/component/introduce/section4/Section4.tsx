@@ -1,6 +1,6 @@
 import React from "react";
 import SectionTitle from "../SectionTitle";
-import { Typography } from "@/component/shared";
+import { Typography, TypographyEn } from "@/component/shared";
 import { useResponsiveTypography } from "@/component/shared";
 import { scrollContainer } from "./index.css";
 
@@ -44,15 +44,15 @@ const Section4 = () => {
           mounted && isMobile ? "gap-[12px]" : "gap-[40px]"
         } items-center`}
       >
-        <Typography
+        <TypographyEn
           fontFamily={mounted && isMobile ? "Poppins" : ""}
-          variant={mounted && isMobile ? "largetitle2Bold" : "largetitle1"}
+          variant={mounted && isMobile ? "largetitle3Bold" : "largetitle1"}
           className={`!text-[#0E4287] ${
             mounted && isMobile ? "!text-[40px]" : "!text-[80px]"
           }`}
         >
           {EnglishTitle}
-        </Typography>
+        </TypographyEn>
         <Typography
           variant={mounted && isMobile ? "title3Semibold" : "title1Semibold"}
           className={`!text-[#0E4287] ${
