@@ -12,7 +12,7 @@ export const showConfirmModal = ({
   title,
   onConfirm,
   confirmText = "확인",
-  cancelText = "취소",
+  cancelText,
   confirmButtonColor = "#E13A3A"
 }: ConfirmModalProps) => {
   toast(
@@ -34,19 +34,21 @@ export const showConfirmModal = ({
         <div
           style={{ display: "flex", gap: "8px", justifyContent: "flex-end" }}
         >
-          <button
-            onClick={() => toast.dismiss(t.id)}
-            style={{
-              padding: "8px 16px",
-              border: "1px solid #ddd",
-              borderRadius: "4px",
-              backgroundColor: "#fff",
-              cursor: "pointer",
-              fontSize: "14px"
-            }}
-          >
-            {cancelText}
-          </button>
+          {cancelText && (
+            <button
+              onClick={() => toast.dismiss(t.id)}
+              style={{
+                padding: "8px 16px",
+                border: "1px solid #ddd",
+                borderRadius: "4px",
+                backgroundColor: "#fff",
+                cursor: "pointer",
+                fontSize: "14px"
+              }}
+            >
+              {cancelText}
+            </button>
+          )}
           <button
             onClick={() => {
               toast.dismiss(t.id);
