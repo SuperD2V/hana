@@ -278,7 +278,9 @@ export const timeRow = style({
   display: "flex",
   alignItems: "flex-start",
   justifyContent: "flex-start",
+  gap: "32px",
   width: "100%",
+
   "@media": {
     "screen and (max-width: 768px)": {
       flexDirection: "column",
@@ -299,9 +301,8 @@ export const timeInfoRow = style({
 });
 
 export const timeDept = style({
-  marginRight: "8px",
   fontWeight: 600,
-  width: "130px",
+  width: "46px",
   display: "inline-block",
   flexShrink: 0,
   color: color.brand[800],
