@@ -18,7 +18,21 @@ const PasswordReset = () => {
       setState: state.setState
     }))
   );
+
+  // 비밀번호 일치 검사
+  const isPasswordMatch =
+    newPassword && newPasswordConfirm && newPassword === newPasswordConfirm;
+  const isPasswordMismatch =
+    newPasswordConfirm && newPassword !== newPasswordConfirm;
+  const canSubmit =
+    newPassword && newPasswordConfirm && isPasswordMatch && !isLoading;
+
   const handleResetPassword = async () => {
+    // 비밀번호가 일치하지 않으면 실행하지 않음
+    if (!isPasswordMatch) {
+      return;
+    }
+
     try {
       setIsLoading(true);
       await resetPassword({ newPassword, confirmPassword: newPasswordConfirm });
@@ -122,31 +136,48 @@ const PasswordReset = () => {
               />
             </div>
           </div>
+
+          {/* 비밀번호 일치/불일치 메시지 */}
+          <div
+            style={{
+              textAlign: "center",
+              height: "24px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center"
+            }}
+          >
+            {newPasswordConfirm && (
+              <>
+                {isPasswordMatch ? (
+                  <Typography style={{ color: "#4CAF50", fontWeight: "500" }}>
+                    ✓ 비밀번호가 일치합니다
+                  </Typography>
+                ) : isPasswordMismatch ? (
+                  <Typography style={{ color: "#F44336", fontWeight: "500" }}>
+                    ✗ 비밀번호가 일치하지 않습니다
+                  </Typography>
+                ) : null}
+              </>
+            )}
+          </div>
+
           <button
             onClick={handleResetPassword}
-            disabled={!newPassword || !newPasswordConfirm || isLoading}
+            disabled={!canSubmit}
             style={{
-              backgroundColor:
-                !newPassword || !newPasswordConfirm || isLoading
-                  ? "#E0E0E0"
-                  : "#4A5568",
-              color:
-                !newPassword || !newPasswordConfirm || isLoading
-                  ? "#A0A0A0"
-                  : "white",
+              backgroundColor: canSubmit ? "#4A5568" : "#E0E0E0",
+              color: canSubmit ? "white" : "#A0A0A0",
               border: "none",
               borderRadius: 12,
               padding: "12px 24px",
               fontSize: "16px",
               fontWeight: "bold",
-              cursor:
-                !newPassword || !newPasswordConfirm || isLoading
-                  ? "not-allowed"
-                  : "pointer",
+              cursor: canSubmit ? "pointer" : "not-allowed",
               transition: "all 0.2s ease"
             }}
           >
-            {isLoading ? "재설정 중..." : "비밀번호 재설정"}
+            {isLoading ? "재설정 중..." : "확인"}
           </button>
         </div>
       </div>
