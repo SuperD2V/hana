@@ -34,17 +34,17 @@ export const sliderSettings = {
     {
       breakpoint: 425,
       settings: {
-        slidesToShow: 1.5,
+        slidesToShow: 1.2,
         slidesToScroll: 1,
-        centerMode: false
+        centerMode: true
       }
     },
     {
       breakpoint: 375,
       settings: {
-        slidesToShow: 1.4,
+        slidesToShow: 1.2,
         slidesToScroll: 1,
-        centerMode: false
+        centerMode: true
       }
     }
   ]

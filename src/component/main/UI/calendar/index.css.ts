@@ -111,6 +111,9 @@ export const cardWrapper = style({
     },
     "(max-width: 768px)": {
       gap: "4px"
+    },
+    "(max-width: 475px)": {
+      gap: "12px"
     }
   }
 });

@@ -59,17 +59,6 @@ export const SignIn = () => {
             >
               로그인
             </button>
-            <div className={buttonTextContainer}>
-              <Typography variant='body1Regular' className={buttonText}>
-                아이디 찾기
-              </Typography>
-              <Typography variant='body1Regular' className={buttonDivider}>
-                |
-              </Typography>
-              <Typography variant='body1Regular' className={buttonText}>
-                비밀번호 찾기
-              </Typography>
-            </div>
           </div>
         </div>
       </div>

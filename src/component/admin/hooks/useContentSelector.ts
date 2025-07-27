@@ -11,6 +11,7 @@ import Gallery from "../Gallery/page";
 import NoticeDetail from "../Notice/[id]/page";
 import NoticeBulletineRegister from "../NoticeBulletineRegister/page";
 import { ClassRegister } from "../ClassRegister";
+import PasswordReset from "../PasswordReset";
 
 const useContentSelector = (): React.ReactElement | null => {
   const { selectedCateogry, selectedId } = useAdminStore(
@@ -39,6 +40,8 @@ const useContentSelector = (): React.ReactElement | null => {
       return React.createElement(NoticeBulletineRegister);
     case 9:
       return React.createElement(ClassRegister);
+    case 10:
+      return React.createElement(PasswordReset);
     default:
       return null;
   }

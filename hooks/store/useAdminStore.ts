@@ -9,15 +9,15 @@ import {
 } from "../../types/zustand";
 
 export type AdminStore = {
-  selectedCateogry: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+  selectedCateogry: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
   selectedId: string | null;
-  selectedType: 'bulletin' | 'notice'
+  selectedType: "bulletin" | "notice";
 };
 
 const initState: AdminStore = {
   selectedCateogry: 1,
   selectedId: null,
-  selectedType: 'bulletin'
+  selectedType: "bulletin"
 };
 
 export const useAdminStore = create(

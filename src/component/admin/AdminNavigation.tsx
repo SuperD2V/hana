@@ -122,6 +122,32 @@ const AdminNavigation = () => {
           </div>
         ))}
       </div>
+
+      {/* 비밀번호 재설정 버튼을 바닥에 고정 */}
+      <div
+        style={{
+          marginTop: "auto",
+          width: "100%",
+          cursor: "pointer",
+          padding: "12px",
+          borderRadius: "12px",
+          backgroundColor: "#E8F0FE",
+          border: "1px solid #1350A0",
+          textAlign: "center"
+        }}
+        onClick={() => {
+          setState("selectedCateogry", 10);
+        }}
+      >
+        <Typography
+          variant='headlineMedium'
+          style={{
+            color: "#1350A0"
+          }}
+        >
+          비밀번호 재설정
+        </Typography>
+      </div>
     </div>
   );
 };
