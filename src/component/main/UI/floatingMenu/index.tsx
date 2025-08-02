@@ -40,7 +40,10 @@ export const FloatingBar = () => {
         <div
           className={floatingBarItem}
           onClick={() =>
-            window.open("https://www.band.us/band/89951906/post/320", "_blank")
+            window.open(
+              "https://www.youtube.com/@hanavisionch/videos",
+              "_blank"
+            )
           }
         >
           <Image src={"/images/speak.svg"} alt='설교' width={28} height={28} />

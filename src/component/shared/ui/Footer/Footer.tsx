@@ -21,10 +21,10 @@ export function Footer() {
 
         <div className={footerWrapper}>
           <Body2 className={footerText}>
-            {CHURCH_INFO.name} | {CHURCH_INFO.pastor} | 전화번호 :{" "}
-            {CHURCH_INFO.phone} | 이메일 :{CHURCH_INFO.email}
+            {CHURCH_INFO.name} | {CHURCH_INFO.pastor} | {CHURCH_INFO.phone} |{" "}
+            {CHURCH_INFO.email}
             <br />
-            주소 : {CHURCH_INFO.address}
+            {CHURCH_INFO.address}
           </Body2>
           <Body2 className={footerText}>
             Copyright © 2025 {CHURCH_INFO.name}. All Rights Reserved.

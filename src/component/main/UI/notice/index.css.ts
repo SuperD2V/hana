@@ -156,7 +156,7 @@ export const timeBox = style({
   minHeight: "490px",
   "@media": {
     "screen and (max-width: 768px)": {
-      height: "550px"
+      minHeight: "500px"
     }
   }
 });
@@ -356,7 +356,12 @@ export const timePlace = style({
 
 export const timeContainer = style({
   textAlign: "center",
-  marginTop: "40px"
+  marginTop: "40px",
+  "@media": {
+    "screen and (max-width: 768px)": {
+      marginTop: "10px"
+    }
+  }
 });
 
 export const timeMainSchedule = style({

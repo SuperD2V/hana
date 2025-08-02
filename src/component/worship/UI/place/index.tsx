@@ -40,7 +40,7 @@ export const Place = () => {
             <span>위치</span>
           </div>
           <Typography variant={variant} className={styles.infoValue}>
-            {CHURCH_INFO.address}
+            경기 수원 영통 웰빙타운로 49번길 8
           </Typography>
         </div>
         <div className={styles.infoRow} style={{ borderBottom: "none" }}>
@@ -66,7 +66,7 @@ export const Place = () => {
             <div style={{ display: "flex", flexDirection: "column" }}>
               <button
                 onClick={() => {
-                  window.open("https://naver.me/FnV2VGcg", "_blank");
+                  window.open("https://naver.me/xprKcvhX", "_blank");
                 }}
                 style={{
                   width: 240,
@@ -82,7 +82,7 @@ export const Place = () => {
               </button>
               <button
                 onClick={() => {
-                  window.open("https://kko.kakao.com/JBVOR1aKyS", "_blank");
+                  window.open("https://kko.kakao.com/UA2CCFOG65", "_blank");
                 }}
                 style={{
                   marginTop: 12,

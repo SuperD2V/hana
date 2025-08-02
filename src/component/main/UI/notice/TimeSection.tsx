@@ -38,7 +38,7 @@ const TimeSection = () => {
           <Typography
             variant={mounted && isMobile ? "body1Medium" : "headlineRegular"}
           >
-            오전11:00 예배실
+            오전11:00 예배실(2F)
           </Typography>
         </div>
         <div className={timeScheduleList}>
@@ -69,7 +69,7 @@ const TimeSection = () => {
                 }
                 className={`${timePlace} break-words`}
               >
-                비전홀
+                비전라운지(1F)
               </Typography>
             </div>
           </div>
@@ -98,7 +98,7 @@ const TimeSection = () => {
                 }
                 className={`${timePlace} break-words`}
               >
-                비전홀
+                비전라운지(1F)
               </Typography>
             </div>
           </div>
@@ -127,7 +127,7 @@ const TimeSection = () => {
                 }
                 className={`${timePlace} break-words`}
               >
-                하나홀
+                하나홀(1F)
               </Typography>
             </div>
           </div>
@@ -185,7 +185,7 @@ const TimeSection = () => {
                 }
                 className={`${timePlace} break-words`}
               >
-                하나홀
+                하나홀(1F)
               </Typography>
             </div>
           </div>

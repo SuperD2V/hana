@@ -109,11 +109,11 @@ export const button = style({
   color: color.brand[0],
   padding: "12px 40px",
   borderRadius: "12px",
-  width: "240px",
+  minWidth: "240px",
   cursor: "pointer",
   "@media": {
     "(max-width: 768px)": {
-      width: "332px"
+      minWidth: "332px"
     }
   }
 });

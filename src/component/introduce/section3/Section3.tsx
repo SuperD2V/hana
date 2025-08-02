@@ -47,33 +47,31 @@ const Section3 = () => {
               매니저'로, 제일성도교회에서 '청년교회' 총괄 담임으로 섬겼으며,
               원천교회 1교회 담임목사로 17년간 섬기면서 원천하나기독학교
               대표로도 섬겼습니다. {"\n"}
-              Fuller Theological Seminary에서 '프로그램 매니저'로,
-              제일성도교회에서 '청보교회' 출발 담임으로 섬겼으며, 원천교회에서
-              1교회 담임목사로 17년간 섬기면서 원천하나기독학교 대표로도
-              섬겼습니다.{"\n"}
               {"\n"}
               저서로는 &lt;신앙 유전자&gt;(도서출판 이르카)가 있습니다.창세기의
               아브라함-이삭-야곱, 삼대에 걸친 신앙의 대물림에 대해 묵상,
               연구하고 쓴 책으로 도서출판 &lt;이르카&gt;에서 출판되었습니다.
             </Typography>
           </div>
-                <div className="flex flex-row gap-[12px]">
-          <button
-            className='w-[200px] h-[52px] !bg-[#1B5FB8] rounded-[12px] !text-[#F5F9FF] mt-[59px] cursor-pointer !mt-[35px]'
-            onClick={() => {
-              window.open("https://www.kctusa.org/news/articleView.html?idxno=17166");
-            }}
-          >
-           저자 인터뷰
-          </button>
-          <button
-            className='w-[200px] h-[52px] !bg-[#1B5FB8] rounded-[12px] !text-[#F5F9FF] mt-[59px] cursor-pointer !mt-[35px]'
-            onClick={() => {
-              window.open("https://m.blog.naver.com/arca_pub/222482522524");
-            }}
-          >
-            출판사 리뷰
-          </button>
+          <div className='flex flex-row gap-[12px]'>
+            <button
+              className='w-[200px] h-[52px] !bg-[#1B5FB8] rounded-[12px] !text-[#F5F9FF] mt-[59px] cursor-pointer !mt-[35px]'
+              onClick={() => {
+                window.open(
+                  "https://www.kctusa.org/news/articleView.html?idxno=17166"
+                );
+              }}
+            >
+              저자 인터뷰
+            </button>
+            <button
+              className='w-[200px] h-[52px] !bg-[#1B5FB8] rounded-[12px] !text-[#F5F9FF] mt-[59px] cursor-pointer !mt-[35px]'
+              onClick={() => {
+                window.open("https://m.blog.naver.com/arca_pub/222482522524");
+              }}
+            >
+              출판사 리뷰
+            </button>
           </div>
         </div>
       </div>
