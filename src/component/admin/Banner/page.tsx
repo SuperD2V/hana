@@ -18,7 +18,7 @@ const Banner = () => {
   const [previewUrl, setPreviewUrl] = useState<string>("");
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["banner"],
     queryFn: getBanner
   });
@@ -35,6 +35,25 @@ const Banner = () => {
 
   const handleImageChange = () => {
     fileInputRef.current?.click();
+  };
+
+  const handleBannerSubmit = async () => {
+    if (selectedFile) {
+      try {
+        await changeBanner({
+          data: { type: "gif", displayOrder: 0 },
+          file: selectedFile
+        });
+        setSelectedFile(null);
+        setPreviewUrl("");
+        // 배너 변경 성공 후 데이터 다시 가져오기
+        await refetch();
+      } catch (error) {
+        console.error("배너 변경 실패:", error);
+      }
+    } else {
+      toast.error("변경할 사진을 선택해주세요.");
+    }
   };
 
   if (isLoading) return <div>Loading...</div>;
@@ -80,20 +99,7 @@ const Banner = () => {
         <button className={registerButtonStyle} onClick={handleImageChange}>
           사진 변경
         </button>
-        <button
-          onClick={() => {
-            if (selectedFile) {
-              changeBanner({
-                data: { type: "gif", displayOrder: 0 },
-                file: selectedFile
-              });
-              setSelectedFile(null);
-            } else {
-              toast.error("변경할 사진을 선택해주세요.");
-            }
-          }}
-          className={deleteButtonStyle}
-        >
+        <button onClick={handleBannerSubmit} className={deleteButtonStyle}>
           등록하기
         </button>
         <input
