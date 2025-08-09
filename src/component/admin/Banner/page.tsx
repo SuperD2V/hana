@@ -40,6 +40,10 @@ const Banner = () => {
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
+  // 이미지 URL이 있는지 확인
+  const imageUrl = data?.data?.content?.[0]?.url;
+  const hasValidImage = imageUrl && imageUrl.trim() !== "";
+
   return (
     <div
       style={{ width: "100%", maxWidth: "1520px", margin: "80px auto 0 auto" }}
@@ -51,12 +55,26 @@ const Banner = () => {
         buttonText=''
       />
       <div className={imageContainer}>
-        <Image
-          src={data?.data.content[0].url || ""}
-          alt='banner'
-          fill
-          style={{ objectFit: "contain", position: "absolute" }}
-        />
+        {hasValidImage ? (
+          <Image
+            src={imageUrl}
+            alt='banner'
+            fill
+            style={{ objectFit: "contain", position: "absolute" }}
+          />
+        ) : (
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              height: "100%",
+              color: "#666"
+            }}
+          >
+            배너 이미지가 없습니다
+          </div>
+        )}
       </div>
       <div className={bulletinContainer}>
         <button className={registerButtonStyle} onClick={handleImageChange}>
