@@ -52,7 +52,7 @@ const Banner = () => {
       />
       <div className={imageContainer}>
         <Image
-          src={previewUrl || data?.data.content[0].url || ""}
+          src={data?.data.content[0].url || ""}
           alt='banner'
           fill
           style={{ objectFit: "contain", position: "absolute" }}
