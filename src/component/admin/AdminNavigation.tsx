@@ -3,10 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { Typography } from "../shared";
+import { api, Typography } from "../shared";
 import { useAdminStore } from "../../../hooks/store/useAdminStore";
 import { useShallow } from "zustand/shallow";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const NAVIGATION_ITEMS = [
   {
@@ -49,6 +50,20 @@ const AdminNavigation = () => {
       setState: state.setState
     }))
   );
+  const logout = async () => {
+    try {
+      await api.request({
+        url: "/api/admin/logout",
+        method: "POST"
+      });
+      localStorage.removeItem("accessToken");
+      toast.success("로그아웃 되었습니다.");
+      router.push("/admin/signin");
+    } catch (error) {
+      console.error(error);
+      toast.error("로그아웃에 실패했습니다.");
+    }
+  };
   return (
     <div
       style={{
@@ -146,6 +161,30 @@ const AdminNavigation = () => {
           }}
         >
           비밀번호 재설정
+        </Typography>
+      </div>
+      <div
+        style={{
+          marginTop: "10px",
+          width: "100%",
+          cursor: "pointer",
+          padding: "12px",
+          borderRadius: "12px",
+          backgroundColor: "#E8F0FE",
+          border: "1px solid #1350A0",
+          textAlign: "center"
+        }}
+        onClick={() => {
+          logout();
+        }}
+      >
+        <Typography
+          variant='headlineMedium'
+          style={{
+            color: "#1350A0"
+          }}
+        >
+          로그아웃
         </Typography>
       </div>
     </div>
