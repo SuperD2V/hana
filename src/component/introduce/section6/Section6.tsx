@@ -108,11 +108,11 @@ const Section6 = () => {
                 variant='body1Regular'
                 className='!text-[#44423C] text-center whitespace-pre-line !leading-[28px]'
               >
-                하나비전교회는 한국독립교회선교협의회(kaicam.org)에 김장환
-                있습니다.소속 교회로는 원천안디옥교회(원로목사), 할레루야교회
-                (김상복 원로목사), CCC(한국대학생선교회),
+                하나비전교회는 한국독립교회선교협의회(kaicam.org)에 소속되어
+                있습니다. 같이 소속된 교회로는 원천안디옥교회(김장환 원로목사),
+                할렐루야교회 (김상복 원로목사), CCC(한국대학생선교회),
                 베이직처치(조정민목사), 라이프하우스처치(홍민기목사) 등이
-                소속되어 있습니다.
+                있습니다.
               </Typography>
             </div>
           </div>
