@@ -26,7 +26,23 @@ export const sliderSettings = {
     {
       breakpoint: 768,
       settings: {
-        slidesToShow: 3,
+        slidesToShow: 2.7,
+        slidesToScroll: 1,
+        centerMode: false
+      }
+    },
+    {
+      breakpoint: 650,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        centerMode: false
+      }
+    },
+    {
+      breakpoint: 475,
+      settings: {
+        slidesToShow: 1.5,
         slidesToScroll: 1,
         centerMode: false
       }
@@ -36,7 +52,7 @@ export const sliderSettings = {
       settings: {
         slidesToShow: 1.2,
         slidesToScroll: 1,
-        centerMode: true
+        centerMode: false
       }
     },
     {
@@ -44,7 +60,7 @@ export const sliderSettings = {
       settings: {
         slidesToShow: 1.2,
         slidesToScroll: 1,
-        centerMode: true
+        centerMode: false
       }
     }
   ]
