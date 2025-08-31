@@ -40,16 +40,17 @@ import { color } from "@/component/shared/designed/color";
 import {
   getBulletinDetail,
   getNoticeDetail,
-  registerAnnouncement,
-  registerBulletin,
-  updateAnnouncement,
-  updateBulletin,
   AnnouncementRegisterDTO,
   BulletinRegisterDTO,
   AnnouncementEditDTO,
   BulletinEditDTO
 } from "@/component/notice/api/api";
 import { useQuery } from "@tanstack/react-query";
+import { useCreateNotice, useUpdateNotice } from "@/component/admin/Notice/api";
+import {
+  useCreateBulletin,
+  useUpdateBulletin
+} from "@/component/admin/Bulletin/api";
 
 // react-quill-new를 dynamic import로 불러와서 SSR 문제 방지
 const ReactQuill = dynamic(
@@ -90,7 +91,12 @@ const NoticeBulletineRegister = () => {
 
   // 데이터 로딩 완료 플래그
   const [isDataLoaded, setIsDataLoaded] = React.useState(false);
-  const [isSubmitting, setIsSubmitting] = React.useState(false);
+
+  // Mutation 훅들
+  const createNoticeMutation = useCreateNotice();
+  const updateNoticeMutation = useUpdateNotice();
+  const createBulletinMutation = useCreateBulletin();
+  const updateBulletinMutation = useUpdateBulletin();
 
   // 커스텀 훅들 사용
   const { quillRef, quillModules, quillFormats } = useQuillEditor();
@@ -175,7 +181,7 @@ const NoticeBulletineRegister = () => {
   // 로딩 상태 통합
   const isLoading = isDataLoading;
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     const errors = validateForm(formData.title, formData.content);
 
     if (errors.length > 0) {
@@ -183,118 +189,138 @@ const NoticeBulletineRegister = () => {
       return;
     }
 
-    setIsSubmitting(true);
+    const isCurrentlySubmitting =
+      createNoticeMutation.isPending ||
+      updateNoticeMutation.isPending ||
+      createBulletinMutation.isPending ||
+      updateBulletinMutation.isPending;
 
-    try {
-      if (isNotice) {
-        // 공지사항 등록/수정
-        const announcementDTO: AnnouncementRegisterDTO = {
-          title: formData.title,
-          content: formData.content,
-          topExposure: isPinned,
-          topExposureTag: isPinned ? "공지" : "",
-          isVisible: true
-        };
+    if (isCurrentlySubmitting) {
+      return;
+    }
+    if (isNotice) {
+      // 공지사항 등록/수정
+      const announcementDTO: AnnouncementRegisterDTO = {
+        title: formData.title,
+        content: formData.content,
+        topExposure: isPinned,
+        topExposureTag: isPinned ? "공지" : "",
+        isVisible: true
+      };
 
-        // 실제 파일만 필터링 (기존 파일 제외)
-        const actualFiles = files
-          .filter(file => file.file !== null)
-          .map(file => file.file!);
+      // 실제 파일만 필터링 (기존 파일 제외)
+      const actualFiles = files
+        .filter(file => file.file !== null)
+        .map(file => file.file!);
 
-        console.log(
-          isEdit ? "공지사항 수정 데이터:" : "공지사항 등록 데이터:",
+      console.log(isEdit ? "공지사항 수정 데이터:" : "공지사항 등록 데이터:", {
+        announcementDTO,
+        files: actualFiles,
+        deletedFileIds
+      });
+
+      if (isEdit) {
+        // 수정 모드
+        updateNoticeMutation.mutate(
           {
+            id: id!,
             announcementDTO,
-            files: actualFiles,
-            deletedFileIds
+            deletedFileIds,
+            files: actualFiles
+          },
+          {
+            onSuccess: () => {
+              alert("공지사항이 수정되었습니다.");
+              router.replace("/admin");
+              setState("selectedCateogry", 2);
+              setState("selectedId", null);
+            },
+            onError: () => {
+              alert("공지사항 수정에 실패했습니다.");
+            }
           }
         );
-
-        if (isEdit) {
-          // 수정 모드
-          const response = await updateAnnouncement(
-            id!,
-            announcementDTO,
-            deletedFileIds,
-            actualFiles
-          );
-          if (response) {
-            alert("공지사항이 수정되었습니다.");
-            router.replace("/admin");
-            setState("selectedCateogry", 2);
-            setState("selectedId", null);
-          } else {
-            alert("공지사항 수정에 실패했습니다.");
-          }
-        } else {
-          // 등록 모드
-          const response = await registerAnnouncement(
-            announcementDTO,
-            actualFiles
-          );
-          if (response) {
-            alert("공지사항이 등록되었습니다.");
-            router.replace("/admin");
-            setState("selectedCateogry", 2);
-            setState("selectedId", null);
-          } else {
-            alert("공지사항 등록에 실패했습니다.");
-          }
-        }
       } else {
-        // 주보 등록/수정
-        const bulletinDTO: BulletinRegisterDTO = {
-          title: formData.title,
-          content: formData.content,
-          topExposure: false, // 주보는 상단 고정 기능이 없을 것으로 추정
-          topExposureTag: "",
-          isVisible: true
-        };
+        // 등록 모드
+        createNoticeMutation.mutate(
+          {
+            announcementDTO,
+            files: actualFiles
+          },
+          {
+            onSuccess: () => {
+              alert("공지사항이 등록되었습니다.");
+              router.replace("/admin");
+              setState("selectedCateogry", 2);
+              setState("selectedId", null);
+            },
+            onError: () => {
+              alert("공지사항 등록에 실패했습니다.");
+            }
+          }
+        );
+      }
+    } else {
+      // 주보 등록/수정
+      const bulletinDTO: BulletinRegisterDTO = {
+        title: formData.title,
+        content: formData.content,
+        topExposure: false, // 주보는 상단 고정 기능이 없을 것으로 추정
+        topExposureTag: "",
+        isVisible: true
+      };
 
-        // 실제 파일만 필터링 (기존 파일 제외)
-        const actualFiles = files
-          .filter(file => file.file !== null)
-          .map(file => file.file!);
+      // 실제 파일만 필터링 (기존 파일 제외)
+      const actualFiles = files
+        .filter(file => file.file !== null)
+        .map(file => file.file!);
 
-        console.log(isEdit ? "주보 수정 데이터:" : "주보 등록 데이터:", {
-          bulletinDTO,
-          files: actualFiles,
-          deletedFileIds
-        });
+      console.log(isEdit ? "주보 수정 데이터:" : "주보 등록 데이터:", {
+        bulletinDTO,
+        files: actualFiles,
+        deletedFileIds
+      });
 
-        if (isEdit) {
-          // 수정 모드
-          const response = await updateBulletin(
-            id!,
+      if (isEdit) {
+        // 수정 모드
+        updateBulletinMutation.mutate(
+          {
+            id: id!,
             bulletinDTO,
             deletedFileIds,
-            actualFiles
-          );
-          if (response) {
-            alert("주보가 수정되었습니다.");
-            router.replace("/admin");
-            setState("selectedCateogry", 3);
-            setState("selectedId", null);
-          } else {
-            alert("주보 수정에 실패했습니다.");
+            files: actualFiles
+          },
+          {
+            onSuccess: () => {
+              alert("주보가 수정되었습니다.");
+              router.replace("/admin");
+              setState("selectedCateogry", 3);
+              setState("selectedId", null);
+            },
+            onError: () => {
+              alert("주보 수정에 실패했습니다.");
+            }
           }
-        } else {
-          // 등록 모드
-          const response = await registerBulletin(bulletinDTO, actualFiles);
-          if (response) {
-            alert("주보가 등록되었습니다.");
-            setState("selectedCateogry", 3);
-            setState("selectedId", null);
-          } else {
-            alert("주보 등록에 실패했습니다.");
+        );
+      } else {
+        // 등록 모드
+        createBulletinMutation.mutate(
+          {
+            bulletinDTO,
+            files: actualFiles
+          },
+          {
+            onSuccess: () => {
+              alert("주보가 등록되었습니다.");
+              setState("selectedCateogry", 3);
+              setState("selectedId", null);
+            },
+            onError: () => {
+              alert("주보 등록에 실패했습니다.");
+            }
           }
-        }
+        );
       }
-    } catch (error) {
-      console.error("등록 실패:", error);
-      alert("등록 중 오류가 발생했습니다.");
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
@@ -491,9 +517,17 @@ const NoticeBulletineRegister = () => {
             type='button'
             className={submitButton}
             onClick={handleSubmit}
-            disabled={isSubmitting}
+            disabled={
+              createNoticeMutation.isPending ||
+              updateNoticeMutation.isPending ||
+              createBulletinMutation.isPending ||
+              updateBulletinMutation.isPending
+            }
           >
-            {isSubmitting
+            {createNoticeMutation.isPending ||
+            updateNoticeMutation.isPending ||
+            createBulletinMutation.isPending ||
+            updateBulletinMutation.isPending
               ? isEdit
                 ? "수정 중..."
                 : "등록 중..."

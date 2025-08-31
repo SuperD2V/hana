@@ -53,7 +53,7 @@ const AdminNavigation = () => {
   const logout = async () => {
     try {
       await api.request({
-        url: "/api/admin/logout",
+        url: "/api/logout",
         method: "POST"
       });
       localStorage.removeItem("accessToken");

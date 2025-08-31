@@ -110,6 +110,15 @@ export const Calendar = () => {
         const currentMonth = today.getMonth();
         const currentDay = today.getDate();
 
+        console.log(
+          "Current Month:",
+          currentMonth,
+          "Selected Month:",
+          selectedMonth
+        );
+        console.log("Current Day:", currentDay);
+        console.log("Summary Days:", summaryDays);
+
         // 현재 선택된 월이 오늘의 월과 같을 때만 오늘 날짜 확인
         if (selectedMonth === currentMonth && summaryDays.length > 0) {
           // 오늘 날짜에 이벤트가 있는지 확인
@@ -117,14 +126,64 @@ export const Calendar = () => {
             summaryDays[currentDay - 1] &&
             summaryDays[currentDay - 1][currentDay.toString()] === true;
 
+          console.log("Has Today Event:", hasTodayEvent);
+
           // 오늘에 이벤트가 있으면 해당 위치로 이동
           if (hasTodayEvent) {
+            console.log("Moving to today's event:", currentDay);
+            setSelectedDay(currentDay); // 오늘 날짜로 선택된 날짜 업데이트
             moveSliderToDateEvent(currentDay, allEvents, summaryDays);
+            return;
+          }
+
+          // 오늘에 이벤트가 없으면 가장 가까운 이후 날짜의 이벤트 찾기
+          let nearestFutureDay = -1;
+          for (let i = currentDay; i < summaryDays.length; i++) {
+            if (summaryDays[i] && summaryDays[i][(i + 1).toString()] === true) {
+              nearestFutureDay = i + 1;
+              break;
+            }
+          }
+
+          // 오늘 이후에 이벤트가 없다면 오늘 이전 날짜 중 가장 가까운 이벤트 찾기
+          if (nearestFutureDay === -1) {
+            for (let i = currentDay - 2; i >= 0; i--) {
+              if (
+                summaryDays[i] &&
+                summaryDays[i][(i + 1).toString()] === true
+              ) {
+                nearestFutureDay = i + 1;
+                break;
+              }
+            }
+          }
+
+          // 그래도 없다면 이번 달 전체에서 가장 빠른 이벤트 찾기
+          if (nearestFutureDay === -1) {
+            for (let i = 0; i < summaryDays.length; i++) {
+              if (
+                summaryDays[i] &&
+                summaryDays[i][(i + 1).toString()] === true
+              ) {
+                nearestFutureDay = i + 1;
+                break;
+              }
+            }
+          }
+
+          console.log("Nearest Future Day:", nearestFutureDay);
+
+          // 가장 가까운 이후 날짜에 이벤트가 있으면 해당 위치로 이동
+          if (nearestFutureDay !== -1) {
+            console.log("Moving to nearest future event:", nearestFutureDay);
+            setSelectedDay(nearestFutureDay); // 해당 날짜로 선택된 날짜 업데이트
+            moveSliderToDateEvent(nearestFutureDay, allEvents, summaryDays);
             return;
           }
         }
 
-        // 오늘이 아닌 다른 월이거나 오늘에 일정이 없으면 첫 번째 슬라이드로 이동
+        // 오늘이 아닌 다른 월이거나 이후 날짜에도 일정이 없으면 첫 번째 슬라이드로 이동
+        console.log("Moving to first slide");
         setTimeout(() => {
           sliderRef.current?.slickGoTo(0);
         }, 100);
@@ -149,6 +208,10 @@ export const Calendar = () => {
   const handleDaySelect = (dayNumber: number) => {
     // 선택된 날짜는 항상 업데이트
     setSelectedDay(dayNumber);
+
+    // API 데이터에서 일정 추출
+    const allEvents = data?.data.calendarEvents || [];
+    const summaryDays = data?.data.summaryDays || [];
 
     // 이벤트가 있는 경우에만 슬라이더를 해당 위치로 이동
     moveSliderToDateEvent(dayNumber, allEvents, summaryDays);

@@ -2,6 +2,11 @@ import { ApiResponse, PaginatedResponse } from "@/component/shared/type";
 import { Notice } from "../type";
 import { api } from "@/component/shared";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  registerAnnouncement,
+  updateAnnouncement,
+  AnnouncementRegisterDTO
+} from "@/component/notice/api/api";
 
 export interface NoticeListParams {
   page?: number;
@@ -53,6 +58,65 @@ export const useDeleteNotice = () => {
     },
     onError: error => {
       console.error("삭제 실패:", error);
+    }
+  });
+};
+
+// 공지사항 등록 mutation 훅
+export const useCreateNotice = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({
+      announcementDTO,
+      files
+    }: {
+      announcementDTO: AnnouncementRegisterDTO;
+      files: File[];
+    }) => registerAnnouncement(announcementDTO, files),
+    onSuccess: () => {
+      // 등록 성공 후 모든 noticeList 관련 쿼리 무효화
+      queryClient.invalidateQueries({
+        queryKey: ["noticeList"],
+        exact: false
+      });
+    },
+    onError: error => {
+      console.error("등록 실패:", error);
+    }
+  });
+};
+
+// 공지사항 수정 mutation 훅
+export const useUpdateNotice = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({
+      id,
+      announcementDTO,
+      deletedFileIds,
+      files
+    }: {
+      id: string;
+      announcementDTO: AnnouncementRegisterDTO;
+      deletedFileIds: number[];
+      files: File[];
+    }) => updateAnnouncement(id, announcementDTO, deletedFileIds, files),
+    onSuccess: () => {
+      // 수정 성공 후 모든 noticeList 관련 쿼리 무효화
+      queryClient.invalidateQueries({
+        queryKey: ["noticeList"],
+        exact: false
+      });
+      // 상세 페이지 쿼리도 무효화
+      queryClient.invalidateQueries({
+        queryKey: ["detail"],
+        exact: false
+      });
+    },
+    onError: error => {
+      console.error("수정 실패:", error);
     }
   });
 };

@@ -18,7 +18,10 @@ export const useQuillEditor = () => {
 
       // React Quill 인스턴스 가져오기
       const quill = quillRef.current?.getEditor();
-      if (!quill) return;
+      if (!quill) {
+        console.error("Quill 에디터를 찾을 수 없습니다.");
+        return;
+      }
 
       const range = quill.getSelection();
       const index = range ? range.index : quill.getLength();
@@ -26,122 +29,135 @@ export const useQuillEditor = () => {
       // 로딩 placeholder 삽입
       quill.insertText(index, "이미지 업로드 중...", "italic", true);
 
-      // 서버에 이미지 업로드
-      const imageUrl = await handleImageUpload(file);
+      try {
+        // 서버에 이미지 업로드
+        const imageUrl = await handleImageUpload(file);
 
-      // placeholder 제거
-      quill.deleteText(index, "이미지 업로드 중...".length);
+        // placeholder 제거
+        quill.deleteText(index, "이미지 업로드 중...".length);
 
-      if (imageUrl) {
-        console.log("에디터에 이미지 삽입 시도:", imageUrl);
+        if (imageUrl) {
+          console.log("에디터에 이미지 삽입 시도:", imageUrl);
 
-        try {
-          // 이미지 삽입 전 에디터 상태 확인
-          console.log("에디터 내용 삽입 전:", quill.getContents());
+          // CloudFront URL인 경우 Next.js 이미지 프록시를 통해 처리
+          let processedImageUrl = imageUrl;
+          if (imageUrl.includes("dpsm0twgatw84.cloudfront.net")) {
+            processedImageUrl = `/api/image-proxy?url=${encodeURIComponent(
+              imageUrl
+            )}`;
+          }
 
           // 이미지 삽입
-          quill.insertEmbed(index, "image", imageUrl);
-          console.log("이미지 삽입 완료");
+          const insertSuccess = quill.insertEmbed(
+            index,
+            "image",
+            processedImageUrl
+          );
+          console.log("이미지 삽입 결과:", insertSuccess);
 
-          // 삽입 후 에디터 상태 확인
+          // 커서를 이미지 다음 위치로 이동
+          quill.setSelection(index + 1);
+
+          // 삽입 후 검증 (비동기적으로 수행)
           setTimeout(() => {
-            console.log("에디터 내용 삽입 후:", quill.getContents());
-
             const editorElement = quill.root;
             const allImages = editorElement.querySelectorAll("img");
-            console.log("현재 에디터의 모든 이미지들:");
-            allImages.forEach((img: Element, index: number) => {
-              console.log(`이미지 ${index}:`, (img as HTMLImageElement).src);
-            });
-
-            // URL에 특수문자가 있어서 querySelector가 안될 수 있으니 직접 찾기
-            const targetImages: Element[] = [];
-            for (let i = 0; i < allImages.length; i++) {
-              const img = allImages[i] as HTMLImageElement;
-              if (img.src === imageUrl) {
-                targetImages.push(img);
-              }
-            }
 
             console.log("에디터 내 전체 이미지 수:", allImages.length);
-            console.log("삽입한 이미지 요소 수:", targetImages.length);
-            console.log("에디터 HTML:", editorElement.innerHTML);
 
-            // 이미지가 삽입되었는지 확인
-            if (targetImages.length === 0) {
-              console.error("이미지가 에디터에 삽입되지 않았습니다!");
-              // 다른 방법으로 이미지 삽입 시도
-              const delta = quill.getContents();
-              const newDelta = delta.insert({ image: imageUrl });
-              quill.setContents(newDelta);
-              console.log("대안 방법으로 이미지 삽입 시도");
-            } else {
-              targetImages.forEach((img: Element) => {
-                const htmlImg = img as HTMLImageElement;
+            // 방금 삽입한 이미지 찾기
+            let imageFound = false;
+            allImages.forEach((img: HTMLImageElement, imgIndex: number) => {
+              console.log(`이미지 ${imgIndex}:`, img.src);
 
-                // alt 속성 설정
-                htmlImg.setAttribute("alt", "photo-in-text-cloudfront-src");
+              if (img.src === processedImageUrl || img.src === imageUrl) {
+                imageFound = true;
 
-                // CORS 문제 해결을 위한 crossorigin 속성 추가
-                htmlImg.setAttribute("crossorigin", "anonymous");
+                // 이미지 속성 설정
+                img.setAttribute("alt", "photo-in-text-cloudfront-src");
+                img.style.maxWidth = "100%";
+                img.style.height = "auto";
 
-                // 이미지 스타일 설정 (로딩 중일 때 표시)
-                htmlImg.style.maxWidth = "100%";
-                htmlImg.style.height = "auto";
-
-                console.log("이미지 속성 설정 완료:", {
-                  src: htmlImg.src,
-                  alt: htmlImg.alt,
-                  crossorigin: htmlImg.crossOrigin
-                });
+                // CloudFront 이미지가 아닌 경우에만 crossorigin 속성 추가
+                if (!imageUrl.includes("dpsm0twgatw84.cloudfront.net")) {
+                  img.setAttribute("crossorigin", "anonymous");
+                }
 
                 // 이미지 로드 이벤트 리스너
-                htmlImg.onerror = event => {
+                img.onerror = event => {
                   console.error("이미지 로드 실패:", {
                     url: imageUrl,
                     event: event,
-                    naturalWidth: htmlImg.naturalWidth,
-                    naturalHeight: htmlImg.naturalHeight
+                    naturalWidth: img.naturalWidth,
+                    naturalHeight: img.naturalHeight
                   });
 
                   // 이미지 로드 실패 시 대체 텍스트 표시
-                  htmlImg.style.display = "inline-block";
-                  htmlImg.style.width = "200px";
-                  htmlImg.style.height = "100px";
-                  htmlImg.style.backgroundColor = "#f0f0f0";
-                  htmlImg.style.border = "1px solid #ccc";
-                  htmlImg.style.textAlign = "center";
-                  htmlImg.style.lineHeight = "100px";
-                  htmlImg.alt = "이미지 로드 실패";
+                  img.style.display = "inline-block";
+                  img.style.width = "200px";
+                  img.style.height = "100px";
+                  img.style.backgroundColor = "#f0f0f0";
+                  img.style.border = "1px solid #ccc";
+                  img.style.textAlign = "center";
+                  img.style.lineHeight = "100px";
+                  img.alt = "이미지 로드 실패";
                 };
 
-                htmlImg.onload = () => {
+                img.onload = () => {
                   console.log("이미지 로드 성공:", {
                     url: imageUrl,
-                    naturalWidth: htmlImg.naturalWidth,
-                    naturalHeight: htmlImg.naturalHeight,
-                    displayWidth: htmlImg.width,
-                    displayHeight: htmlImg.height
+                    naturalWidth: img.naturalWidth,
+                    naturalHeight: img.naturalHeight,
+                    displayWidth: img.width,
+                    displayHeight: img.height
                   });
                 };
 
                 // 이미지가 이미 로드된 경우 (캐시된 경우)
-                if (htmlImg.complete && htmlImg.naturalHeight !== 0) {
+                if (img.complete && img.naturalHeight !== 0) {
                   console.log("이미지가 이미 로드됨 (캐시):", imageUrl);
                 }
-              });
+              }
+            });
+
+            if (!imageFound) {
+              console.warn(
+                "삽입한 이미지를 에디터에서 찾을 수 없습니다. 대안 방법 시도..."
+              );
+
+              // 대안 방법: Delta를 사용한 이미지 삽입
+              try {
+                const currentContents = quill.getContents();
+                console.log("현재 에디터 내용:", currentContents);
+
+                // 새로운 이미지 삽입
+                quill.insertEmbed(index, "image", imageUrl);
+                console.log("대안 방법으로 이미지 삽입 완료");
+              } catch (deltaError) {
+                console.error("대안 방법도 실패:", deltaError);
+                alert(
+                  "이미지를 에디터에 삽입하는데 실패했습니다. 페이지를 새로고침 후 다시 시도해주세요."
+                );
+              }
+            } else {
+              console.log("이미지가 성공적으로 에디터에 삽입되었습니다.");
             }
           }, 100);
-
-          // 커서를 이미지 다음 위치로 이동
-          quill.setSelection(index + 1);
-        } catch (embedError) {
-          console.error("이미지 삽입 실패:", embedError);
-          alert("이미지를 에디터에 삽입하는데 실패했습니다.");
+        } else {
+          console.error("유효한 이미지 URL이 없어서 삽입할 수 없습니다.");
+          alert("이미지 URL을 받아오지 못했습니다.");
         }
-      } else {
-        console.error("유효한 이미지 URL이 없어서 삽입할 수 없습니다.");
-        alert("이미지 URL을 받아오지 못했습니다.");
+      } catch (embedError) {
+        console.error("이미지 삽입 실패:", embedError);
+
+        // placeholder 제거
+        try {
+          quill.deleteText(index, "이미지 업로드 중...".length);
+        } catch (deleteError) {
+          console.error("placeholder 제거 실패:", deleteError);
+        }
+
+        alert("이미지를 에디터에 삽입하는데 실패했습니다.");
       }
     };
   }, [handleImageUpload]);

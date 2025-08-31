@@ -2,6 +2,11 @@ import { ApiResponse, PaginatedResponse } from "@/component/shared/type";
 import { api } from "@/component/shared";
 import { Bulletin } from "../type";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  registerBulletin,
+  updateBulletin,
+  BulletinRegisterDTO
+} from "@/component/notice/api/api";
 
 export interface BulletinListParams {
   page: number;
@@ -52,66 +57,77 @@ export const uploadFile = async (file: File) => {
 
     // 파일이 유효한지 확인
     if (!file || file.size === 0) {
-      throw new Error("Invalid file");
+      throw new Error("Invalid file: 파일이 비어있거나 유효하지 않습니다.");
     }
 
-    // // 먼저 fetch API로 시도 (더 간단한 방식)
-    // try {
-    //   return await uploadFileWithFetch(file);
-    // } catch (fetchError) {
-    //   console.log('fetch 방식 실패, axios 방식으로 재시도...');
-    // }
+    // 파일 타입 검증
+    if (!file.type.startsWith("image/")) {
+      throw new Error("Invalid file type: 이미지 파일만 업로드 가능합니다.");
+    }
 
-    // Swagger 스펙에 맞게 file 필드만 전송
+    // FormData 생성
     const formData = new FormData();
     formData.append("file", file);
 
-    // FormData 내용 확인 (더 안전한 방식)
-    console.log("FormData 생성 완료");
-    console.log("FormData has file:", formData.has("file"));
-    console.log("FormData get file:", formData.get("file"));
+    // FormData 내용 확인
+    console.log("FormData 생성 완료:", {
+      hasFile: formData.has("file"),
+      fileInfo: formData.get("file")
+    });
 
     // API 요청 전 로그
     console.log("API 요청 시작:", {
       url: "/api/admin/bulletin/file",
       method: "POST",
-      hasFormData: !!formData
+      fileSize: file.size,
+      fileName: file.name
     });
 
     const response = await api.request<ApiResponse<any>>({
       url: "/api/admin/bulletin/file",
       method: "POST",
       data: formData,
-      timeout: 30000, // 30초 타임아웃
+      timeout: 60000, // 60초 타임아웃으로 증가
       headers: {
         "Content-Type": undefined // FormData 사용 시 Content-Type을 undefined로 설정
       }
     });
 
-    console.log("업로드 성공:", response);
-    console.log("응답 데이터:", response.data);
+    console.log("업로드 성공:", {
+      message: response.message,
+      data: response.data
+    });
 
-    // URL 추출 및 검증 (axios 방식)
+    // 응답 데이터 검증
+    if (!response.data || !response.data.data) {
+      throw new Error("서버 응답이 올바르지 않습니다: data 필드가 없습니다.");
+    }
+
+    // URL 추출
     const imageUrl = response.data.data.BULLETIN;
-    console.log("axios로 추출된 이미지 URL:", imageUrl);
+    console.log("추출된 이미지 URL:", imageUrl);
 
-    // if (typeof imageUrl === 'string' && imageUrl.length > 0) {
-    // URL이 http나 https로 시작하지 않으면 기본 도메인 추가
-    // if (!imageUrl.startsWith('http')) {
-    //   const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL
-    //   const fullUrl = `${baseURL}${imageUrl.startsWith('/') ? imageUrl : '/' + imageUrl}`;
-    //   console.log('axios 상대 경로를 절대 경로로 변환:', fullUrl);
-    //   return fullUrl;
-    // }
-    return imageUrl;
-    // } else {
-    // console.error('axios 유효하지 않은 URL 형식:', imageUrl);
-    // throw new Error('서버에서 유효한 이미지 URL을 반환하지 않았습니다.');
-    // }
+    // URL 유효성 검사
+    if (
+      !imageUrl ||
+      typeof imageUrl !== "string" ||
+      imageUrl.trim().length === 0
+    ) {
+      throw new Error("서버에서 유효한 이미지 URL을 반환하지 않았습니다.");
+    }
+
+    const cleanUrl = imageUrl.trim();
+
+    // URL 형식 기본 검증
+    if (!cleanUrl.includes(".")) {
+      throw new Error("올바르지 않은 URL 형식입니다.");
+    }
+
+    return cleanUrl;
   } catch (error: any) {
     console.error("uploadFile API 에러:", error);
 
-    // 더 자세한 에러 정보
+    // 에러 타입별 세부 로깅
     if (error.response) {
       console.error("서버 응답 에러:", {
         status: error.response.status,
@@ -119,8 +135,24 @@ export const uploadFile = async (file: File) => {
         data: error.response.data,
         headers: error.response.headers
       });
+
+      // 특정 HTTP 상태 코드에 대한 사용자 친화적 에러 메시지
+      if (error.response.status === 413) {
+        throw new Error(
+          "파일 크기가 너무 큽니다. 더 작은 파일을 선택해주세요."
+        );
+      } else if (error.response.status === 415) {
+        throw new Error("지원하지 않는 파일 형식입니다.");
+      } else if (error.response.status === 429) {
+        throw new Error("요청이 너무 많습니다. 잠시 후 다시 시도해주세요.");
+      } else if (error.response.status >= 500) {
+        throw new Error("서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+      }
     } else if (error.request) {
       console.error("요청 실패:", error.request);
+      throw new Error(
+        "네트워크 연결에 문제가 있습니다. 연결을 확인하고 다시 시도해주세요."
+      );
     } else {
       console.error("설정 에러:", error.message);
     }
@@ -131,6 +163,7 @@ export const uploadFile = async (file: File) => {
       timeout: error?.config?.timeout
     });
 
+    // 기본 에러 메시지
     throw error;
   }
 };
@@ -206,6 +239,65 @@ export const useDeleteBulletin = () => {
     },
     onError: error => {
       console.error("삭제 실패:", error);
+    }
+  });
+};
+
+// 주보 등록 mutation 훅
+export const useCreateBulletin = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({
+      bulletinDTO,
+      files
+    }: {
+      bulletinDTO: BulletinRegisterDTO;
+      files: File[];
+    }) => registerBulletin(bulletinDTO, files),
+    onSuccess: () => {
+      // 등록 성공 후 모든 bulletinList 관련 쿼리 무효화
+      queryClient.invalidateQueries({
+        queryKey: ["bulletinList"],
+        exact: false
+      });
+    },
+    onError: error => {
+      console.error("등록 실패:", error);
+    }
+  });
+};
+
+// 주보 수정 mutation 훅
+export const useUpdateBulletin = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({
+      id,
+      bulletinDTO,
+      deletedFileIds,
+      files
+    }: {
+      id: string;
+      bulletinDTO: BulletinRegisterDTO;
+      deletedFileIds: number[];
+      files: File[];
+    }) => updateBulletin(id, bulletinDTO, deletedFileIds, files),
+    onSuccess: () => {
+      // 수정 성공 후 모든 bulletinList 관련 쿼리 무효화
+      queryClient.invalidateQueries({
+        queryKey: ["bulletinList"],
+        exact: false
+      });
+      // 상세 페이지 쿼리도 무효화
+      queryClient.invalidateQueries({
+        queryKey: ["detail"],
+        exact: false
+      });
+    },
+    onError: error => {
+      console.error("수정 실패:", error);
     }
   });
 };

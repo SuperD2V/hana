@@ -14,14 +14,14 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://hanavision.org"),
-  title: "하나비전교회 | 광교 원천 하나비전교회",
-  description: "경기도 용인시 광교 원천 하나비전교회입니다.",
+  title: "하나비전교회 | 광교 하나비전교회",
+  description: "경기도 용인시 광교  하나비전교회입니다.",
   keywords: [
     "하나비전교회",
     "광교교회",
     "광교하나비전교회",
-    "원천하나비전교회",
-    "원천하나교회",
+    "하나비전교회",
+    "하나교회",
     "이현수목사",
     "용인시교회",
     "광교신도시교회",
@@ -50,8 +50,8 @@ export const metadata: Metadata = {
     locale: "ko_KR",
     url: "https://hanavision.church",
     siteName: "하나비전교회",
-    title: "하나비전교회 | 광교 원천 하나비전교회",
-    description: "경기도 용인시 광교 원천 하나비전교회입니다.",
+    title: "하나비전교회 | 광교 하나비전교회",
+    description: "경기도 용인시 광교 하나비전교회입니다.",
     images: [
       {
         url: "/images/main.png",
@@ -63,8 +63,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "하나비전교회 | 광교 원천 하나비전교회",
-    description: "경기도 용인시 광교 원천 하나비전교회입니다.",
+    title: "하나비전교회 | 광교 하나비전교회",
+    description: "경기도 용인시 광교 하나비전교회입니다.",
     images: ["/images/main.png"]
   },
   verification: {
