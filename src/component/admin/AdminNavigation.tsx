@@ -67,6 +67,9 @@ const AdminNavigation = () => {
   return (
     <div
       style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
         display: "flex",
         minWidth: "240px",
         height: "100%",
@@ -74,7 +77,8 @@ const AdminNavigation = () => {
         flexDirection: "column",
         alignItems: "flex-start",
         padding: "20px",
-        backgroundColor: "#F5F9FF"
+        backgroundColor: "#F5F9FF",
+        zIndex: 1000
       }}
     >
       <Image

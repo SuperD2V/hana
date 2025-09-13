@@ -113,6 +113,33 @@ export const KakaoMap = () => {
             height: 220px !important;
           }
         }
+        
+        @media (max-width: 480px) {
+          .kakao-map-img-wrapper {
+            height: 200px !important;
+          }
+          .kakao-map-img-wrapper .map {
+            height: 200px !important;
+          }
+        }
+        
+        @media (max-width: 360px) {
+          .kakao-map-img-wrapper {
+            height: 180px !important;
+          }
+          .kakao-map-img-wrapper .map {
+            height: 180px !important;
+          }
+        }
+        
+        @media (max-width: 320px) {
+          .kakao-map-img-wrapper {
+            height: 160px !important;
+          }
+          .kakao-map-img-wrapper .map {
+            height: 160px !important;
+          }
+        }
       `}</style>
     </div>
   );
