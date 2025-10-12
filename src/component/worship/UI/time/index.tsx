@@ -40,7 +40,7 @@ export const Time = () => {
             </Typography>
           </button>
         </Link>
-        <Link href='band.us/@dawnofhanavision' target='_blank'>
+        <Link href='https://band.us/@dawnofhanavision' target='_blank'>
           <button type='button' className={styles.button}>
             <Typography variant={isMobile ? "body1Medium" : "headlineMedium"}>
               새벽예배(온라인) 밴드
