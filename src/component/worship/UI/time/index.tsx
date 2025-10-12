@@ -13,16 +13,35 @@ export const Time = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.titleContainer}>
-        <Typography
-          variant={isMobile ? "title2Medium" : "title1Medium"}
-          className={styles.title}
-        >
-          주일예배
-        </Typography>
-        <Typography variant={isMobile ? "title3Medium" : "title2Medium"}>
-          오전 11시
-        </Typography>
+      <div
+        style={{
+          display: "flex",
+          gap: "20px",
+          flexDirection: isMobile ? "column" : "row"
+        }}
+      >
+        <div className={styles.titleContainer}>
+          <Typography
+            variant={isMobile ? "title2Medium" : "title1Medium"}
+            className={styles.title}
+          >
+            주일예배
+          </Typography>
+          <Typography variant={isMobile ? "title3Medium" : "title2Medium"}>
+            오전 11시
+          </Typography>
+        </div>
+        <div className={styles.titleContainer}>
+          <Typography
+            variant={isMobile ? "title2Medium" : "title1Medium"}
+            className={styles.title}
+          >
+            새벽예배
+          </Typography>
+          <Typography variant={isMobile ? "title3Medium" : "title2Medium"}>
+            월-금 오전 05:30
+          </Typography>
+        </div>
       </div>
       <div className={styles.cardContainer}>
         {worshipClassData.map(item => (
