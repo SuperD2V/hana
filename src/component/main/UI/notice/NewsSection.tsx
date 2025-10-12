@@ -47,11 +47,14 @@ const NewsSection: React.FC<NewsSectionProps> = ({
     <div className={`${sectionBox} ${newsMobileBox}`}>
       <div className={title}>
         <TypographyEn
+          style={{
+            fontSize: isMobile ? "40px" : "60px"
+          }}
           variant={mounted && isMobile ? "largetitle3Bold" : "largetitle1"}
         >
           {titles}
         </TypographyEn>
-        <Typography variant='title1Semibold'>소식</Typography>
+        {/* <Typography variant='title1Semibold'>소식</Typography> */}
       </div>
       <div className={newsList}>
         {data?.data.content.slice(0, 5).map((item, idx) => (

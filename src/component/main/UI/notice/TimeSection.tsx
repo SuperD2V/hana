@@ -26,11 +26,14 @@ const TimeSection = () => {
     <div className={`${sectionBox} ${timeBox}`}>
       <div className={title}>
         <TypographyEn
+          style={{
+            fontSize: isMobile ? "40px" : "60px"
+          }}
           variant={mounted && isMobile ? "largetitle3Bold" : "largetitle1"}
         >
           TIME
         </TypographyEn>
-        <Typography variant='title1Semibold'>시간</Typography>
+        {/* <Typography variant='title1Semibold'>시간</Typography> */}
       </div>
       {/* 샘플 시간표 내용 */}
       <div className={timeContainer}>
@@ -42,6 +45,37 @@ const TimeSection = () => {
           </Typography>
         </div>
         <div className={timeScheduleList}>
+          <div className={timeRow}>
+            <Typography variant={"body1Medium"} className={timeDept}>
+              새벽예배
+            </Typography>
+            <div className={timeInfoRow}>
+              <Typography
+                variant={
+                  mounted && isMobile ? "body1Regular" : "headlineRegular"
+                }
+                className={timeHour}
+              >
+                오전 5:30
+              </Typography>
+              <Typography
+                variant={
+                  mounted && isMobile ? "body1Regular" : "headlineRegular"
+                }
+                className={timeBar}
+              >
+                |
+              </Typography>
+              <Typography
+                variant={
+                  mounted && isMobile ? "body1Regular" : "headlineRegular"
+                }
+                className={`${timePlace} break-words`}
+              >
+                예배실
+              </Typography>
+            </div>
+          </div>
           <div className={timeRow}>
             <Typography variant={"body1Medium"} className={timeDept}>
               믿음샘

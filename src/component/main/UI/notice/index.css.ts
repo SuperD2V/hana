@@ -302,7 +302,7 @@ export const timeInfoRow = style({
 
 export const timeDept = style({
   fontWeight: 600,
-  width: "46px",
+  width: "60px",
   display: "inline-block",
   flexShrink: 0,
   color: color.brand[800],

@@ -21,11 +21,14 @@ const HelpSection = () => {
     <div className={`${sectionBox} ${helpBox}`}>
       <div className={title}>
         <TypographyEn
+          style={{
+            fontSize: isMobile ? "40px" : "60px"
+          }}
           variant={mounted && isMobile ? "largetitle3Bold" : "largetitle1"}
         >
-          CONTACT
+          HELP
         </TypographyEn>
-        <Typography variant='title1Semibold'>연락</Typography>
+        {/* <Typography variant='title1Semibold'>연락</Typography> */}
       </div>
       {/* 샘플 연락처 내용 */}
       <div className={helpContent}>
