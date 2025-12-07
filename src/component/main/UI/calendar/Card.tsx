@@ -26,7 +26,9 @@ export const Card = ({ event }: CardProps) => {
   return (
     <div className={cardContainer}>
       <div className={cardTitle}>
-        <Typography variant='headlineSemibold'>{event.title}</Typography>
+        <Typography variant='headlineSemibold'>
+          {formatDate(event.startDate)}
+        </Typography>
       </div>
       <Typography variant='title3Medium' className={cardDescription}>
         {event.title}
