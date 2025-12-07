@@ -15,7 +15,11 @@ const AdminContent = () => {
 
   const ContentComponent = useContentSelector();
 
-  return <div style={{ width: "100%" }}>{ContentComponent}</div>;
+  return (
+    <div style={{ width: "100%", paddingLeft: "220px" }}>
+      {ContentComponent}
+    </div>
+  );
 };
 
 export default AdminContent;

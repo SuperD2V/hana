@@ -23,10 +23,11 @@ const NoticeDetail = ({ id }: NoticeDetailProps) => {
       setState: state.setState
     }))
   );
-  const type = searchParams.get("type") === 'worship' ? 'worship' : 'notice';
+  const type = searchParams.get("type") === "worship" ? "worship" : "notice";
   const router = useRouter();
   return (
     <div
+      style={{ maxWidth: "1520px", margin: "80px auto 0 auto" }}
       className={`w-full h-full flex flex-col gap-[20px] bg-[#FFFDF5] max-w-[1680px] ${
         isMobile && mounted
           ? "!pt-[92px] !px-[20px]"
