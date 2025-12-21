@@ -27,7 +27,7 @@ export const FloatingBar = () => {
       <div className={floatingBarList}>
         <div
           className={floatingBarItem}
-          onClick={() => router.push("/notice/23")}
+          onClick={() => router.push("/notice/96")}
         >
           <Image
             src={"/images/money.svg"}

@@ -8,7 +8,8 @@ import { getBulletinDetail, getNoticeDetail } from "./api/api";
 import { useNavigation } from "./hooks/useNavigation";
 import { useNoticeStore } from "./hooks/useNoticeStore";
 import { useShallow } from "zustand/shallow";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
+import { useAdminStore } from "../../../hooks/store/useAdminStore";
 
 interface NoticeDetailContentProps {
   id: string;
@@ -18,9 +19,12 @@ interface NoticeDetailContentProps {
 const NoticeDetailContent = ({ id, type }: NoticeDetailContentProps) => {
   const { mounted, isMobile } = useResponsiveTypography();
   const router = useRouter();
+  const pathname = usePathname();
+  const isAdminPage = pathname.includes("admin");
+
   // 현재 선택된 ID를 상태로 관리
   const [currentId, setCurrentId] = useState(id);
-  
+
   // 전역 상태에서 dashboardData 가져오기
   const { dashboardData, setState, selectedCateogry } = useNoticeStore(
     useShallow(state => ({
@@ -29,22 +33,29 @@ const NoticeDetailContent = ({ id, type }: NoticeDetailContentProps) => {
       selectedCateogry: state.selectedCateogry
     }))
   );
-  console.log('dashboardData', dashboardData)
-  
+
+  // Admin 스토어 가져오기
+  const { setState: setAdminState } = useAdminStore(
+    useShallow(state => ({
+      setState: state.setState
+    }))
+  );
+
+  console.log("dashboardData", dashboardData);
+
   // props의 id가 변경되면 currentId 업데이트
   useEffect(() => {
-    console.log('id', id)
+    console.log("id", id);
     setCurrentId(id);
   }, [id]);
 
   // const type = useNoticeStore.getState().selectedCateogry === 'notice' ? 'notice' : 'worship';
 
-  console.log('type', type)
-  
+  console.log("type", type);
+
   // 타입 검증 및 변환
-  const validatedType =
-    type === "notice" ? type : "worship";
-  
+  const validatedType = type === "notice" ? type : "worship";
+
   // useNavigation 훅에서 ID 변경 시 currentId 업데이트
   const { handlePrevious, handleNext, handleList } = useNavigation(
     currentId,
@@ -52,14 +63,14 @@ const NoticeDetailContent = ({ id, type }: NoticeDetailContentProps) => {
     dashboardData,
     setCurrentId // ID 변경 함수 전달
   );
-  
+
   const { data: apiResponse, isLoading } = useQuery({
     queryKey: ["notice", currentId, type], // currentId 사용
     queryFn: () => {
       if (type === "notice") {
         return getNoticeDetail(currentId); // currentId 사용
       } else {
-        console.log('currentId', currentId)
+        console.log("currentId", currentId);
         return getBulletinDetail(currentId); // currentId 사용
       }
     }
@@ -88,8 +99,8 @@ const NoticeDetailContent = ({ id, type }: NoticeDetailContentProps) => {
 
   const noticeData = apiResponse?.data;
   // const noticeData = dashboardData?.[validatedType as keyof typeof dashboardData]?.find(item => item.no === Number(currentId))
-  
-  if (!noticeData) return <></>
+
+  if (!noticeData) return <></>;
 
   return (
     <div
@@ -216,15 +227,22 @@ const NoticeDetailContent = ({ id, type }: NoticeDetailContentProps) => {
       >
         <Button title='이전글' onClick={handlePrevious} />
         <Button title='다음글' onClick={handleNext} />
-        <Button title='목록' onClick={() => {
-          if (type === 'notice') {
-            setState('selectedCateogry', 'notice')
-            router.replace('/notice')
-          } else {
-            setState('selectedCateogry', 'worship')
-            router.replace('/notice')
-          }
-        }} />
+        <Button
+          title='목록'
+          onClick={() => {
+            console.log("isAdminPage", isAdminPage);
+            if (isAdminPage) {
+              // Admin 페이지에서는 useAdminStore 사용
+              setAdminState("selectedCateogry", type === "notice" ? 2 : 3);
+            } else {
+              // 일반 페이지에서는 useNoticeStore 사용
+              setState(
+                "selectedCateogry",
+                type === "notice" ? "notice" : "worship"
+              );
+            }
+          }}
+        />
       </div>
     </div>
   );
