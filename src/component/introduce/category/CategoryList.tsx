@@ -42,8 +42,9 @@ const CategoryList = () => {
       setState: state.setState
     }))
   );
- 
+
   const handleClick = (id: number) => {
+    setState("shouldScroll", true); // 메뉴 클릭으로 인한 변경임을 표시
     setState("selectedCateogry", id);
   };
 
