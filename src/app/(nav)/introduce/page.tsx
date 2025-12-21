@@ -195,9 +195,12 @@ const page = () => {
   }, [mounted, setState, selectedCateogry]);
 
   return (
-    <div className={`bg-[#FFFDF5] ${mounted && isMobile ? "mt-[-54px]" : ""}`}>
+    <div className={`bg-[#FFFDF5]`}>
       {mounted && isMobile && <IntroduceNavigation />}
-      <div className='w-full bg-[#1350A0]'>
+      <div
+        className='w-full bg-[#1350A0]'
+        style={{ paddingTop: mounted && isMobile ? "51px" : "100px" }}
+      >
         <div className='w-full flex flex-col items-center !pt-[32px] !gap-[28px]'>
           {mounted && !isMobile && (
             <>

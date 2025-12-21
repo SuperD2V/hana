@@ -2,13 +2,13 @@ import { style } from "@vanilla-extract/css";
 import { color } from "../../shared/designed/color";
 
 export const navigationContainer = style({
-  // position: "fixed",
+  position: "fixed",
   width: "100%",
   maxWidth: "1680px",
   height: "100px",
   top: "0px",
-  left: 0,
-  // transform: "translateX(-50%)",
+  left: "50%",
+  transform: "translateX(-50%)",
   margin: "0 auto",
   padding: "20px 40px",
   zIndex: 50,

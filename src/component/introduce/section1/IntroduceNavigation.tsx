@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { navItems } from "@/component/shared/const/routeKey";
 import {
   navigationContainer,
@@ -23,17 +23,68 @@ import { Title1 } from "@/component/shared/ui/Typography";
 export function IntroduceNavigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const lastScrollY = useRef(0);
 
   const width = useWindowWidth();
   const isMobile = width < 1280; // 예: 2xl 기준
 
   useEffect(() => {
     setMounted(true);
+    // 초기 스크롤 위치 설정
+    lastScrollY.current = window.scrollY;
   }, []);
 
   useEffect(() => {
     if (!isMobile) setIsMobileMenuOpen(false);
   }, [isMobile]);
+
+  // 스크롤 이벤트 핸들러
+  useEffect(() => {
+    if (!mounted) return;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      console.log("🔍 스크롤 디버깅:", {
+        현재위치: currentScrollY,
+        이전위치: lastScrollY.current,
+        차이: currentScrollY - lastScrollY.current,
+        현재표시상태: isVisible
+      });
+
+      // 최상단이면 항상 보이기
+      if (currentScrollY === 0) {
+        console.log("✅ 최상단 - 네비게이션 표시");
+        setIsVisible(true);
+        lastScrollY.current = currentScrollY;
+        return;
+      }
+
+      // 스크롤 변화가 5px 이상일 때만 반응 (미세한 스크롤 무시)
+      if (Math.abs(currentScrollY - lastScrollY.current) < 5) {
+        console.log("⏸️ 스크롤 변화 너무 작음 - 무시");
+        return;
+      }
+
+      // 아래로 스크롤하면 숨기기, 위로 스크롤하면 보이기
+      if (currentScrollY > lastScrollY.current) {
+        console.log("⬇️ 아래로 스크롤 - 네비게이션 숨김");
+        setIsVisible(false);
+      } else {
+        console.log("⬆️ 위로 스크롤 - 네비게이션 표시");
+        setIsVisible(true);
+      }
+
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [mounted]);
 
   // useEffect(() => {
   //   AOS.init();
@@ -48,7 +99,19 @@ export function IntroduceNavigation() {
   };
 
   return (
-    <nav className={navigationContainer}>
+    <nav
+      className={navigationContainer}
+      style={{
+        transform: isVisible
+          ? isMobile
+            ? "translateY(0)"
+            : "translate(-50%, 0)"
+          : isMobile
+          ? "translateY(-100%)"
+          : "translate(-50%, -100%)",
+        transition: "transform 0.3s ease-in-out"
+      }}
+    >
       <div className={navWrapper}>
         <div className='logo'>
           <Link href='/'>
