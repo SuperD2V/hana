@@ -6,7 +6,7 @@ export const navigationContainer = style({
   width: "100%",
   maxWidth: "1680px",
   height: "100px",
-  top: "0px",
+  top: "32px",
   left: "50%",
   transform: "translateX(-50%)",
   margin: "0 auto",

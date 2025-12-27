@@ -440,7 +440,7 @@ const NoticeBulletineRegister = () => {
                 formats={quillFormats}
                 placeholder=''
                 style={{
-                  height: "300px",
+                  height: "600px",
                   paddingBottom: "43px",
                   backgroundColor: color.common.white
                 }}

@@ -70,7 +70,15 @@ export const useQuillEditor = () => {
             allImages.forEach((img: HTMLImageElement, imgIndex: number) => {
               console.log(`이미지 ${imgIndex}:`, img.src);
 
-              if (img.src === processedImageUrl || img.src === imageUrl) {
+              // 절대 URL, 상대 URL, 프록시 URL 등 다양한 케이스 체크
+              const srcMatches =
+                img.src === processedImageUrl ||
+                img.src === imageUrl ||
+                img.src.includes(encodeURIComponent(imageUrl)) ||
+                (processedImageUrl.includes("/api/image-proxy") &&
+                  img.src.includes("/api/image-proxy"));
+
+              if (srcMatches) {
                 imageFound = true;
 
                 // 이미지 속성 설정
@@ -121,24 +129,9 @@ export const useQuillEditor = () => {
             });
 
             if (!imageFound) {
-              console.warn(
-                "삽입한 이미지를 에디터에서 찾을 수 없습니다. 대안 방법 시도..."
-              );
-
-              // 대안 방법: Delta를 사용한 이미지 삽입
-              try {
-                const currentContents = quill.getContents();
-                console.log("현재 에디터 내용:", currentContents);
-
-                // 새로운 이미지 삽입
-                quill.insertEmbed(index, "image", imageUrl);
-                console.log("대안 방법으로 이미지 삽입 완료");
-              } catch (deltaError) {
-                console.error("대안 방법도 실패:", deltaError);
-                alert(
-                  "이미지를 에디터에 삽입하는데 실패했습니다. 페이지를 새로고침 후 다시 시도해주세요."
-                );
-              }
+              console.warn("삽입한 이미지를 에디터에서 찾을 수 없습니다.");
+              // 이미지는 이미 삽입되었으므로 다시 삽입하지 않음
+              // (중복 삽입 방지)
             } else {
               console.log("이미지가 성공적으로 에디터에 삽입되었습니다.");
             }
