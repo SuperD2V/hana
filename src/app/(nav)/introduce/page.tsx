@@ -3,7 +3,7 @@ import CategoryList from "@/component/introduce/category/CategoryList";
 import MainTop from "@/component/introduce/section1/MainTop";
 import { IntroduceNavigation } from "@/component/introduce/section1/IntroduceNavigation";
 import { Typography } from "@/component/shared/ui/Typography";
-import React, { useRef, useEffect, useCallback } from "react";
+import React, { useRef, useEffect, useCallback, useState } from "react";
 import Section2 from "@/component/introduce/section2/Section2";
 import Section3 from "@/component/introduce/section3/Section3";
 import Section4 from "@/component/introduce/section4/Section4";
@@ -15,6 +15,12 @@ import { useShallow } from "zustand/shallow";
 
 const page = () => {
   const { mounted, isMobile } = useResponsiveTypography();
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [scrollDirection, setScrollDirection] = useState<"up" | "down">("up");
+  const [navHeight, setNavHeight] = useState(250); // 네비게이션 높이 상태
+  const fullNavRef = useRef<HTMLDivElement>(null);
+  const categoryNavRef = useRef<HTMLDivElement>(null);
+  const lastScrollYRef = useRef(0);
 
   // 각 섹션에 대한 ref 생성
   const sectionRefs = {
@@ -127,6 +133,101 @@ const page = () => {
     }
   }, [selectedCateogry, shouldScroll, setState]);
 
+  // 네비게이션 높이 측정
+  useEffect(() => {
+    if (!mounted || isMobile) return;
+
+    const measureHeight = () => {
+      if (!isScrolled || scrollDirection === "up") {
+        // 전체 네비게이션 높이 측정
+        if (fullNavRef.current) {
+          const height = fullNavRef.current.offsetHeight;
+          if (height > 0) {
+            setNavHeight(height);
+          }
+        }
+      } else {
+        // CategoryList만의 높이 측정
+        if (categoryNavRef.current) {
+          const height = categoryNavRef.current.offsetHeight;
+          if (height > 0) {
+            setNavHeight(height);
+          }
+        }
+      }
+    };
+
+    // 초기 높이 측정 (여러 번 시도)
+    const timers = [50, 150, 300].map(delay =>
+      setTimeout(measureHeight, delay)
+    );
+
+    // 윈도우 리사이즈 시 재측정
+    window.addEventListener("resize", measureHeight);
+
+    return () => {
+      timers.forEach(timer => clearTimeout(timer));
+      window.removeEventListener("resize", measureHeight);
+    };
+  }, [mounted, isMobile, isScrolled, scrollDirection]);
+
+  // 스크롤 위치와 방향에 따라 헤더 상태 변경
+  useEffect(() => {
+    const SCROLL_THRESHOLD = 5; // 방향 변경에 필요한 최소 스크롤 거리
+    const SCROLL_LIMIT = 100; // 이 이상 스크롤해야 축소 네비게이션 표시
+
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const scrollDifference = scrollPosition - lastScrollYRef.current;
+
+      // 스크롤 위치가 일정 이하면 항상 전체 네비게이션 표시
+      if (scrollPosition < SCROLL_LIMIT) {
+        setIsScrolled(prev => {
+          if (prev !== false) return false;
+          return prev;
+        });
+        setScrollDirection(prev => {
+          if (prev !== "up") return "up";
+          return prev;
+        });
+        lastScrollYRef.current = scrollPosition;
+        return;
+      }
+
+      // 스크롤이 일정 이상일 때 상태 업데이트
+      setIsScrolled(prev => {
+        if (prev !== true) return true;
+        return prev;
+      });
+
+      // threshold 이상 움직였을 때만 방향 변경
+      if (Math.abs(scrollDifference) > SCROLL_THRESHOLD) {
+        if (scrollDifference > 0) {
+          // 아래로 스크롤 중
+          setScrollDirection(prev => {
+            if (prev !== "down") return "down";
+            return prev;
+          });
+        } else {
+          // 위로 스크롤 중
+          setScrollDirection(prev => {
+            if (prev !== "up") return "up";
+            return prev;
+          });
+        }
+        lastScrollYRef.current = scrollPosition;
+      }
+    };
+
+    // 초기 스크롤 위치 체크
+    handleScroll();
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   // Intersection Observer를 사용하여 현재 보이는 섹션 감지
   useEffect(() => {
     const observerOptions = {
@@ -196,38 +297,68 @@ const page = () => {
 
   return (
     <div className={`bg-[#FFFDF5]`}>
-      {mounted && isMobile && <IntroduceNavigation />}
-      <div
-        className='w-full bg-[#1350A0]'
-        style={{ paddingTop: mounted && isMobile ? "51px" : "100px" }}
-      >
-        <div className='w-full flex flex-col items-center !pt-[32px] !gap-[28px]'>
-          {mounted && !isMobile && (
-            <>
-              <IntroduceNavigation />
+      {/* 고정 네비게이션 */}
+      {mounted && !isMobile && (
+        <>
+          {/* 전체 네비게이션 - 최상단이거나 스크롤 올릴 때 보임 */}
+          <div
+            ref={fullNavRef}
+            className='bg-[#1350A0] fixed top-0 z-50 w-full flex flex-col items-center !pt-[32px] !gap-[28px]'
+            style={{
+              transform:
+                !isScrolled || scrollDirection === "up"
+                  ? "translateY(0)"
+                  : "translateY(-100%)",
+              opacity: !isScrolled || scrollDirection === "up" ? 1 : 0,
+              transition:
+                "transform 0.3s ease-in-out, opacity 0.3s ease-in-out",
+              pointerEvents:
+                !isScrolled || scrollDirection === "up" ? "auto" : "none"
+            }}
+          >
+            <IntroduceNavigation />
+            <Typography
+              variant='title1Bold'
+              className='text-white !font-semibold'
+            >
+              스토리
+            </Typography>
+            <div className='w-full' style={{ padding: "16px 0" }}>
+              <CategoryList />
+            </div>
+          </div>
 
-              <Typography
-                variant='title1Bold'
-                className='text-white !font-semibold'
-              >
-                스토리
-              </Typography>
-            </>
-          )}
-        </div>
-      </div>
-      {!isMobile && (
-        <div
-          className='w-full bg-[#1350A0] sticky top-0 z-50'
-          style={{ padding: "16px 0" }}
-        >
-          <CategoryList />
-        </div>
+          {/* CategoryList만 고정 - 스크롤 내릴 때 보임 */}
+          <div
+            ref={categoryNavRef}
+            className='bg-[#1350A0] fixed top-0 z-50 w-full flex flex-col items-center'
+            style={{
+              padding: "16px 0",
+              transform:
+                isScrolled && scrollDirection === "down"
+                  ? "translateY(0)"
+                  : "translateY(-100%)",
+              opacity: isScrolled && scrollDirection === "down" ? 1 : 0,
+              transition:
+                "transform 0.3s ease-in-out, opacity 0.3s ease-in-out",
+              pointerEvents:
+                isScrolled && scrollDirection === "down" ? "auto" : "none"
+            }}
+          >
+            <CategoryList />
+          </div>
+        </>
       )}
+
+      {/* 컨텐츠 영역 - 네비게이션 높이만큼 패딩 추가 */}
       <div
         ref={sectionRefs[1]}
         style={{
-          padding: mounted && isMobile ? "112px 20px" : "120px 120px 98px 120px"
+          paddingTop: mounted && isMobile ? "112px" : `${navHeight}px`,
+          paddingLeft: mounted && isMobile ? "20px" : "120px",
+          paddingRight: mounted && isMobile ? "20px" : "120px",
+          paddingBottom: "98px",
+          transition: "padding-top 0.3s ease"
         }}
       >
         <MainTop />

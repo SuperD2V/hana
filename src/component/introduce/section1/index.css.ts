@@ -2,16 +2,12 @@ import { style } from "@vanilla-extract/css";
 import { color } from "../../shared/designed/color";
 
 export const navigationContainer = style({
-  position: "fixed",
+  position: "relative",
   width: "100%",
   maxWidth: "1680px",
   height: "100px",
-  top: "32px",
-  left: "50%",
-  transform: "translateX(-50%)",
   margin: "0 auto",
   padding: "20px 40px",
-  zIndex: 50,
   backgroundColor: color.brand_yellow[2],
   boxShadow: "0 0 12px 0 rgba(rgba(99, 83, 19, 0.08))",
   borderRadius: "999px",
@@ -19,10 +15,7 @@ export const navigationContainer = style({
     "(max-width: 1280px)": {
       height: "51px",
       width: "100vw",
-      position: "fixed",
-      top: -1,
-      left: 0,
-      transform: "none",
+      position: "relative",
       borderRadius: "0px",
       padding: "0 16px"
     }
