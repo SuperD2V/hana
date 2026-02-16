@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 import { table, th, tdLeft, tdCenter, tdRight } from "./index.css";
 import { Typography } from "@/component/shared";
 import { useRouter } from "next/navigation";
@@ -17,6 +17,17 @@ export const DesktopTable: React.FC<DesktopTableProps> = ({
   onItemClick
 }) => {
   const router = useRouter();
+
+  // 공지 항목을 최상단으로 정렬
+  const sortedData = useMemo(() => {
+    return [...data].sort((a, b) => {
+      // 공지 항목을 먼저 표시
+      if (a.tag === "공지" && b.tag !== "공지") return -1;
+      if (a.tag !== "공지" && b.tag === "공지") return 1;
+      // 둘 다 공지이거나 둘 다 일반 항목인 경우 원래 순서 유지
+      return 0;
+    });
+  }, [data]);
 
   const handleItemClick = (item: NoticeItem) => {
     if (onItemClick) {
@@ -46,7 +57,7 @@ export const DesktopTable: React.FC<DesktopTableProps> = ({
         </tr>
       </thead>
       <tbody>
-        {data.map(item => (
+        {sortedData.map(item => (
           <tr key={item.no}>
             <td className={tdLeft}>
               {item.tag === "공지" ? (
