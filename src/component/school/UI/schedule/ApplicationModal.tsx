@@ -101,7 +101,11 @@ export const ApplicationModal: React.FC<ApplicationModalProps> = ({
                 <br />
               </div>
               <ul className={styles.list}>
-                <li>- {scheduleDetailData?.content}</li>
+                <li
+                  dangerouslySetInnerHTML={{
+                    __html: scheduleDetailData?.content ?? ""
+                  }}
+                />
               </ul>
             </div>
             <DialogFooter>
