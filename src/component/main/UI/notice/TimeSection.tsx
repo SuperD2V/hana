@@ -72,7 +72,7 @@ const TimeSection = () => {
                 }
                 className={`${timePlace} break-words`}
               >
-                예배실
+                온라인
               </Typography>
             </div>
           </div>
