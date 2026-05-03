@@ -3,7 +3,7 @@ import CategoryList from "@/component/introduce/category/CategoryList";
 import MainTop from "@/component/introduce/section1/MainTop";
 import { IntroduceNavigation } from "@/component/introduce/section1/IntroduceNavigation";
 import { Typography } from "@/component/shared/ui/Typography";
-import React, { useRef, useEffect, useCallback, useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import Section2 from "@/component/introduce/section2/Section2";
 import Section3 from "@/component/introduce/section3/Section3";
 import Section4 from "@/component/introduce/section4/Section4";
@@ -47,6 +47,8 @@ const page = () => {
   const isInitialLoad = useRef(true);
   // 초기 설정 완료 여부 추적
   const isInitialSetupDone = useRef(false);
+  // IntersectionObserver 콜백 내에서 최신 selectedCateogry를 참조하기 위한 ref
+  const selectedCateogryRef = useRef(selectedCateogry);
 
   // 페이지 마운트 시 스토어 초기화 및 스크롤 맨 위로
   useEffect(() => {
@@ -88,6 +90,11 @@ const page = () => {
       reset();
     };
   }, [reset]);
+
+  // selectedCateogryRef를 항상 최신값으로 유지
+  useEffect(() => {
+    selectedCateogryRef.current = selectedCateogry;
+  }, [selectedCateogry]);
 
   // 선택된 카테고리가 변경될 때 해당 섹션으로 스크롤 (메뉴 클릭 시에만)
   useEffect(() => {
@@ -133,43 +140,31 @@ const page = () => {
     }
   }, [selectedCateogry, shouldScroll, setState]);
 
-  // 네비게이션 높이 측정
+  // 네비게이션 높이 측정 - fullNav 기준으로만 측정 (스크롤 상태와 무관하게 고정)
+  // categoryNav가 보일 때도 paddingTop을 바꾸면 스크롤 앵커링이 발동해 flickering 발생
   useEffect(() => {
     if (!mounted || isMobile) return;
 
     const measureHeight = () => {
-      if (!isScrolled || scrollDirection === "up") {
-        // 전체 네비게이션 높이 측정
-        if (fullNavRef.current) {
-          const height = fullNavRef.current.offsetHeight;
-          if (height > 0) {
-            setNavHeight(height);
-          }
-        }
-      } else {
-        // CategoryList만의 높이 측정
-        if (categoryNavRef.current) {
-          const height = categoryNavRef.current.offsetHeight;
-          if (height > 0) {
-            setNavHeight(height);
-          }
+      if (fullNavRef.current) {
+        const height = fullNavRef.current.offsetHeight;
+        if (height > 0) {
+          setNavHeight(height);
         }
       }
     };
 
-    // 초기 높이 측정 (여러 번 시도)
     const timers = [50, 150, 300].map(delay =>
       setTimeout(measureHeight, delay)
     );
 
-    // 윈도우 리사이즈 시 재측정
     window.addEventListener("resize", measureHeight);
 
     return () => {
       timers.forEach(timer => clearTimeout(timer));
       window.removeEventListener("resize", measureHeight);
     };
-  }, [mounted, isMobile, isScrolled, scrollDirection]);
+  }, [mounted, isMobile]);
 
   // 스크롤 위치와 방향에 따라 헤더 상태 변경
   useEffect(() => {
@@ -269,11 +264,8 @@ const page = () => {
         }
       });
 
-      // 가장 많이 보이는 섹션이 있고, 현재 선택된 카테고리와 다르면 업데이트
-      // 스크롤 감지로 인한 변경이므로 shouldScroll은 false로 유지 (스크롤하지 않음)
-      if (mostVisibleSection && mostVisibleSection !== selectedCateogry) {
+      if (mostVisibleSection && mostVisibleSection !== selectedCateogryRef.current) {
         setState("selectedCateogry", mostVisibleSection);
-        // shouldScroll은 설정하지 않아서 스크롤하지 않음
       }
     };
 
@@ -293,7 +285,7 @@ const page = () => {
     return () => {
       observer.disconnect();
     };
-  }, [mounted, setState, selectedCateogry]);
+  }, [mounted, setState]);
 
   return (
     <div className={`bg-[#FFFDF5]`}>
@@ -357,8 +349,7 @@ const page = () => {
           paddingTop: mounted && isMobile ? "112px" : `${navHeight}px`,
           paddingLeft: mounted && isMobile ? "20px" : "120px",
           paddingRight: mounted && isMobile ? "20px" : "120px",
-          paddingBottom: "98px",
-          transition: "padding-top 0.3s ease"
+          paddingBottom: "98px"
         }}
       >
         <MainTop />

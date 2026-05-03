@@ -3,7 +3,6 @@ import SectionTitle from "../SectionTitle";
 import HistoryContent from "../HistoryContent";
 import { useIntroduceStore } from "../../../../hooks/store/useIntroduceStore";
 import { useShallow } from "zustand/shallow";
-import { useResponsiveTypography } from "@/component/shared";
 const historyContent = [
   {
     id: 1,
@@ -63,7 +62,7 @@ const historyContent = [
     id: 3,
     content: {
       mainTitleDate: {
-        date: "24.08 ~",
+        date: "24.08 ~ 25.12",
         content: "광교시대"
       },
       content: [
@@ -89,6 +88,29 @@ const historyContent = [
         }
       ]
     }
+  },
+  {
+    id: 4,
+    content: {
+      mainTitleDate: {
+        date: "26~ ",
+        content: "광교시대"
+      },
+      content: [
+        {
+          date: "26.05.09",
+          content: "이웃사랑 바자회"
+        },
+        {
+          date: "26.03.21",
+          content: "하나스쿨교회 4기 개강"
+        },
+        {
+          date: "26.03.15",
+          content: "박종호 장로 찬양집회"
+        }
+      ]
+    }
   }
 ];
 
@@ -98,7 +120,6 @@ const Section2 = () => {
       selectSection2Content: state.selectSection2Content
     }))
   );
-  const { mounted, isMobile } = useResponsiveTypography();
 
   const currentIndex = selectSection2Content - 1;
   const hasPrev = currentIndex > 0;
