@@ -47,7 +47,7 @@ const page = () => {
   const isInitialLoad = useRef(true);
   // 초기 설정 완료 여부 추적
   const isInitialSetupDone = useRef(false);
-  // IntersectionObserver 콜백 내에서 최신 selectedCateogry를 참조하기 위한 ref
+  // 콜백 내에서 최신 selectedCateogry를 참조하기 위한 ref
   const selectedCateogryRef = useRef(selectedCateogry);
 
   // 페이지 마운트 시 스토어 초기화 및 스크롤 맨 위로
@@ -223,69 +223,48 @@ const page = () => {
     };
   }, []);
 
-  // Intersection Observer를 사용하여 현재 보이는 섹션 감지
+  // 단일 스크롤 스파이 - 섹션 활성화를 하나의 로직으로 통합
   useEffect(() => {
-    const observerOptions = {
-      root: null,
-      rootMargin: "-20% 0px -50% 0px", // 섹션이 화면 상단 20% 지점에 도달하면 감지
-      threshold: [0, 0.25, 0.5, 0.75, 1]
-    };
+    // DOM 상의 섹션 순서
+    const sectionOrder = [1, 2, 6, 3, 4, 5] as const;
 
-    const observerCallback = (entries: IntersectionObserverEntry[]) => {
-      // 프로그래밍 방식으로 스크롤 중이면 무시
-      if (isScrollingProgrammatically.current) {
-        return;
-      }
+    const detectActiveSection = () => {
+      if (isScrollingProgrammatically.current || isInitialLoad.current) return;
 
-      // 스크롤 위치 확인
-      const scrollY = window.scrollY || window.pageYOffset;
+      const scrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
 
-      // 초기 로드 상태이고 스크롤이 맨 위에 있으면 업데이트하지 않음
-      if (isInitialLoad.current && scrollY < 50) {
-        return;
-      }
-
-      // 초기 로드가 끝났거나 스크롤을 내렸으면 플래그 해제
-      if (isInitialLoad.current && scrollY >= 50) {
-        isInitialLoad.current = false;
-      }
-
-      // 가장 많이 보이는 섹션 찾기
-      let maxVisibleRatio = 0;
-      let mostVisibleSection: number | null = null;
-
-      entries.forEach(entry => {
-        const sectionId = parseInt(
-          entry.target.getAttribute("data-section-id") || "0"
-        );
-        if (sectionId && entry.intersectionRatio > maxVisibleRatio) {
-          maxVisibleRatio = entry.intersectionRatio;
-          mostVisibleSection = sectionId;
+      // 페이지 하단이면 무조건 마지막 섹션
+      if (scrollY + windowHeight >= documentHeight - 100) {
+        if (selectedCateogryRef.current !== 5) {
+          setState("selectedCateogry", 5);
         }
-      });
+        return;
+      }
 
-      if (mostVisibleSection && mostVisibleSection !== selectedCateogryRef.current) {
-        setState("selectedCateogry", mostVisibleSection);
+      // 화면 상단 30% 지점을 기준으로 어느 섹션에 있는지 판단
+      const threshold = windowHeight * 0.3;
+      let active: number = sectionOrder[0];
+
+      for (const id of sectionOrder) {
+        const ref = sectionRefs[id];
+        if (ref.current) {
+          const top = ref.current.getBoundingClientRect().top;
+          if (top <= threshold) {
+            active = id;
+          }
+        }
+      }
+
+      if (active !== selectedCateogryRef.current) {
+        setState("selectedCateogry", active);
       }
     };
 
-    const observer = new IntersectionObserver(
-      observerCallback,
-      observerOptions
-    );
-
-    // 각 섹션에 observer 등록
-    Object.entries(sectionRefs).forEach(([id, ref]) => {
-      if (ref.current) {
-        ref.current.setAttribute("data-section-id", id);
-        observer.observe(ref.current);
-      }
-    });
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [mounted, setState]);
+    window.addEventListener("scroll", detectActiveSection, { passive: true });
+    return () => window.removeEventListener("scroll", detectActiveSection);
+  }, [setState]);
 
   return (
     <div className={`bg-[#FFFDF5]`}>

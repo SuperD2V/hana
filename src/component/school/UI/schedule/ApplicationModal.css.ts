@@ -30,14 +30,15 @@ export const content = style({
   margin: 0,
   "@media": {
     "(max-width: 768px)": {
-      width: "90vw",
+      width: "92vw",
       height: "auto",
       minWidth: "auto",
       minHeight: "auto",
-      maxWidth: "90vw",
-      maxHeight: "90vh",
-      padding: "24px",
-      borderRadius: "30px"
+      maxWidth: "92vw",
+      maxHeight: "88vh",
+      padding: "20px",
+      borderRadius: "24px",
+      overflowY: "auto"
     }
   }
 });
@@ -51,7 +52,7 @@ export const contentInner = style({
     "(max-width: 768px)": {
       flexDirection: "column",
       height: "auto",
-      gap: "24px"
+      gap: "16px"
     }
   }
 });
@@ -70,8 +71,8 @@ export const imageBox = style({
   "@media": {
     "(max-width: 768px)": {
       width: "100%",
-      height: "200px",
-      borderRadius: "20px"
+      height: "160px",
+      borderRadius: "16px"
     }
   }
 });
@@ -83,7 +84,7 @@ export const infoBox = style({
   justifyContent: "space-between",
   "@media": {
     "(max-width: 768px)": {
-      gap: "24px"
+      gap: "12px"
     }
   }
 });
@@ -95,8 +96,8 @@ export const title = style({
   color: "#222",
   "@media": {
     "(max-width: 768px)": {
-      fontSize: "24px",
-      marginBottom: "16px"
+      fontSize: "20px",
+      marginBottom: "10px"
     }
   }
 });
@@ -108,8 +109,9 @@ export const description = style({
   lineHeight: 1.6,
   "@media": {
     "(max-width: 768px)": {
-      fontSize: "16px",
-      marginBottom: "12px"
+      fontSize: "14px",
+      marginBottom: "8px",
+      lineHeight: 1.5
     }
   }
 });
@@ -121,8 +123,9 @@ export const list = style({
   lineHeight: 1.7,
   "@media": {
     "(max-width: 768px)": {
-      fontSize: "14px",
-      marginBottom: "24px"
+      fontSize: "13px",
+      marginBottom: "12px",
+      lineHeight: 1.5
     }
   }
 });
@@ -145,8 +148,8 @@ export const submitButton = style({
   },
   "@media": {
     "(max-width: 768px)": {
-      padding: "14px 0",
-      fontSize: "16px",
+      padding: "12px 0",
+      fontSize: "15px",
       flex: 1
     }
   }
