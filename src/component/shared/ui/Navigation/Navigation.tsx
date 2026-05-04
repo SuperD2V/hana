@@ -41,6 +41,7 @@ export function Navigation() {
 
   useEffect(() => {
     if (!isMobile) setIsMobileMenuOpen(false);
+    if (isMobile) setIsVisible(true);
   }, [isMobile]);
 
   useEffect(() => {
@@ -80,11 +81,11 @@ export function Navigation() {
     setIsMobileMenuOpen(false);
   };
 
-  if (pathName === "/introduce") return null; // 스타일용으로 introduce 전용 네비게이션은 따로 있음
+  if (pathName === "/introduce" && !isMobile) return null; // 데스크탑에서는 introduce 전용 네비게이션 사용
 
   return (
     <nav
-      className={`${navigationContainer} ${!isVisible ? navigationHidden : ""}`}
+      className={`${navigationContainer} ${!isVisible && !isMobile ? navigationHidden : ""}`}
     >
       <div className={navWrapper}>
         <div className={logo}>

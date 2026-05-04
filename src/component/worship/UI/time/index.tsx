@@ -36,7 +36,7 @@ export const Time = () => {
             variant={isMobile ? "title2Medium" : "title1Medium"}
             className={styles.title}
           >
-            새벽예배
+            온라인
           </Typography>
           <Typography variant={isMobile ? "title3Medium" : "title2Medium"}>
             월-금 오전 05:30

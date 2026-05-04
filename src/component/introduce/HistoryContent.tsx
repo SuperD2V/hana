@@ -43,7 +43,7 @@ const HistoryContent = ({
     }
   };
 
-  if (isMobile) {
+  if (mounted && isMobile) {
     return (
       <div className='w-full h-[982px] bg-[#D7E8FF] relative px-[20px] py-[60px]'>
         <div className='absolute left-[20px] top-0 bottom-0 w-[1px] bg-[#276FCD]' />
