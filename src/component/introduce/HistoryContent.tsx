@@ -33,13 +33,13 @@ const HistoryContent = ({
 
   const handlePrevClick = () => {
     if (prevContentTitle.id) {
-      setState("selectSection2Content", prevContentTitle.id as 1 | 2 | 3);
+      setState("selectSection2Content", prevContentTitle.id as 1 | 2 | 3 | 4);
     }
   };
 
   const handleNextClick = () => {
     if (nextContentTitle.id) {
-      setState("selectSection2Content", nextContentTitle.id as 1 | 2 | 3);
+      setState("selectSection2Content", nextContentTitle.id as 1 | 2 | 3 | 4);
     }
   };
 

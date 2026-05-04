@@ -10,13 +10,13 @@ import {
 
 export type IntroduceStore = {
   selectedCateogry: number;
-  selectSection2Content: 1 | 2 | 3;
+  selectSection2Content: 1 | 2 | 3 | 4;
   shouldScroll: boolean; // 메뉴 클릭으로 인한 변경인지 여부
 };
 
 const initState: IntroduceStore = {
   selectedCateogry: 0,
-  selectSection2Content: 3,
+  selectSection2Content: 4,
   shouldScroll: false
 };
 
